@@ -1,0 +1,283 @@
+<include file="Component/header"/>
+<style>
+.message-top{text-align: center;font-size: 20px !important;font-weight: bolder;padding: 20px 0px !important;}
+.message-item{text-align: right;width: 20%;font-weight: bold;}
+.message-title{text-align: center;font-size:18px !important;font-weight: bold;padding: 15px 0px !important;}
+.item-width{width: 200px;}
+</style>
+<div class="layui-form " style="padding:20px;">
+    <table class="layui-table" >
+
+        <tbody>
+        <tr>
+            <td colspan="4" class="message-top">三亚学院理工学院网上预报名登记表</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="message-title">报名信息</td>
+        </tr>
+        <tr>
+            <td class="message-item">所在地区<span class="red">*</span></td>
+            <td colspan="3">
+                <div class="layui-form-item" id="area-picker">
+                    <div class="layui-input-inline item-width" >
+                        <select name="province" class="province-selector" data-value="{$data.province}" lay-filter="province-1">
+                            <option value="">请选择省</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline item-width">
+                        <select name="city" class="city-selector" data-value="{$data.city}" lay-filter="city-1">
+                            <option value="">请选择市</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline item-width">
+                        <select name="area" class="county-selector" data-value="{$data.area}" lay-filter="county-1">
+                            <option value="">请选择区</option>
+                        </select>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="message-item ">报读层次<span class="red">*</span></td>
+            <td colspan="3">
+                <div class="layui-form-item" >
+                    <div class="layui-input-inline item-width" >
+                        <select name="apartment_id"  lay-filter="select-parent" lay-verify="required" lay-reqtext="不能为空">
+                            <option value="">请选层次</option>
+                            <foreach name="apartment" item="value">
+                                <option value="{$value.id}" <if condition="$data['apartment_id'] eq $value['id']">selected</if> >{$value.name}</option>
+                            </foreach>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline item-width">
+                        <select name="major_id" id="select-son-area" lay-verify="required" lay-reqtext="专业不能为空">
+                            <option value="">请选专业</option>
+                            <foreach name="major" item="value">
+                                <option value="{$value.id}" <if condition="$data['major_id'] eq $value['id']">selected</if> >{$value.name}</option>
+                            </foreach>
+                        </select>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" class="message-title">基本信息</td>
+        </tr>
+        <tr>
+            <td class="message-item">姓名<span class="red">*</span></td>
+            <td>
+                <input type="text" value="{$data.name}" name="name" autocomplete="off" placeholder="输入名称" class="layui-input item-width"
+                       lay-verify="required" lay-reqtext="名称不能为空"/>
+            </td>
+            <td class="message-item">性别</td>
+            <td>
+                <input type="radio" name="sex" value="0" title="男"   <if condition="$data['sex'] eq 0"> checked='checked' </if> >
+                <div class="layui-unselect layui-form-radio layui-form-radioed">
+                    <i class="layui-anim layui-icon"></i><div>男</div>
+                </div>
+                <input type="radio" name="sex" value="1" title="女" <if condition="$data['sex'] eq 1"> checked='checked' </if>  >
+                <div class="layui-unselect layui-form-radio">
+                    <i class="layui-anim layui-icon"></i><div>女</div>
+                </div>
+
+            </td>
+        </tr>
+        <tr>
+            <td class="message-item">出生日期</td>
+            <td>
+                <input type="text" name="date" id="date" autocomplete="off" class="layui-input item-width">
+            </td>
+            <td class="message-item">民族</td>
+            <td>
+                <div class="layui-input-inline item-width">
+                <select id="nation" name="nation">
+
+                </select>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="message-item">身份证号码<span class="red">*</span></td>
+            <td>
+                <input type="text" value="{$data.idcard}" name="idcard" autocomplete="off"  class="layui-input item-width"
+                       lay-verify="required" lay-reqtext="不能为空"/>
+            </td>
+            <td class="message-item">职业状况</td>
+            <td>
+                <input type="radio" name="is_job" value="1" title="就业" <if condition="$data['is_job'] eq 1"> checked='checked' </if>  >
+                <div class="layui-unselect layui-form-radio">
+                    <i class="layui-anim layui-icon"></i><div>就业</div>
+                </div>
+
+                <input type="radio" name="is_job" value="0" title="未就业"   <if condition="$data['is_job'] eq 0"> checked='checked' </if> >
+                <div class="layui-unselect layui-form-radio layui-form-radioed">
+                    <i class="layui-anim layui-icon"></i><div>未就业</div>
+                </div>
+
+
+            </td>
+        </tr>
+        <tr>
+            <td class="message-item">户口所在地<span class="red">*</span></td>
+            <td>
+                <input type="text" value="{$data.residence}" name="residence" autocomplete="off" class="layui-input item-width"
+                       lay-verify="required" lay-reqtext="不能为空"/>
+            </td>
+            <td class="message-item">原毕业院校<span class="red">*</span></td>
+            <td>
+                <input type="text" value="{$data.gradute_school}" name="gradute_school" autocomplete="off" class="layui-input item-width"
+                       lay-verify="required" lay-reqtext="不能为空"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="message-item">现有最高学历</td>
+            <td>
+                <input type="text" value="{$data.education}" name="education" autocomplete="off" class="layui-input item-width"
+                       lay-verify="required" lay-reqtext="不能为空"/>
+            </td>
+            <td class="message-item">原毕业日期</td>
+            <td>
+                <input type="text" name="graduate_date" id="graduate_date" autocomplete="off" class="layui-input item-width">
+            </td>
+        </tr>
+        <tr>
+            <td class="message-item">原学专业</td>
+            <td>
+                <input type="text" value="{$data.graduate_major}" name="graduate_major" autocomplete="off" class="layui-input item-width"/>
+            </td>
+            <td class="message-item">原毕业证号</td>
+            <td>
+                <input type="text" value="{$data.graduate_id}" name="graduate_id" autocomplete="off" class="layui-input item-width"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4"  class="message-title">联系方式</td>
+        </tr>
+        <tr>
+            <td class="message-item">手  机</td>
+            <td>
+                <input type="text" value="{$data.mobile}" name="mobile" autocomplete="off" class="layui-input item-width"/>
+            </td>
+            <td class="message-item">固定电话</td>
+            <td>
+                <input type="text" value="{$data.phone}" name="phone" autocomplete="off" class="layui-input item-width"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="message-item">E-mail</td>
+            <td>
+                <input type="text" value="{$data.email}" name="email" autocomplete="off" class="layui-input item-width"/>
+            </td>
+            <td class="message-item">通信地址</td>
+            <td>
+                <input type="text" value="{$data.address}" name="address" autocomplete="off" class="layui-input"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="message-item">工作单位</td>
+            <td >
+                <input type="text" value="{$data.company}" name="company" autocomplete="off" class="layui-input item-width"/>
+            </td>
+            <td class="message-item">职  务</td>
+            <td >
+                <input type="text" value="{$data.position}" name="position" autocomplete="off" class="layui-input item-width"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="message-item">单位地址</td>
+            <td >
+                <input type="text" value="{$data.company_address}" name="company_address" autocomplete="off" class="layui-input item-width"/>
+            </td>
+            <td class="message-item">单位电话</td>
+            <td >
+                <input type="text" value="{$data.company_phone}" name="company_phone" autocomplete="off" class="layui-input item-width"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="message-item">需特别说明的事宜</td>
+            <td colspan="3">
+                <input type="text" value="{$data.remark}" name="remark" autocomplete="off" class="layui-input"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" align="center">
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <input type="hidden" name="token" value="{$token}"/>
+                        <input type="hidden" name="id" id="id" value="{$data.id}"/>
+                        <button class="{$theme.form.submit.style}" lay-submit lay-filter="saveBtn">{$theme.form.submit.text}</button>
+                        <button class="{$theme.form.cancel.style}"   id="cancelFormBtn">{$theme.form.cancel.text}</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</>
+<include file="Component/footer"/>
+<script>
+    var apartment = eval('(' + '{$apartmentJson}'+ ')');
+
+    setNation("nation","{$data.nation}");
+    layui.config({
+        base: '__LIB__/layuimini/lib/layui-v2.5.5/mods/'
+        , version: '1.0'
+    });
+    layui.use(['layer', 'form', 'layarea',"laydate"], function () {
+        var layer = layui.layer
+            , form = layui.form
+            , layarea = layui.layarea
+            ,laydate = layui.laydate;
+        //日期
+        laydate.render({
+            elem: '#date',
+            value:"{$data.birthday}"
+        });
+        laydate.render({
+            elem: '#graduate_date',
+            type: 'month',
+            value:"{$data.graduate_date}"
+        });
+
+        layarea.render({
+            elem: '#area-picker',
+        });
+
+        form.on('select(select-parent)', function(data){
+            var option = '<option value="">请选专业</option>';
+            for (let k in apartment){
+                if(apartment[k]['id'] == data.value){
+
+                    for(let j in apartment[k]['major']){
+                        major = apartment[k]['major'][j];
+                        selected = major.id == '{$data.major_id}'?"selected":'';
+                     option += '<option ' +selected+ ' value="'+major.id+'">'+major.name+'</option>';
+                    }
+                }
+            }
+            $("#select-son-area").html(option);
+            form.render();
+
+        });
+
+        form.on('submit(saveBtn)', function (data) {
+            $.post("{:U('AdmissionsStudent/editHandle')}",data.field,function(data){
+                if(data.status == 1){
+                    parent.layerErr(data.msg);
+                }else{
+                    parent.layerSuc(data.msg);
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                    parent.reloadLayerTableData();
+                }
+            },'json');
+            return false;
+        });
+    });
+
+    //表单填写 点击取消
+    $("#cancelFormBtn").click(function(){
+        parent.layer.close(parent.layer.getFrameIndex(window.name));
+        parent.reloadLayerTableData();
+    });
+</script>

@@ -1,0 +1,109 @@
+
+<include file="Component/header"/>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="{$theme.toolbar.add.style} "  lay-event="export">导出 </button>
+    </div>
+</script>
+
+<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+<script type="text/html" id="currentTableBar">
+    <div class="layui-btn-group">
+        <a class="{$theme.databar.show.style} " title="{$theme.databar.show.text}" lay-event="show">{$theme.databar.show.icon}</a>
+        <a class="{$theme.databar.edit.style} " title="{$theme.databar.edit.text}" lay-event="edit">{$theme.databar.edit.icon}</a>
+        <a class="{$theme.databar.delete.style}  "  title="{$theme.databar.delete.text}" lay-event="delete">{$theme.databar.delete.icon}</a>
+    </div>
+</script>
+
+
+<include file="Component/footer"/>
+<script src="__JS__/layerTable.js"></script>
+<script>
+    var config = {
+        render:{ //初时候加载数据
+            url: "{:U('AdmissionsStudent/index',['get'=>1])}",
+            cols:[
+
+                {field: 'show_id', title: 'ID',width:70},
+                {field: 'name', title: '姓名',width:100,},
+                {field: 'sex', title: '性别',width:70},
+                {field: 'apartment', title: '报考层次>专业'},
+                {field: 'mobile', title: '联系电话',width:200},
+                {field: 'address', title: '通信地址'},
+                {field: 'created_at', title: '报名日期',width:150},
+
+
+                {field: 'province', title: '在所省份',hide:true},
+                {field: 'birthday', title: '生日',hide:true},
+                {field: 'nation', title: '族民',hide:true},
+                {field: 'idcard', title: '份证身',hide:true},
+                {field: 'is_job', title: '是否就业',hide:true},
+                {field: 'residence', title: '户口所在地',hide:true},
+                {field: 'gradute_school', title: '业毕学校',hide:true},
+                {field: 'education', title: '学历',hide:true},
+                {field: 'graduate_date', title: '毕业日期',hide:true},
+                {field: 'graduate_major', title: '业毕专业',hide:true},
+                {field: 'graduate_id', title: '毕业号',hide:true},
+                {field: 'email', title: '邮件',hide:true},
+                {field: 'phone', title: '号码',hide:true},
+                {field: 'company', title: '作工单位',hide:true},
+                {field: 'position', title: '位职',hide:true},
+                {field: 'company_phone ', title: '位单电话',hide:true},
+                {field: 'company_address', title: '位单地址',hide:true},
+                {field: 'remark', title: '注备',hide:true},
+
+
+                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center",width:150}
+            ],
+            limit:"{$perPageCount}",
+            page:true,
+
+            defaultToolbar: ['filter', 'print']
+        },
+        toolbar:{  //工具栏监听,
+            export:{  //添加数据事件
+                action:"hyperlink",
+                content:"{:U('AdmissionsStudent/export')}",
+            }
+        },
+        recordToolbar:{ //每行数据的操作工具
+            delete:{ //删除数据事件
+                action:"confirm",
+                message:"您确定要删除吗?",
+                callback:function(obj){
+                    if(!confirm("您真的要删除吗？请三思,不可撤销")){
+                        return false;
+                    }
+                    $.get("{:U('AdmissionsStudent/delete')}",{id:obj.data.id},function(data){
+                        if(data.status == 1){
+                            layerErr(data.msg);
+                        }else{
+                            reloadLayerTableData();
+                            layerSuc(data.msg);
+                        }
+                    },'json');
+                }
+            },
+            edit:{
+                action:"childWindow",
+                title:'编辑学生',
+                urlParam:{id:""},
+                content:"{:U('AdmissionsStudent/edit')}",
+            },
+            show:{
+                action:"hyperlink",
+                urlParam:{id:""},
+                content:"{:U('AdmissionsStudent/show')}",
+            }
+        }
+    };
+
+    layerTableHandle(config);
+
+    //重新加载表格数据 ，提供子窗口关闭后使用
+    function reloadLayerTableData(){
+        layerTableHandle({render:config.render});
+    }
+</script>

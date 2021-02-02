@@ -1,0 +1,131 @@
+<include file="Component/header"/>
+<link rel="stylesheet" href="__CSS__/admin/welcome.css" media="all">
+
+<div class="layuimini-main">
+
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-xs12 layui-col-md3">
+
+            <div class="layui-card top-panel">
+                <div class="layui-card-header">昨日文章阅读总数</div>
+                <div class="layui-card-body">
+                    <div class="layui-row layui-col-space5">
+                        <div class="layui-col-xs12 layui-col-md12 top-panel-number">
+                            {$viewYestodayCnt}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="layui-col-xs12 layui-col-md3">
+
+            <div class="layui-card top-panel">
+                <div class="layui-card-header">文章总浏览数<a href="javascript:;" id="article-view-question"><i class="layui-icon">&#xe607;</i></a></div>
+                <div class="layui-card-body">
+                    <div class="layui-row layui-col-space5">
+                        <div class="layui-col-xs12 layui-col-md12 top-panel-number">
+                            {$viewCnt}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="layui-col-xs12 layui-col-md3">
+
+            <div class="layui-card top-panel">
+                <div class="layui-card-header">文章总数(已审核)</div>
+                <div class="layui-card-body">
+                    <div class="layui-row layui-col-space5">
+                        <div class="layui-col-xs12 layui-col-md12 top-panel-number">
+                            <a href="{:U('Article/index',['audit'=>1])}">{$articleCnt}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="layui-col-xs12 layui-col-md3">
+
+            <div class="layui-card top-panel">
+                <div class="layui-card-header">待审核文章</div>
+                <div class="layui-card-body">
+                    <div class="layui-row layui-col-space5">
+                        <div class="layui-col-xs12 layui-col-md12 top-panel-number">
+                            <a href="{:U('Article/index',['audit'=>0])}">{$articleAuditCnt}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-xs12 layui-col-md9">
+
+        </div>
+        <div class="layui-col-xs12 layui-col-md3">
+        </div>
+    </div>
+
+    <div class="layui-row layui-col-space15" style="background: #fff;">
+        <div class="layui-col-md8">
+            <div class="layui-row layui-col-space15">
+
+                <div class="layui-col-md12">
+                    <table class="layui-table" lay-skin="line">
+                        <thead>
+                        <tr>
+                            <th>最近网站登录日志</th>
+                            <th>用户</th>
+                            <th>IP</th>
+                            <th>日期</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <foreach name="logs" item="v">
+                            <tr>
+                                <td>
+                                    <if condition="$v['action'] eq 'loginHandle'">登录 <else/>退出</if>
+                                </td>
+                                <td>{$v.username}</td>
+                                <td>{$v.ip}</td>
+                                <td>{$v.create_time}</td>
+                            </tr>
+                        </foreach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md4">
+            <div class="layui-card" style="margin-top: 10px;" >
+                <div class="layui-card-header"><i class="fa fa-bullhorn icon icon-tip"></i>最新文章</div>
+                <div class="layui-card-body layui-text">
+                    <foreach name="latestNews" item="v">
+                    <div class="layuimini-notice">
+                        <div class="layuimini-notice-title">
+                            <a  style="color: #666666" href="{:U('Home/Article/index',['id'=>$v['id'],'cid'=>$v['cid'],'pid'=>$v['pid']])}" target="_blank">{$v.title}</a>
+                        </div>
+                        <div class="layuimini-notice-extra">{$v.create_time|substr=###,0,10}</div>
+                    </div>
+                    </foreach>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<include file="Component/footer"/>
+<script>
+    $(function(){
+        $("#article-view-question").click(function(){
+            layerConfirm("一篇文章一个用户IP地址，一天之内浏览算一次")
+        });
+
+    });
+</script>

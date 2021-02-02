@@ -1,0 +1,136 @@
+
+<include file="Component/header"/>
+
+
+<div class="form-block" >
+    <div class="layui-form layuimini-form form-main"  >
+
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">资料上传</label>
+            <div class="layui-input-block">
+                <div>
+                    <a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadBtn">选择文件</a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span id="filetxt" class="green"></span>&nbsp;<span class="layui-word-aux">最大50M</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否开放</label>
+            <div class="layui-input-block">
+
+
+                <input type="radio" name="show" value="1" title="开放"  checked/>
+                <div class="layui-unselect layui-form-radio layui-form-radioed">
+                    <i class="layui-anim layui-icon"></i><div>开放</div>
+                </div>
+
+                <input type="radio" name="show" value="0" title="不开放"  />
+                <div class="layui-unselect layui-form-radio">
+                    <i class="layui-anim layui-icon"></i><div>不开放</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="layui-form-item" >
+            <label class="layui-form-label">显示名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" id="name" value="" class="layui-input"/>
+            </div>
+        </div>
+        <div class="layui-form-item" >
+            <label class="layui-form-label">资料分类</label>
+            <div class="layui-input-block">
+                <select name="cid">
+                    <foreach name="channel" item="v">
+                        <option value="{$v.id}">{$v.name}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="hidden" name="token" value="{$token}"/>
+                <input type="hidden" name="path" id="path" value=""/>
+                <input type="hidden" name="type" id="type" value=""/>
+                <input type="hidden" name="size" id="size" value=""/>
+                <button class="{$theme.form.submit.style}" lay-submit lay-filter="saveBtn">上传</button>
+                <button class="{$theme.form.cancel.style}" lay-submit  lay-filter="cancelBtn">{$theme.form.cancel.text}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<include file="Component/footer"/>
+<script type="text/javascript" src="__JS__/upload/upload.js"></script>
+<script type="text/javascript">
+
+
+    $(function() {
+
+        uploadHandle.upload({
+            id:"uploadBtn",
+            name:'file', //服务端接收的名称
+            fileType:'all', //允许上传的文件类型
+            url:"{:U('uploadFile')}",
+            callback:function(data){
+                $("#filetxt").html("已经选择文件: <b>"+data.name+"<b/>");
+                $("#path").val(data.path);
+                $("#type").val(data.type);
+                $("#size").val(data.size);
+                $("#name").val(data.name);
+                $("#filename").show();
+
+            }
+        });
+    });
+
+
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+
+
+        form.on('submit(cancelBtn)', function (data) {
+            parent.layer.close(parent.layer.getFrameIndex(window.name));
+            parent.reloadLayerTableData();
+        });
+        form.on('submit(saveBtn)', function (data) {
+
+            if($("#path").val() == ''){
+                layerErr('请选择文件');
+                return false;
+            }
+
+            $.post("{:U('uploadHandle')}",data.field,function(data){
+                if(data.status == 1){
+                    parent.layerErr(data.msg);
+                }else{
+                    //parent.layerSuc(data.msg);
+                    layerConfirm( "上传成功，是否继续上传其他文件?",{
+                        btn:['继续','不了'],
+                        confirm:{
+                            callback:function(){
+                                $("#uploadBtn").click();
+                            }
+                        },
+                        cancel:{
+                            callback:function(){
+                                parent.layer.close(parent.layer.getFrameIndex(window.name));
+                                parent.reloadLayerTableData();
+                            }
+                        },
+                    });
+
+                }
+            },'json');
+            return false;
+        });
+
+    });
+</script>

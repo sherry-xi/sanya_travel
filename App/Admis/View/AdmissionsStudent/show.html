@@ -1,0 +1,111 @@
+<include file="Component/header"/>
+<style>
+.message-top{text-align: center;font-size: 20px !important;font-weight: bolder;padding: 20px 0px !important;}
+.message-item{text-align: right;width: 20%;font-weight: bold;}
+.message-title{text-align: center;font-size:18px !important;font-weight: bold;padding: 15px 0px !important;}
+
+</style>
+    <table class="layui-table" >
+
+        <tbody>
+        <tr>
+            <td colspan="4" class="message-top">三亚学院理工学院网上预报名登记表</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="message-title">报名信息</td>
+        </tr>
+        <tr>
+            <td class="message-item">所在地区</td>
+            <td colspan="3">{$data.province}</td>
+        </tr>
+
+        <tr>
+            <td class="message-item">报读层次</td>
+            <td colspan="3">{$data.apartmentMajor.apartment_name}</td>
+        </tr>
+        <tr>
+            <td class="message-item">报读专业</td>
+            <td colspan="3">{$data.apartmentMajor.major_name}</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="message-title">基本信息</td>
+        </tr>
+        <tr>
+            <td class="message-item">姓名</td>
+            <td>{$data.name}</td>
+            <td class="message-item">性别</td>
+            <td>
+                <if condition="$data['sex'] eq 0">男<else/>女</if>
+            </td>
+        </tr>
+        <tr>
+            <td class="message-item">出生日期</td>
+            <td>{$data.birthday}</td>
+            <td class="message-item">民族</td>
+            <td>{$data.nation}</td>
+        </tr>
+        <tr>
+            <td class="message-item">身份证号码</td>
+            <td>{$data.idcard}</td>
+            <td class="message-item">职业状况</td>
+            <td>
+                <if condition="$data['is_job']">已就业<else/>未就业</if>
+            </td>
+        </tr>
+        <tr>
+            <td class="message-item">户口所在地</td>
+            <td>{$data.residence}</td>
+            <td class="message-item">原毕业院校</td>
+            <td>{$data.gradute_school}</td>
+        </tr>
+        <tr>
+            <td class="message-item">现有最高学历</td>
+            <td>{$data.education}</td>
+            <td class="message-item">原毕业日期</td>
+            <td>{$data.graduate_date}</td>
+        </tr>
+        <tr>
+            <td class="message-item">原学专业</td>
+            <td>{$data.graduate_major}</td>
+            <td class="message-item">原毕业证号</td>
+            <td>{$data.graduate_id}</td>
+        </tr>
+        <tr>
+            <td colspan="4"  class="message-title">联系方式</td>
+        </tr>
+        <tr>
+            <td class="message-item">手  机</td>
+            <td>{$data.mobile}</td>
+            <td class="message-item">固定电话</td>
+            <td>{$data.phone}</td>
+        </tr>
+        <tr>
+            <td class="message-item">E-mail</td>
+            <td>{$data.email}</td>
+            <td class="message-item">通信地址</td>
+            <td>{$data.address}</td>
+        </tr>
+        <tr>
+            <td class="message-item">工作单位</td>
+            <td >{$data.company}</td>
+            <td class="message-item">职  务</td>
+            <td >{$data.position}</td>
+        </tr>
+        <tr>
+            <td class="message-item">单位地址</td>
+            <td >{$data.company_address}</td>
+            <td class="message-item">单位电话</td>
+            <td >{$data.company_phone}</td>
+        </tr>
+        <tr>
+            <td class="message-item">需特别说明的事宜</td>
+            <td colspan="3">{$data.remark}</td>
+        </tr>
+        <tr>
+            <td colspan="4" align="center">
+                <a class="{$theme.toolbar.back.style}"  href="{:U('AdmissionsStudent/index',['mid'=>$mid,'pid'=>$pid])}">{$theme.toolbar.back.text}</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+<include file="Component/footer"/>

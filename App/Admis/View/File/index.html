@@ -1,0 +1,96 @@
+<include file="Component/header"/>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="{$theme.toolbar.add.style} data-add-btn"  lay-event="add">上传资料</button>
+    </div>
+</script>
+
+<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+<script type="text/html" id="currentTableBar">
+    <div class="layui-btn-group">
+        <a class="{$theme.databar.edit.style}" title="编辑" lay-event="edit">{$theme.databar.edit.icon}</a>
+        <a class="{$theme.databar.delete.style}"  title="删除" lay-event="delete">{$theme.databar.delete.icon}</a>
+
+    </div>
+</script>
+
+
+<include file="Component/footer"/>
+<script src="__JS__/layerTable.js"></script>
+<script>
+    var config = {
+        render:{ //初时候加载数据
+            url: "{:U('File/index',['get'=>1])}",
+            cols:[
+                {field: 'show_id', title: 'ID',width:60},
+                {
+                    field: 'name',  templet: function (d) {
+                        return "<a  id='download-"+d.id+"' download='"+d.name+"' href='"+d.url+"' > "+d.name+"</a>";
+                    }, title: '文件名'
+                },
+                {field: 'user', title: '上传者',width:150},
+                {field: 'channel', title: '分类',width:100},
+                {field: 'size', title: '文件大小',width:100},
+                {field: 'created_at', title: '上传日期',width:150},
+                {
+                    field: 'show',  templet: function (d) {
+                        return d.show==1?'<span  class="green">开放</span>':'<span class="red">不开放</span>';
+
+                    }, title: '开放下载',width:100,align: "center"
+                },
+                {
+                    field: 'name',  templet: function (d) {
+                        return '<a class="layui-btn layui-btn-primary layui-btn-xs"  title="下载" download="'+d.name+'" href="'+d.url+'" ><i class="layui-icon">&#xe601;</i></a>';
+
+                    }, title: '下载',width:100,align: "center"
+                },
+                {title: '操作', width: 100,toolbar: '#currentTableBar', align: "center"}
+            ],
+            limit:"{$perPageCount}",
+            page:true,
+        },
+        toolbar:{  //工具栏监听,
+            add:{  //添加数据事件
+                action:"childWindow",
+                title:'上传资料',
+                content:"{:U('File/upload')}",
+            }
+        },
+        recordToolbar:{ //每行数据的操作工具
+            delete:{ //删除数据事件
+                action:"confirm",
+                message:"您确定要删除吗?",
+                callback:function(obj){
+                    $.get("{:U('File/delete')}",{id:obj.data.id},function(data){
+                        if(data.status == 1){
+                            layerErr(data.msg);
+                        }else{
+                            reloadLayerTableData();
+                            layerSuc(data.msg);
+                        }
+                    },'json');
+                }
+            },
+            edit:{
+                action:"childWindow",
+                title:'编辑资料',
+                urlParam:{id:""},
+                content:"{:U('File/edit')}",
+            },
+            download:{
+                action:"download",
+                urlParam:{url:""},
+                content:"",
+            }
+        }
+    };
+
+    layerTableHandle(config);
+
+    //重新加载表格数据 ，提供子窗口关闭后使用
+    function reloadLayerTableData(){
+        layerTableHandle({render:config.render});
+    }
+</script>

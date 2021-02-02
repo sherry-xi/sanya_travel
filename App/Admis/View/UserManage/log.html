@@ -1,0 +1,25 @@
+<include file="Component/header"/><!-- 主体内容 -->
+
+<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+<include file="Component/footer"/>
+
+<script src="__JS__/layerTable.js"></script>
+<script>
+    var config = {
+        render:{ //初时候加载数据
+            url: "{:U('UserManage/log',['get'=>1])}",
+            cols: [
+                {field: 'id', title: 'ID',width:100},
+                {field: 'username', title: '账号'},
+                {field: 'truename', title: '姓名'},
+                {field: 'role', title: '角色'},
+                {field: 'ip', title: 'IP'},
+                {field: 'create_time', title: '日期'},
+            ],
+            page: true,
+            skin: '',
+            limit:"{$perPageCount}"
+        }
+    };
+    layerTableHandle(config);
+</script>

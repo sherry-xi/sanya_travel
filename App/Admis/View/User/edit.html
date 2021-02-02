@@ -1,0 +1,97 @@
+<include file="Component/header"/>
+
+<div class="form-block" >
+    <form>
+        <div class="layui-form layuimini-form form-main" >
+            <div class="layui-form-item">
+                <label class="layui-form-label">账号</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$user.username}" name="username"  id="username" class="layui-input" readonly="readonly" style="cursor:not-allowed"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label required">用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$user.truename}" name="truename" id="truename"   autocomplete="off"   placeholder="请输入用户名" value="" class="layui-input" lay-verify="required" lay-reqtext="用户名不能为空">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"  >密码</label>
+                <div class="layui-input-block">
+                    <input type="password" name="password" id="password"  value="" class="layui-input" placeholder="输入密码">
+                    <div class="layui-form-mid layui-word-aux">请填写6-16位字符，不能包含空格(留空则不修改密码)</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label ">确认密码</label>
+                <div class="layui-input-block">
+                    <input type="password" name="confirmPassword" id="confirmPassword"   value="" class="layui-input" placeholder="确认密码">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$user.role.name}" class="layui-input" readonly="readonly" style="cursor:not-allowed"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <input type="hidden" name="id" id="id" value="{$user.id}"/>
+                    <button class="{$theme.form.submit.style}" lay-submit lay-filter="saveBtn">{$theme.form.submit.text}</button>
+                    <button class="{$theme.form.cancel.style}"  type="reset" lay-filter="saveBtn">{$theme.form.cancel.text}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<include file="Component/footer"/>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer;
+        //监听提交
+
+        form.on('submit(saveBtn)', function (data) {
+            var password = $("#password").val();
+
+            if(password != ''){
+                if(!regById(/^[\S]{6,16}$/,'password')){
+                    layerErr("密码格式错误，正确是6-16位字符，不能包含空格");
+                    $("#password").focus();
+                    return false;
+                }
+                if(isEmpty("confirmPassword") === false){
+                    layerErr("请确认密码");
+                    $("#confirmPassword").focus();
+                    return false;
+                }
+                if(!compareById('password',"confirmPassword")){
+                    layerErr("两次输入密码不相同");
+                    $("#confirmPassword").focus().select();
+                    return false;
+                }
+            }
+            $.post("{:U('user/profileEditHandle')}",data.field,function(data){
+
+                if(data.status == 0){
+                    layerSuc(data.msg);
+
+                }else if(data.status == 1){
+                    layerErr(data.msg);
+                }else{
+                    //密码修改成功重新登陆
+                    layerHintAlert(data.msg,function(){
+                        parent.location.href = "{:U('User/loginOut')}";
+                    });
+                }
+            },'json');
+            return false;
+        })
+
+    });
+</script>

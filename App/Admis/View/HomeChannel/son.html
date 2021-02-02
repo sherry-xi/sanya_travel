@@ -1,0 +1,89 @@
+<include file="Component/header"/>
+<!-- 搜索栏 -->
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <div class="layui-btn-group">
+        <button  class="{$theme.toolbar.back.style} data-add-btn" title="{$theme.toolbar.back.text}" lay-event="back">{$theme.toolbar.back.icon}</button>
+        <button class="{$theme.toolbar.add.style} data-add-btn"  lay-event="add">{$theme.toolbar.add.text}</button>
+        </div>
+    </div>
+</script>
+<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+<script type="text/html" id="currentTableBar">
+    <div class="layui-btn-group">
+        <a class="layui-btn layui-btn-primary layui-btn-xs " title="编辑"  lay-event="edit"><i class="layui-icon">&#xe642;</i></a>
+        <a class="layui-btn layui-btn-primary layui-btn-xs  "  title="删除" lay-event="delete"><i class="layui-icon">&#xe640;</i></a>
+    </div>
+</script>
+<include file="Component/footer"/>
+
+<script src="__JS__/layerTable.js"></script>
+<script>
+    var config = {
+        render:{
+            url: "{:U('HomeChannel/son',['get'=>1,'parent_id'=>$parent['id']])}",
+            cols:[
+                {field: 'id', title: 'ID'},
+                {field: 'name', title: '名称',width: 250,},
+                {field: 'level', title: '级别'},
+                {field: 'show_nav', title: '是否显示'},
+                {field: 'articleCnt', title: '文章数量'},
+                {field: 'sort', title: '排序'},
+                {title: '操作',  toolbar: '#currentTableBar', align: "center"}
+            ]
+        },
+        toolbar:{
+            add:{
+                action:"childWindow",
+                title:'添加二级导航',
+                urlParam:{id:""},
+                content:"{:U('HomeChannel/addSon',['parent_id'=>$parent['id']])}",
+            },
+            back:{
+                action:"hyperlink",
+                urlParam:{id:""},
+                content:"{:U('HomeChannel/index')}",
+            },
+        },
+        recordToolbar:{
+            delete:{
+                action:"confirm",
+                message:"您确定要删除吗?",
+                callback:function(obj){
+
+                    msg = '';
+                    if(obj.data.articleCnt > 0){
+                        msg = "该导航有"+obj.data.articleCnt+"篇文章\n，文章也会被删除"+"您确定删除吗?"+msg+"(不可撤销)";
+                        if(!confirm(msg)){
+                            return ;
+                        }
+                    }
+
+                    $.get("{:U('HomeChannel/deleteSon')}",{id:obj.data.id},function(data){
+                        if(data.status == 1){
+                            layerErr(data.msg);
+                        }else{
+                            reloadLayerTableData();
+                            layerSuc(data.msg);
+
+                        }
+                    },'json');
+                }
+            },
+            edit:{
+                action:"childWindow",
+                title:'编辑二级导航',
+                urlParam:{id:"",parent_id:''},
+                content:"{:U('HomeChannel/addSon')}",
+            }
+        }
+    };
+
+    layerTableHandle(config);
+
+    //重新加载表格数据 ，提供子窗口关闭后使用
+    function reloadLayerTableData(){
+        layerTableHandle({render:config.render});
+    }
+</script>

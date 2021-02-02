@@ -1,0 +1,93 @@
+<include file="Component/header"/>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="{$theme.toolbar.add.style} data-add-btn"  lay-event="add">添加节点</button>
+    </div>
+</script>
+
+<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+<script type="text/html" id="currentTableBar">
+    <div class="layui-btn-group">
+        <a class="{$theme.databar.edit.style}" title="{$theme.databar.edit.text}" lay-event="edit">{$theme.databar.edit.icon}</a>
+        <a class="{$theme.databar.delete.style}"  title="{$theme.databar.delete.text}" lay-event="delete">{$theme.databar.delete.icon}</a>
+    </div>
+</script>
+
+
+<include file="Component/footer"/>
+<script src="__JS__/layerTable.js"></script>
+
+<script>
+    var config = {
+        module:['table','treetable'],
+        table:"treetable", //使用树形
+        render:{ //初时候加载数据
+            url: "{:U('PermissionNode/index',['get'=>1])}",
+            treeColIndex: 1,
+            treeSpid: 0,
+            treeIdName: 'id',
+            treePidName: 'parent_id',
+            cols:[
+                {type: 'numbers'},
+                {field: 'id', title: 'ID',width:100},
+                {
+                    field: 'name',  templet: function (d) {
+                        if (d.parent_id == 0) {
+                            return d.name+"  &nbsp;&nbsp;<a class='{$theme.databar.add.style}' title='{$theme.databar.add.text}子节点' lay-event='addSon'>"+'{$theme.databar.add.icon}'+"</a>";
+                        }
+                        return d.name;
+                    }, title: '名称'
+                },
+
+                {field: 'action', title: '控制'},
+                {field: 'method', title: '方法'},
+                {field: 'sort', title: '排序'},
+                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+            ]
+        },
+        toolbar:{  //工具栏监听,
+            add:{  //添加数据事件
+                action:"childWindow",
+                title:'添加节点',
+                content:"{:U('PermissionNode/add')}",
+            }
+        },
+        recordToolbar:{ //每行数据的操作工具
+            delete:{ //删除数据事件
+                action:"confirm",
+                message:"您确定要删除吗?",
+                callback:function(obj){
+                    $.get("{:U('PermissionNode/delete')}",{id:obj.data.id},function(data){
+                        if(data.status == 1){
+                            layerErr(data.msg);
+                        }else{
+                            reloadLayerTableData();
+                            layerSuc(data.msg);
+                        }
+                    },'json');
+                }
+            },
+            edit:{
+                action:"childWindow",
+                title:'编辑节点',
+                urlParam:{id:""},
+                content:"{:U('PermissionNode/edit')}",
+            },
+            addSon:{
+                action:"childWindow",
+                title:'添加子节点',
+                urlParam:{id:""},
+                content:"{:U('PermissionNode/add')}",
+            },
+        }
+    };
+
+    layerTableHandle(config);
+
+    //重新加载表格数据 ，提供子窗口关闭后使用
+    function reloadLayerTableData(){
+        layerTableHandle({render:config.render});
+    }
+</script>

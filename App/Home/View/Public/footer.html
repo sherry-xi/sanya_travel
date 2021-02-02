@@ -1,0 +1,83 @@
+<!-- ======= Footer ======= -->
+<footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+
+
+
+    <div class="footer-top">
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6 footer-links" id="footer-quikLink">
+                    <h4>实用链接</h4>
+                    <ul>
+                        <foreach name="quikLink" item="v" >
+                            <li><i class="bx bx-chevron-right"></i> <a href="{:U('Channel/index',['pid'=>$value['id'],'sid'=>$v['id']])}">{$v.name}</a></li>
+                        </foreach>
+
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-links" id="footer-idea">
+                    <h4>我们的理念</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="javascript:;">人才培养</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="javascript:;">科学研究</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="javascript:;">社会服务</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="javascript:;">国际交流合</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-contact" id="footer-contract">
+                    <h4>联系我们</h4>
+                    <p>
+                        {$config.address}<br>
+                        <strong>电 &nbsp;&nbsp;话 : </strong> {$config.phone}<br>
+                        <strong>Email : </strong> {$config.email}<br>
+                        <strong>Q &nbsp;&nbsp;&nbsp; Q : </strong> {$config.qq}<br>
+                        <strong>微 &nbsp;&nbsp;&nbsp;信 : </strong>sanyantraval<br>
+                    </p>
+
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-info" id="footer-weixin">
+                    <h3>学院公众号</h3>
+                    <p>
+                        <img src="__PUBLIC__/image/weixin.jpg" style="width: 150px;">
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="copyright">
+            {$config.right}
+        </div>
+        <div class="credits">
+        </div>
+    </div>
+</footer><!-- End Footer -->
+
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+<!-- Vendor JS Files -->
+<script src="__LIB__/index/jquery/jquery.min.js"></script>
+<script src="__LIB__/index/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="__LIB__/index/jquery.easing/jquery.easing.min.js"></script>
+<script src="__LIB__/index/venobox/venobox.min.js"></script>
+<script src="__LIB__/index/waypoints/jquery.waypoints.min.js"></script>
+<script src="__LIB__/index/counterup/counterup.min.js"></script>
+<script src="__LIB__/index/owl.carousel/owl.carousel.min.js"></script>
+<script src="__LIB__/index/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="__LIB__/index/aos/aos.js"></script>
+
+<!-- Template Main JS File -->
+<script src="__JS__/index/main.js"></script>
+<script src="__JS__/index/common.js"></script>
+
+
+
+</body>
+
+</html>

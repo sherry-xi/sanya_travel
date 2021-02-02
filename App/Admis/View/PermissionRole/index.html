@@ -1,0 +1,92 @@
+<include file="Component/header"/>
+<style>
+
+    .layui-table-cell {
+        overflow: visible;
+        text-overflow: inherit;
+        white-space: normal;
+        height: auto !important;
+        word-break: break-all;
+    }
+</style>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="{$theme.toolbar.add.style} data-add-btn"  lay-event="add">添加角色</button>
+    </div>
+</script>
+
+<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+<script type="text/html" id="currentTableBar">
+    <div class="layui-btn-group">
+        <a class="{$theme.databar.edit.style}" title="{$theme.databar.edit.text}" lay-event="edit">{$theme.databar.edit.icon}</a>
+        <a class="{$theme.databar.delete.style}"  title="{$theme.databar.delete.text}" lay-event="delete">{$theme.databar.delete.icon}</a>
+    </div>
+</script>
+
+
+<include file="Component/footer"/>
+<script src="__JS__/layerTable.js"></script>
+
+<script>
+    var config = {
+        render:{ //初时候加载数据
+            url: "{:U('PermissionRole/index',['get'=>1])}",
+            cols:[
+                {field: 'id', title: 'ID',width:100},
+                {field: 'name', title: '角色名称'},
+                {field: 'remark', title: '角色备注'},
+                {
+                    field: 'permission',  templet: function (d) {
+                        var str = '';
+                        for(let i  in d.permission){
+                            str += (str?"<br/>":'')+"<b>"+d.permission[i].name+"</b>"+"<br/>&nbsp;&nbsp;&nbsp; ";
+                            for(let j  in d.permission[i]['son']){
+                                console.log();
+                                str += d.permission[i]['son'][j]['name']+"  &nbsp;&nbsp;";
+                            }
+                        }
+                        return str;
+                    }, title: '角色权限'
+                },
+                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+            ]
+        },
+        toolbar:{  //工具栏监听,
+            add:{  //添加数据事件
+                action:"childWindow",
+                title:'添加角色',
+                content:"{:U('PermissionRole/add')}",
+            }
+        },
+        recordToolbar:{ //每行数据的操作工具
+            delete:{ //删除数据事件
+                action:"confirm",
+                message:"您确定要删除吗?",
+                callback:function(obj){
+                    $.get("{:U('PermissionRole/delete')}",{id:obj.data.id},function(data){
+                        if(data.status == 1){
+                            layerErr(data.msg);
+                        }else{
+                            reloadLayerTableData();
+                            layerSuc(data.msg);
+                        }
+                    },'json');
+                }
+            },
+            edit:{
+                action:"childWindow",
+                title:'编辑角色',
+                urlParam:{id:""},
+                content:"{:U('PermissionRole/edit')}",
+            }
+        }
+    };
+
+    layerTableHandle(config);
+
+    //重新加载表格数据 ，提供子窗口关闭后使用
+    function reloadLayerTableData(){
+        layerTableHandle({render:config.render});
+    }
+</script>

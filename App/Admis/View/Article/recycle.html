@@ -1,0 +1,209 @@
+<include file="Component/header"/>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <div class="layui-inline" style="margin-right: 0px;">
+                    <label class="layui-form-label" style="padding-left: 0px;width: 65px;">关键词</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="keyword"  class="layui-input" style="margin-right: 0px;">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="padding-left: 0px;width: 65px;">导航</label>
+                    <div class="layui-input-inline">
+                        <select id="cid" lay-filter="aihao"  lay-verify="required" lay-reqtext="请选择导航">
+                            <option value="">选择导航</option>
+                            <foreach name="channel" item="ch">
+                                <option value="parent_{$ch.id}" >{$ch.name}</option>
+                                <foreach name="ch.son" item="son">
+                                    <option value="{$son.id}"  >&nbsp;&nbsp;&nbsp;{$son.name}</option>
+                                </foreach>
+                            </foreach>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" style="padding-left: 0px;width: 65px;">审核状态</label>
+                    <div class="layui-input-inline">
+                        <select id="audit" >
+                            <option value="-1">全部</option>
+                            <foreach name="audits" item="v" key="k">
+                                <option value="{$k}"  >{$v}</option>
+                            </foreach>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layui-btn-sm " id="search">搜索</button>
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" id="reset">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="{$theme.toolbar.add.style} "  lay-event="delete">彻底删除</button>
+        <button class="{$theme.toolbar.add.style} "  lay-event="restore">还原文章</button>
+    </div>
+</script>
+
+<table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+<script type="text/html" id="currentTableBar">
+    <div class="layui-btn-group">
+        <a class="{$theme.databar.delete.style}  "  title="还原" lay-event="restore"><i class="layui-icon">&#x1005;</i></a>
+        <a class="{$theme.databar.delete.style}  "  title="彻底删除" lay-event="delete">{$theme.databar.delete.icon}</a>
+    </div>
+</script>
+
+
+<include file="Component/footer"/>
+<script src="__JS__/layerTable.js"></script>
+<script>
+    var config = {
+        render:{ //初时候加载数据
+            url: "{:U('Article/recycle',['get'=>1])}",
+            cols:[
+                {type: "checkbox", width: 50},
+                {field: 'id', title: 'ID',width:70},
+                {field: 'title', title: '标题'},
+                {field: 'username', title: '创建者',width:120},
+                {field: 'navigator', title: '所属导航'},
+                {field: 'top', title: '文章置顶',width:100},
+                {field: 'audit', title: '审核状态',width:100},
+                {field: 'create_time', title: '创建时间'},
+                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center",width:150}
+            ],
+            limit:"{$perPageCount}",
+            page:true,
+
+            defaultToolbar: ['filter', 'print']
+        },
+        toolbar:{  //工具栏监听,
+            delete:{
+                action:"noEvent",
+                callback:function(obj){
+
+                    var checkStatus = layui.table.checkStatus('currentTableId')
+                        , data = checkStatus.data;
+                    var ids = '';
+                    for(i=0;i<data.length;i++){
+                        ids += (ids?',':'')+data[i]['id'];
+                    }
+                    if(ids == ''){
+                        layerErr('请选择要删除的文章');
+                        return false;
+                    }
+
+                    layer.confirm("您确定要彻底删除"+data.length+"篇文章吗?", {
+                        btn: ['确定','取消'],
+                        skin: 'layui-layer-molv2'
+                    }, function(index){
+                        $.get("{:U('delete')}",{id:ids,is_del:2},function(data){
+                            if(data.status == 1){
+                                layerErr(data.msg);
+                            }else{
+                                reloadLayerTableData();
+                                layerSuc(data.msg);
+                            }
+                        },'json');
+                    });
+
+
+                }
+            },
+            restore:{
+                action:"noEvent",
+                callback:function(obj){
+
+                    var checkStatus = layui.table.checkStatus('currentTableId')
+                        , data = checkStatus.data;
+                    var ids = '';
+                    for(i=0;i<data.length;i++){
+                        ids += (ids?',':'')+data[i]['id'];
+                    }
+                    if(ids == ''){
+                        layerErr('请选择要还原的文章');
+                        return false;
+                    }
+
+                    layer.confirm("您确定要还原"+data.length+"篇文章吗?", {
+                        btn: ['确定','取消'],
+                        skin: 'layui-layer-molv2'
+                    }, function(index){
+                        $.get("{:U('delete')}",{id:ids,is_del:0},function(data){
+                            if(data.status == 1){
+                                layerErr(data.msg);
+                            }else{
+                                reloadLayerTableData();
+                                layerSuc(data.msg);
+                            }
+                        },'json');
+                    });
+
+
+                }
+            },
+
+        },
+        recordToolbar:{ //每行数据的操作工具
+            delete:{ //删除数据事件
+                action:"confirm",
+                message:"您确定彻底要删除吗?",
+                callback:function(obj){
+                    $.get("{:U('delete')}",{id:obj.data.id,is_del:2},function(data){
+                        if(data.status == 1){
+                            layerErr(data.msg);
+                        }else{
+                            reloadLayerTableData();
+                            layerSuc(data.msg);
+                        }
+                    },'json');
+                }
+            },
+            restore:{ //删除数据事件
+                action:"confirm",
+                message:"您确定还原文章吗?",
+                callback:function(obj){
+                    $.get("{:U('delete')}",{id:obj.data.id,is_del:0},function(data){
+                        if(data.status == 1){
+                            layerErr(data.msg);
+                        }else{
+                            reloadLayerTableData();
+                            layerSuc(data.msg);
+                        }
+                    },'json');
+                }
+            }
+        }
+    };
+
+    layerTableHandle(config);
+
+    //重新加载表格数据 ，提供子窗口关闭后使用
+    function reloadLayerTableData(){
+        layerTableHandle({render:config.render});
+    }
+
+    $(function(){
+        $("#search").click(function(){
+
+            var keyword = $("#keyword").val();
+            var cid = $("#cid").val();
+            var audit = $("#audit").val();
+            var url = "{:U('Article/recycle',['get'=>1])}?keyword="+keyword+"&cid="+cid+"&audit="+audit;
+
+            var tempConfig = config.render;
+            tempConfig.url = url;
+            layerTableHandle({render:tempConfig});
+            return false;
+        });
+
+        $("#reset").click(function(){
+
+            location.href = "{:U('Article/recycle')}";
+        });
+    });
+</script>

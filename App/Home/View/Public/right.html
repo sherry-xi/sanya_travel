@@ -1,0 +1,42 @@
+<div class="col-lg-4">
+    <div class="sidebar">
+
+
+        <h3 class="sidebar-title">
+            <a href="{:U('Channel/index',['pid'=>$channelItem['channel']['id']] )}"  style="color: #32627b">{$channelItem.channel.name}</a>
+        </h3>
+        <div class="sidebar-item categories">
+            <ul>
+                <foreach name="channelItem.channel.son" item="son">
+                    <li>
+                        <a href="{:U('Channel/index',['pid'=>$son['parent_id'],'cid'=>$son['id']] )}" <if condition="$son['current']">class='channel-select'</if> >{$son.name} <span>({$son.article})</span></a>
+                    </li>
+                </foreach>
+            </ul>
+
+        </div><!-- End sidebar categories-->
+
+        <h3 class="sidebar-title">最新文章</h3>
+        <div class="sidebar-item recent-posts">
+
+            <foreach name="channelItem.latestNews" item="news">
+                <div class="post-item clearfix">
+                    <if condition="$news['image']">
+                        <img src="{$news.image}" alt="" >
+                        <else/>
+                        <img src="__PUBLIC__/image/logo_index.png" alt="" style="height: 60px;">
+                    </if>
+
+
+                    <h4><a href="{:U('Article/index',['id'=>$news['id'],'pid'=>$news['pid'],'cid'=>$news['cid']])}"><script>mySubstring('{$news.title}',20)</script></a></h4>
+                    <time datetime="{$news.create_time}">{$news.create_time}</time>
+                </div>
+            </foreach>
+
+        </div><!-- End sidebar recent posts-->
+
+
+
+    </div><!-- End sidebar -->
+
+</div>

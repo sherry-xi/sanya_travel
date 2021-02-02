@@ -1,0 +1,129 @@
+<include file="Component/header"/>
+<div class="form-block" >
+    <form>
+        <div class="layui-form layuimini-form form-main" >
+
+            <div class="layui-form-item">
+                <label class="layui-form-label  <if condition='!$userId'>  required </if>">账号</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$user.username}" name="username" autocomplete="off" id="username" placeholder="输入账号" class="layui-input"
+                           lay-verify="required" lay-reqtext="账号不能为空"
+                    <if condition="$user['id']">readonly="readonly"</if>
+                    />
+                    <if condition="!$user['id']">
+                        <div class="layui-form-mid layui-word-aux">请填写2-12位数字、字母、下划线</div>
+                    </if>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label required">用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$user.truename}" name="truename" id="truename"   autocomplete="off"   placeholder="请输入用户名" value="" class="layui-input" lay-verify="required" lay-reqtext="用户名不能为空">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label  <if condition='!$userId'>  required </if>">密码</label>
+                <div class="layui-input-block">
+                    <input type="password" name="password" id="password"  value="" class="layui-input" placeholder="输入密码"
+                    <if condition="!$userId"> lay-verify="required" lay-reqtext="密码不能为空"</if>
+                    >
+
+                    <div class="layui-form-mid layui-word-aux">请填写6-16位字符，不能包含空格<if condition="$userId">(留空则不修改密码)</if></div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label <if condition='!$userId'>  required </if>">确认密码</label>
+                <div class="layui-input-block">
+                    <input type="password" name="confirmPassword" id="confirmPassword"   value="" class="layui-input" placeholder="确认密码"
+                    <if condition="!$userId">lay-verify="required" lay-reqtext="确认密码不能为空"</if>
+                    >
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色</label>
+                <div class="layui-input-block">
+                    <select  lay-filter="aihao" name="role_id" id="role_id">
+                        <foreach name="roles" item="role">
+                            <option value="{$role.id}" <if condition="$user['role_id'] eq $role['id'] "> selected='selected' </if> >{$role.name}-({$role.remark})</option>
+                        </foreach>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <input type="hidden" name="id" id="id" value="{$user.id}"/>
+                    <button class="{$theme.form.submit.style}" lay-submit lay-filter="saveBtn">{$theme.form.submit.text}</button>
+                    <button class="{$theme.form.cancel.style}" id="cancelFormBtn">{$theme.form.cancel.text}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<include file="Component/footer"/>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+        //监听提交
+
+        form.on('submit(saveBtn)', function (data) {
+
+            var userid   = $("#id").val();
+            var password = $("#password").val();
+
+            if(!regById(/^[\S]{2,12}$/,'username')){
+                layerErr("账号格式错误，正确是2-12位字符，不能包含空格");
+                $("#username").focus();
+                return false;
+            }
+
+            if(userid == ''){ //添加用户必须填写密码
+                if(isEmpty("password") === false){
+                    layerErr("请输入密码");
+                    $("#password").focus();
+                    return false;
+                }
+            }
+            if(password != ''){
+                if(!regById(/^[\S]{6,16}$/,'password')){
+                    layerErr("密码格式错误，正确是6-16位字符，不能包含空格");
+                    $("#password").focus();
+                    return false;
+                }
+                if(isEmpty("confirmPassword") === false){
+                    layerErr("请确认密码");
+                    $("#confirmPassword").focus();
+                    return false;
+                }
+                if(!compareById('password',"confirmPassword")){
+                    layerErr("两次输入密码不相同");
+                    $("#confirmPassword").focus().select();
+                    return false;
+                }
+            }
+            $.post("{:U('userManage/editHandle')}",data.field,function(data){
+                if(data.status == 1){
+                    parent.layerErr(data.msg);
+                }else{
+                    parent.layerSuc(data.msg);
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                    parent.reloadLayerTableData();
+                }
+            },'json');
+            return false;
+        });
+
+    });
+    //表单填写 点击取消
+    $("#cancelFormBtn").click(function(){
+        parent.layer.close(parent.layer.getFrameIndex(window.name));
+        parent.reloadLayerTableData();
+    });
+
+</script>

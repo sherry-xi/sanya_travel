@@ -1,0 +1,45 @@
+
+/*头部*/
+#header.header-transparent{
+    background-color: #2e4f5f;
+}
+#footer,#footer .footer-top{background-color: #2e4f5f !important;}
+
+
+/*学院首页*/
+.home-page,.home-page:hover{color:#fff;}
+
+/*导航*/
+.nav-menu a {
+    color: #feffff;
+    font-size: 16px;
+}
+.nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
+    color: #a2cce3;
+}
+
+/*搜索按钮*/
+.search-btn{background: #ffc107;color: #fff;}
+
+/*返回头部*/
+.back-to-top,.back-to-top:hover{
+    background: #68A4C4;
+    color: #fff;
+}
+
+/*标题底部颜色快*/
+.section-title h2::after{}
+/*新闻动态列表 勾勾*/
+i.icofont-check {
+
+}
+
+.information  .section-title h2::before {
+    left: calc(10% - 60px);}
+.information .section-title h2::after {
+    left: calc(10% - 20px);
+}
+
+.services-section-two{padding-top: 0px;}
+.services-section-two  .inner-box{margin-bottom: 80px;}
+section.features{padding: 30px 0px;}

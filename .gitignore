@@ -1,0 +1,5 @@
+/.idea/
+/WebData
+/Temp/
+.htaccess
+nginx.htaccess

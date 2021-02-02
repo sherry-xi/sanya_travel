@@ -1,0 +1,17 @@
+.top-panel {border: 1px solid #eceff9;border-radius: 5px;text-align: center;}
+.top-panel > .layui-card-body{height: 60px;}
+.top-panel-number{line-height:60px;font-size: 30px;border-right:1px solid #eceff9;}
+.top-panel-tips{line-height:30px;font-size: 12px}
+
+.layui-card {border:1px solid #f2f2f2;border-radius:5px;}
+.icon {margin-right:10px;color:#1aa094;}
+.icon-cray {color:#ffb800!important;}
+.icon-blue {color:#1e9fff!important;}
+.icon-tip {color:#ff5722!important;}
+
+.layuimini-notice:hover {background:#f6f6f6;}
+.layuimini-notice {padding:7px 16px;clear:both;font-size:12px !important;cursor:pointer;position:relative;transition:background 0.2s ease-in-out;}
+.layuimini-notice-title,.layuimini-notice-label {
+    padding-right: 70px !important;text-overflow:ellipsis!important;overflow:hidden!important;white-space:nowrap!important;}
+.layuimini-notice-title {line-height:28px;font-size:14px;}
+.layuimini-notice-extra {position:absolute;top:50%;margin-top:-8px;right:16px;display:inline-block;height:16px;color:#999;}

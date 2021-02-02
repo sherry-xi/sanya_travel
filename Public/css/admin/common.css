@@ -1,0 +1,27 @@
+
+.pointer{cursor: pointer}
+
+/* 自定义提示框样式 */
+.layui-layer-molv2 .layui-layer-title{background:#009f95;color:#fff;border:none}
+.layui-layer-molv2 .layui-layer-btn a{background:#009f95;border-color:#009f95}
+.layui-layer-molv2 .layui-layer-btn {background:#fff}
+.layui-layer-molv2 .layui-layer-btn1{background:#fff}
+.layui-layer-molv2 .layui-layer-btn .layui-layer-btn1{background: #fff;border-color: #E9E7E7;}
+
+
+/* 分页 */
+.page-show {text-align: right;}
+.page-show  span{display: inline-block;padding:1px 8px;background: #fdfdfd;
+    color:#333;margin:0px;border :1px solid #a8c5c3;margin-left:2px;border-radius: 3px;}
+.page-show  a{display: inline-block;padding:2px 10px;background: #1aa094;
+    color:#fff;margin-left:2px;border-radius: 3px;}
+
+/* 列表搜索*/
+.main-search{height:35px;margin-top:5px;border:0px solid #ccc;}
+
+/* 表单*/
+.form-block{border:1px solid  #e6e6e6;}
+.form-main{width: 60%;padding: 30px 0px;}
+
+.red{color:red;}
+.green{color: green;}

@@ -1,0 +1,97 @@
+<include file="Public/header"/>
+<main id="main">
+
+  <!-- ======= Blog Section ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2></h2>
+
+        <ol>
+          <li><a href="index.html"></a></li>
+          <li></li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Blog Section -->
+
+  <!-- ======= Blog Section ======= -->
+  <section class="blog" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-8 entries">
+
+
+            <article class="entry">
+
+
+                <table class="table">
+                  <tbody>
+
+                  <foreach name="files" item="value">
+                    <tr>
+                      <td><a style="font-size: 15px;color: #0C0C0C" href="{$value.path}"  download="{$value.name}">{$value.name}</a></td>
+                      <td><small>{$value.size}</small></td>
+                      <td>
+                        <a href="{$value.url}" download="{$value.name}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                        </svg>
+                        </a>
+                      </td>
+                    </tr>
+                  </foreach>
+
+                  <tr>
+                    <td colspan="3">
+                      <div class="blog-pagination">
+
+                      <ul class="justify-content-center">
+                        {$page}
+                      </ul>
+                    </div></td>
+                  </tr>
+
+                  </tbody>
+                </table>
+
+            </article><!-- End blog entry -->
+
+
+
+          <if condition="!files">
+            <article class="entry">
+              <h2 class="entry-title">
+                <a href="#">暂时没资料^_^</a>
+              </h2>
+            </article><!-- End blog entry -->
+          </if>
+
+          <if condition="$article">
+            <div class="blog-pagination">
+
+              <ul class="justify-content-center">
+                {$page}
+              </ul>
+            </div>
+          </if>
+
+        </div><!-- End blog entries list -->
+
+        <include file="Public/right"/>
+        <!-- End blog sidebar -->
+
+      </div><!-- End .row -->
+
+    </div><!-- End .container -->
+
+  </section><!-- End Blog Section -->
+
+</main><!-- End #main -->
+
+<include file="Public/footer"/>

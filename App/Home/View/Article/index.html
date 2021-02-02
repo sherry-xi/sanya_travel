@@ -1,0 +1,82 @@
+<include file="Public/header"/>
+<style>
+  .entry-content img{max-width: 90%;}
+</style>
+<main id="main">
+
+  <!-- ======= Blog Section ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2></h2>
+
+        <ol>
+          <li><a href="index.html"></a></li>
+          <li></li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Blog Section -->
+
+  <!-- ======= Blog Section ======= -->
+  <section class="blog" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-8 entries">
+
+
+            <article class="entry">
+
+
+            <h2 class="entry-title">
+              <a href="">{$article.title}</a>
+            </h2>
+
+            <div class="entry-meta">
+              <ul>
+                <li class="d-flex align-items-center"><i class="icofont-user"></i><a href="javascript:;">{$article.admin}</a></li>
+                <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="javascript:;"><time datetime="{$article.create_time}">{$article.create_time}</time></a></li>
+              </ul>
+            </div>
+
+            <div class="entry-content">
+              {$article.content}
+            </div>
+            <div>
+                <p>上一篇:
+                    <if condition="$prev">
+                        <a href="{:U('Article/index',['pid'=>$pid,'cid'=>$prev['cid'],'id'=>$prev['id']])}">{$prev.title}</a>
+                        <else/>
+                        没有了
+                    </if>
+
+                </p>
+                <p>下一篇:
+                    <if condition="$next">
+                        <a href="{:U('Article/index',['pid'=>$pid,'cid'=>$next['cid'],'id'=>$next['id']])}">{$next.title}</a>
+                        <else/>
+                        没有了
+                    </if>
+                </p>
+            </div>
+          </article><!-- End blog entry -->
+
+
+        </div><!-- End blog entries list -->
+
+        <include file="Public/right"/>
+        <!-- End blog sidebar -->
+
+      </div><!-- End .row -->
+
+    </div><!-- End .container -->
+
+  </section><!-- End Blog Section -->
+
+</main><!-- End #main -->
+
+<include file="Public/footer"/>

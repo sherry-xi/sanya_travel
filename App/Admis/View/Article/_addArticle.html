@@ -1,0 +1,124 @@
+<include file="Component/header"/>
+<!-- 主体内容 -->
+<div class="form-block" >
+    <form action="{:U('Article/addArticleHandle')}" id="addArticleForm" method="post" enctype="multipart/form-data">
+    <div class="layui-form layuimini-form form-main" >
+
+        <div class="layui-form-item" >
+            <label class="layui-form-label">文章标题</label>
+            <div class="layui-input-block">
+                <input type="text" value="{$article.title}" placeholder=" 长度2~4字符内"  class="layui-input" name="title" id="title" />
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">所属导航</label>
+            <div class="layui-input-block">
+                <select><option>ddd</option></select>
+                <select name="cid" id="cid" lay-filter="aihao">
+
+                    <foreach name="channel" item="ch">
+                        <option value="parent_{$ch.id}" <if condition="$ch['id'] eq $article['parent_cid']">selected="selected"</if> style="font-weight: bold;color: #0f4a48">{$ch.name}</option>
+                        <foreach name="ch.son" item="son">
+                            <option value="{$son.id}" <if condition="$son['id'] eq $article['cid']">selected="selected"</if> >&nbsp;&nbsp;&nbsp;{$son.name}</option>
+                        </foreach>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">开放浏览</label>
+            <div class="layui-input-block">
+
+                <input type="radio" name="status" value="0" title="开放"  <if condition="$article['status'] eq 0">checked='checked'</if> />
+                <div class="layui-unselect layui-form-radio layui-form-radioed">
+                    <i class="layui-anim layui-icon"></i><div>开放</div>
+                </div>
+
+                <input type="radio" name="status" value="1" title="不开放" <if condition="$article['status'] eq 1">checked='checked'</if> />
+                <div class="layui-unselect layui-form-radio">
+                    <i class="layui-anim layui-icon"></i><div>不开放</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否显示</label>
+            <div class="layui-input-block">
+
+
+                <input type="radio" name="show" value="0" title="显示"  <if condition="$data['show'] eq 0">checked='checked'</if> />
+                <div class="layui-unselect layui-form-radio layui-form-radioed">
+                    <i class="layui-anim layui-icon"></i><div>显示</div>
+                </div>
+
+                <input type="radio" name="show" value="1" title="不显示" <if condition="$data['show'] eq 1">checked='checked'</if> />
+                <div class="layui-unselect layui-form-radio">
+                    <i class="layui-anim layui-icon"></i><div>不显示</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">置顶设置</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="top" value="1" id="top" <if condition="$article['top'] eq 1">checked='checked'</if>>
+                <label for="top">置顶</label>&nbsp;
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">文章内容</label>
+            <div class="layui-input-block">
+                <textarea id="content" name="content"  style="height:500px;width: 810px;">{$article.content}</textarea>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+    <form action="{:U('Article/addArticleHandle')}" id="addArticleForm" method="post" enctype="multipart/form-data">
+        <table class="layui-table" style="background: #fbfbfb;" lay-skin="nob">
+
+            <tbody>
+
+            <!--
+            <tr>
+                <td align="right">封面缩略图：</td>
+                <td>
+                    <div style="width: 80px;float: left;">
+                    <a class="layui-btn layui-btn-small" id="img">选择图片</a>
+                    </div>
+                    <div class="green" style="float: left;height:30px;line-height: 30px">最佳大小530px*340px</div>
+                    <input type="text" id="thumbMsg"  style="width:1px;border:0px;height:1px;"/>
+                    <input type="hidden" name="thumb" id="thumb" value="{$article.thumb}" />
+                    <div style="float: left;width: 210px;" class="thumb">
+                        <if condition="$article['thumb']">
+                            <a href="__UPLOAD_IMG__/{$article.thumb}" target="_blank">
+                                <img src="__UPLOAD_IMG__/{$article.thumb}" class="img-view">
+                            </a>
+                        </if>
+                    </div>
+
+                </td>
+            </tr>
+            -->
+        </table>
+    </form>
+</div>
+<include file="Component/footer"/>
+
+
+
+<script type="text/javascript" src="__LIB__/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__LIB__/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" src="__JS__/ueditorConfig.js"></script>
+
+<script>
+
+    $(function(){
+        //初始化编辑器
+        initEditor();
+    });
+
+</script>

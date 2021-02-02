@@ -1,0 +1,107 @@
+<include file="Component/header"/>
+
+<style>
+    #edui1{z-index: 1 !important;}
+    .layui-disabled{color: #000 !important;font-weight:bold;font-size:15px;font-style: italic;}
+</style>
+<div class="form-block" >
+    <form action="{:U('addArticleHandle')}" method="post" enctype="multipart/form-data">
+        <div class="layui-form layuimini-form form-main" >
+
+
+        <div class="layui-form-item" >
+            <label class="layui-form-label required">文章标题</label>
+            <div class="layui-input-block">
+                <input type="text" value="{$article.title}" lay-verify="required" lay-reqtext="标题不能为空" class="layui-input" name="title" id="title" />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">所属导航</label>
+            <div class="layui-input-block">
+                <select name="cid" id="cid" lay-filter="aihao"  lay-verify="required" lay-reqtext="请选择导航">
+                    <option value="">选择导航</option>
+                    <foreach name="channel" item="ch">
+                        <option value="parent_{$ch.id}" disabled <if condition="$ch['id'] eq $article['parent_cid']">selected="selected"</if>>{$ch.name}</option>
+                        <foreach name="ch.son" item="son">
+                            <option value="{$son.id}" <if condition="$son['id'] eq $article['cid']">selected="selected"</if> >&nbsp;&nbsp;&nbsp;{$son.name}</option>
+                        </foreach>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">置顶设置</label>
+            <div class="layui-input-block">&nbsp;&nbsp;&nbsp;
+                <input type="checkbox" name="top" lay-skin="switch" <if  condition="$article['top']"> checked </if>  lay-text="文章置顶|不置顶">
+            </div>
+        </div>
+            <if condition="!$user['isNewsPoster']">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">文章审核</label>
+                    <div class="layui-input-block">&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="audit" value="0" title="未审核" <if  condition="$article['audit'] eq 0"> checked </if> >
+                        <input type="radio" name="audit" value="1" title="审核通过" <if  condition="$article['audit'] eq 1"> checked </if>>
+                        <input type="radio" name="audit" value="2" title="审核不通过" <if  condition="$article['audit'] eq 2"> checked </if>>
+                    </div>
+                </div>
+            </if>
+        <div class="layui-form-item">
+            <label class="layui-form-label">文章内容</label>
+            <div class="layui-input-block">
+                <textarea id="content" name="content"  style="height:500px;width: 810px;z-index: -100">{$article.content}</textarea>
+
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+
+                <input type="hidden" name="token" value="{$token}"/>
+                <input type="hidden" name="id" value="{$article.id}"/>
+                <input type="hidden" name="from" value="{$from}"/>
+                <button class="layui-btn" lay-submit >确定</button>
+                <button class="layui-btn layui-btn-primary"   type="reset">取消</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+
+
+<include file="Component/footer"/>
+<script type="text/javascript" src="__LIB__/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__LIB__/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" src="__JS__/ueditorConfig.js"></script>
+<script type="text/javascript" src="__JS__/upload/upload.js"></script>
+<script type="text/javascript">
+
+    $(function(){
+        //初始化编辑器
+        initEditor();
+        $("#cancelBtn").click(function(){
+            history.go(0);
+        });
+    });
+
+
+
+    layui.use(['form'], function () {
+        /*
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+
+        form.on('submit(saveBtn)', function (data) {
+
+            $.post("{:U('addArticleHandle')}",data.field,function(data){
+                if(data.status == 1){
+                    parent.layerErr(data.msg);
+                }else{
+                    parent.layerSuc(data.msg);
+                }
+            },'json');
+            return false;
+        });
+        */
+    });
+</script>

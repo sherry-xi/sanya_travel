@@ -1,0 +1,98 @@
+<include file="Component/header"/>
+
+<div class="form-block" >
+
+        <div class="layui-form layuimini-form form-main" >
+            <div class="layui-form-item">
+                <label class="layui-form-label required">报名层次名称</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$apartment.name}" autocomplete="off" name="name" lay-verify="required" lay-reqtext="报名层次不能为空" class="layui-input"  placeholder="输入专业名"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">选择专业</label>
+                <div class="layui-input-block">
+                    <input type="text" ts-selected="{$majorIds}"  value="{$majorNames}" id="major" readonly lay-verify="required" lay-reqtext="专业不能为空" autocomplete="off" name="major" class="layui-input"/>
+                    <input type="hidden"  value="{$majorIds}"  name="majorIds" id="majorIds"/>
+                    <input type="hidden"  value="{$majorIds}"  name="oldMajorIds"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <input type="hidden" name="id" id="id" value="{$apartment.id}"/>
+                    <button class="{$theme.form.submit.style}" lay-submit lay-filter="saveBtn">{$theme.form.submit.text}</button>
+                    <button class="{$theme.form.cancel.style}" id="cancelFormBtn">{$theme.form.cancel.text}</button>
+                </div>
+            </div>
+        </div>
+</div>
+
+<include file="Component/footer"/>
+<script>
+
+    layui.use(['form',"tableSelect"], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+        //监听提交
+
+        form.on('submit(saveBtn)', function (data) {
+            var url = "{:U('AdmissionsApartment/addHandle')}";
+            if($("#id").val()){
+                var url = "{:U('AdmissionsApartment/editHandle')}";
+            }
+            $.post(url,data.field,function(data){
+                if(data.status == 1){
+                    parent.layerErr(data.msg);
+                }else{
+                    parent.layerSuc(data.msg);
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                    parent.reloadLayerTableData();
+                }
+            },'json');
+            return false;
+        });
+
+
+        //开始使用
+        var tableSelect = layui.tableSelect;
+
+        tableSelect.render({
+            elem: '#major',	//定义输入框input对象 必填
+            checkedKey: 'id', //表格的唯一建值，非常重要，影响到选中状态 必填
+            searchKey: 'name',	//搜索输入框的name值 默认keyword
+            searchPlaceholder: '搜索',	//搜索输入框的提示文字 默认关键词搜索
+            height:'300',  //自定义高度
+            width:'400',  //自定义宽度
+            table: {	//定义表格参数，与LAYUI的TABLE模块一致，只是无需再定义表格elem
+                url:"{:U('AdmissionsApartment/getMajor')}",
+                cols: [[
+                    { type: 'checkbox' },
+                    { field: 'id', title: 'ID' },
+                    { field: 'name', title: '专业名称' }
+                ]]
+            },
+
+            done: function (elem, data) {
+                //选择完后的回调，包含2个返回值 elem:返回之前input对象；data:表格返回的选中的数据 []
+                //拿到data[]后 就按照业务需求做想做的事情啦~比如加个隐藏域放ID...
+                var majorNames = '';
+                var majorIds = '';
+                for(i=0;i<data.data.length;i++){
+                    majorNames += (majorNames?',':'')+data.data[i].name;
+                    majorIds += (majorIds?',':'')+data.data[i].id;
+                }
+                elem.val(majorNames);
+                $("#majorIds").val(majorIds);
+            }
+        })
+    });
+
+    //表单填写 点击取消
+    $("#cancelFormBtn").click(function(){
+        parent.layer.close(parent.layer.getFrameIndex(window.name));
+        parent.reloadLayerTableData();
+    });
+</script>

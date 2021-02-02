@@ -1,0 +1,71 @@
+
+    <include file="Component/header"/>
+    <script type="text/html" id="toolbarDemo">
+        <div class="layui-btn-container">
+            <button class="{$theme.toolbar.add.style} data-add-btn"  lay-event="add">{$theme.toolbar.add.text}</button>
+        </div>
+    </script>
+
+    <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+    <script type="text/html" id="currentTableBar">
+        <div class="layui-btn-group">
+            <a class="{$theme.databar.edit.style} " title="编辑" lay-event="edit">{$theme.databar.edit.icon}</a>
+            <a class="{$theme.databar.delete.style}  "  title="删除" lay-event="delete">{$theme.databar.delete.icon}</a>
+        </div>
+    </script>
+
+
+    <include file="Component/footer"/>
+    <script src="__JS__/layerTable.js"></script>
+    <script>
+        var config = {
+            render:{ //初时候加载数据
+                url: "{:U('HomeSlide/index',['get'=>1])}",
+                cols:[
+                    {field: 'show_id', title: 'ID',width:100},
+                    {field: 'link', title: '链接'},
+                    {field: 'show_img', title: '图片'},
+                    {field: 'show', title: '状态'},
+                    {field: 'sort', title: '排序'},
+                    {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+                ]
+            },
+            toolbar:{  //工具栏监听,
+                add:{  //添加数据事件
+                    action:"childWindow",
+                    title:'添加幻灯片',
+                    content:"{:U('HomeSlide/add')}",
+                }
+            },
+            recordToolbar:{ //每行数据的操作工具
+                delete:{ //删除数据事件
+                    action:"confirm",
+                    message:"您确定要删除吗?",
+                    callback:function(obj){
+                        $.get("{:U('HomeSlide/delete')}",{id:obj.data.id,img:obj.data.img},function(data){
+                            if(data.status == 1){
+                                layerErr(data.msg);
+                            }else{
+                                reloadLayerTableData();
+                                layerSuc(data.msg);
+                            }
+                        },'json');
+                    }
+                },
+                edit:{
+                    action:"childWindow",
+                    title:'编辑幻灯片',
+                    urlParam:{id:""},
+                    content:"{:U('HomeSlide/add')}",
+                }
+            }
+        };
+
+        layerTableHandle(config);
+
+        //重新加载表格数据 ，提供子窗口关闭后使用
+        function reloadLayerTableData(){
+            layerTableHandle({render:config.render});
+        }
+    </script>

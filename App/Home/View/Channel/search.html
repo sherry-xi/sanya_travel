@@ -1,0 +1,88 @@
+<include file="Public/header"/>
+<main id="main">
+
+  <!-- ======= Blog Section ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2></h2>
+
+        <ol>
+          <li><a href="index.html"></a></li>
+          <li></li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Blog Section -->
+
+  <!-- ======= Blog Section ======= -->
+  <section class="blog" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-8 entries">
+
+          <foreach name="article" item="value">
+            <article class="entry">
+
+              <if condition="$value['image']">
+                <div class="entry-img">
+
+                  <img src="{$value.image}" alt="无缩略图" class="img-fluid">
+                </div>
+              </if>
+
+              <h2 class="entry-title">
+                <a href="{:U('Article/index',['id'=>$value['id'],'pid'=>$value['pid'],'cid'=>$value['cid']])}" target="_blank">{$value.title}</a>
+              </h2>
+
+              <div class="entry-meta">
+                <ul>
+                  <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="javascript:;"><time datetime="{$value.create_time}">{$value.create_time}</time></a></li>
+                </ul>
+              </div>
+
+              <div class="entry-content">
+                <div class="read-more">
+                  <a href="{:U('Article/index',['id'=>$value['id'],'pid'=>$value['pid'],'cid'=>$value['cid']])}"  target="_blank">详细</a>
+                </div>
+              </div>
+
+            </article><!-- End blog entry -->
+          </foreach>
+
+
+          <if condition="!$article">
+            <article class="entry">
+              <h2 class="entry-title">
+                <a href="#">没有搜索到数据^_^</a>
+              </h2>
+            </article><!-- End blog entry -->
+          </if>
+
+          <if condition="$article">
+            <div class="blog-pagination">
+
+              <ul class="justify-content-center">
+                {$page}
+              </ul>
+            </div>
+          </if>
+
+        </div><!-- End blog entries list -->
+
+        <include file="Public/latestNews"/>
+        <!-- End blog sidebar -->
+
+      </div><!-- End .row -->
+
+    </div><!-- End .container -->
+
+  </section><!-- End Blog Section -->
+
+</main><!-- End #main -->
+
+<include file="Public/footer"/>

@@ -1,0 +1,49 @@
+<include file="Component/header"/>
+
+<div class="form-block" >
+
+        <div class="layui-form layuimini-form form-main" >
+            <div class="layui-form-item">
+                <label class="layui-form-label required">专业名称</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$major.name}" autocomplete="off" name="name" lay-verify="required" lay-reqtext="专业名称不能为空" class="layui-input"  placeholder="输入专业名"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <input type="hidden" name="id" id="id" value="{$major.id}"/>
+                    <button class="{$theme.form.submit.style}" lay-submit lay-filter="saveBtn">{$theme.form.submit.text}</button>
+                    <button class="{$theme.form.cancel.style}" id="cancelBtn">{$theme.form.cancel.text}</button>
+                </div>
+            </div>
+        </div>
+</div>
+
+<include file="Component/footer"/>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+        //监听提交
+
+        form.on('submit(saveBtn)', function (data) {
+            var url = "{:U('AdmissionsMajor/addHandle')}";
+            if($("#id").val()){
+                var url = "{:U('AdmissionsMajor/editHandle')}";
+            }
+            $.post(url,data.field,function(data){
+                if(data.status == 1){
+                    parent.layerErr(data.msg);
+                }else{
+                    parent.layerSuc(data.msg);
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                    parent.reloadLayerTableData();
+                }
+            },'json');
+            return false;
+        });
+    });
+</script>

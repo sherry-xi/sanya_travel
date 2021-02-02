@@ -1,0 +1,76 @@
+<include file="Component/header"/>
+<style>
+    body{background: #fff;}
+</style>
+
+<div style="margin: auto">
+    <table class="layui-table" style="" lay-skin="nob">
+
+        <tbody>
+        <tr>
+            <td></td>
+            <td  >
+                <h1 style="font-size:20px;color: #009688">我的账号信息</h1>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" width="30%">账号：</td>
+            <td>{$user.username}</td>
+        </tr>
+        <tr>
+            <td align="right">角色：</td>
+            <td>{$user.role.name}</td>
+        </tr>
+
+        <tr>
+            <td align="right">姓名：</td>
+            <td>{$user.truename}</td>
+        </tr>
+        <!--
+        <tr>
+            <td align="right">手机号：</td>
+            <td>{$user.mobile}</td>
+        </tr>
+        <tr>
+            <td align="right">邮箱：</td>
+            <td>{$user.email}</td>
+        </tr>
+
+        <tr>
+            <td align="right">最近一次更新信息：</td>
+            <td>{$user.update_time}</td>
+        </tr>
+        <tr>
+            <td align="right">最近一次登陆时间：</td>
+            <td>{$log.create_time}</td>
+        </tr>
+        <tr>
+            <td align="right">最近一次登陆IP：</td>
+            <td>{$log.ip}</td>
+        </tr>
+        -->
+        </tbody>
+    </table>
+
+    <table class="layui-table" lay-skin="line">
+        <thead>
+        <tr>
+            <th>最近登录/退出</th>
+            <th>IP</th>
+            <th>日期</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="logs" item="v">
+            <tr>
+                <td>
+                    <if condition="$v['action'] eq 'loginHandle'">登录 <else/>退出</if>
+                </td>
+                <td>{$v.ip}</td>
+                <td>{$v.create_time}</td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+</div>
+<include file="Component/footer"/>

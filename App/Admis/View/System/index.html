@@ -1,0 +1,182 @@
+<include file="Component/header"/>
+<link rel="stylesheet" href="__LIB__/color/jquery.minicolors.css">
+<div class="form-block">
+    <form>
+        <div class="layui-form layuimini-form form-main" >
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">学校名称</label>
+            <div class="layui-input-block">
+                <input type="text" value="{$config.school}" name="school" class="layui-input"  lay-verify="required" lay-reqtext="账号不能为空"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required"  >网站名称</label>
+            <div class="layui-input-block">
+                <input type="text" value="{$config.website}" name="website" class="layui-input" lay-verify="required"/>
+            </div>
+        </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required"  >网站域名</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$config.domain}" name="domain" class="layui-input" lay-verify="required"/>
+                </div>
+            </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"  >网站关键字</label>
+            <div class="layui-input-block">
+                <input type="text" value="{$config.keyword}" name="keyword" class="layui-input" lay-verify="required"/>
+                <div class="layui-form-mid layui-word-aux">多个用逗号隔开,建议8个字内（有助于搜索引擎搜索）</div>
+            </div>
+        </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required"  >网站配色</label>
+                <div class="layui-input-block">
+                    <span class="color-select pointer" ></span>
+                    <input type="hidden" value="{$config.styleColor}" name="styleColor" id="styleColor"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label required"  >学校地址</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$config.address}" name="address" class="layui-input" lay-verify="required"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label required"  >电话</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$config.phone}" name="phone" class="layui-input" lay-verify="required"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required"  >Email</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$config.email}" name="email" class="layui-input" lay-verify="required"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required"  >QQ</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$config.qq}" name="qq" class="layui-input" lay-verify="required"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label required"  >微信</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$config.weixin}" name="weixin" class="layui-input" lay-verify="required"/>
+                </div>
+            </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required"  >网站描述</label>
+            <div class="layui-input-block">
+                <textarea class="layui-textarea" name="description" lay-verify="required">{$config.description}</textarea>
+                <div class="layui-form-mid layui-word-aux">建议80个字内（有助于搜索引擎搜索）</div>
+            </div>
+        </div>
+
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label" >登录验证码</label>
+                <div class="layui-input-block">
+
+                    <input type="radio" name="verification_code" value="1" title="开启"  <if condition="!$config or $config.verification_code eq 1">checked='checked'</if> />
+                    <div class="layui-unselect layui-form-radio layui-form-radioed">
+                        <i class="layui-anim layui-icon"></i><div>开放</div>
+                    </div>
+
+                    <input type="radio" name="verification_code" value="0" title="关闭" <if condition="$config.verification_code eq 0">checked='checked'</if> />
+                    <div class="layui-unselect layui-form-radio">
+                        <i class="layui-anim layui-icon"></i><div>关闭</div>
+                    </div>
+
+                </div>
+            </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" >关闭网站</label>
+            <div class="layui-input-block">
+
+                <input type="radio" name="close" value="0" title="开放"  <if condition="!$config or $config.close eq 0">checked='checked'</if> />
+                <div class="layui-unselect layui-form-radio layui-form-radioed">
+                    <i class="layui-anim layui-icon"></i><div>开放</div>
+                </div>
+
+                <input type="radio" name="close" value="1" title="关闭" <if condition="$config.close eq 1">checked='checked'</if> />
+                <div class="layui-unselect layui-form-radio">
+                    <i class="layui-anim layui-icon"></i><div>关闭</div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required"  >关闭原因</label>
+            <div class="layui-input-block">
+                <textarea class="layui-input" name="close_reasion"  lay-verify="required" style="padding-top: 10px">{$config.close_reasion}</textarea>
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required"  >底部版权信息</label>
+            <div class="layui-input-block">
+                <textarea class="layui-input" name="right" lay-verify="required" rows="3" style="padding-top: 10px">{$config.right}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
+                <button type="submit" class="{$theme.form.submit.style}" lay-submit lay-filter="saveBtn">{$theme.form.submit.text}</button>
+                <input type="hidden" name="token" value="{$token}"/>
+                <button type="reset" class="{$theme.form.cancel.style}">{$theme.form.cancel.text}</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+<include file="Component/footer"/>
+<script src="__LIB__/color/jquery.minicolors.js"></script>
+<script>
+
+layui.use(['form'], function(){
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+
+        form.on('submit(saveBtn)', function (data) {
+            ;
+            $.post("{:U('System/baseSet')}",data.field,function(data){
+                if(data.status == 1){
+                    layerErr(data.msg);
+                }else{
+                    layerSuc(data.msg);
+                }
+            },'json');
+            return false;
+        });
+});
+$(function(){
+    $(".color-select").minicolors({
+        control: $(this).attr('data-control') || 'hue',
+        defaultValue: $(this).attr('data-defaultValue') || '{$config.styleColor}',
+        inline: $(this).attr('data-inline') === 'true',
+        letterCase: $(this).attr('data-letterCase') || 'lowercase',
+        opacity: $(this).attr('data-opacity'),
+        position: $(this).attr('data-position') || 'bottom left',
+        change: function(hex, opacity) {
+            if( !hex ){
+                return;
+            }
+            if( opacity ) {
+                hex += ', ' + opacity;
+            }
+            $("#styleColor").val(hex);
+        },
+
+    });
+});
+</script>
