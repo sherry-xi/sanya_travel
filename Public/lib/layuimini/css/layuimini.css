@@ -3,7 +3,7 @@
  */
 /**头部-配色*/
 .layui-layout-admin .layui-header {
-    background-color: #1aa094 !important;
+    /*background-color: #1aa094 !important;*/
 }
 
 .layui-header > ul > .layui-nav-item.layui-this, .layuimini-tool i:hover {

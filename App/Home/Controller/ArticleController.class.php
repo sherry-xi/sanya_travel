@@ -12,7 +12,7 @@ class ArticleController extends BaseController{
     public function index(){
 
         $id = I('id');
-        $article = MS('article')->where(['id'=>$id])->find();
+        $article = MS('article')->where(['id'=>$id,'is_del'=>0,'audit'=>1])->find();
 
 
         //上一篇，下一篇
@@ -32,11 +32,10 @@ class ArticleController extends BaseController{
             ->where($where)
             ->order("top desc,id desc")
             ->find();
-        $article['admin'] = MS("admin")->where(['id'=>$article['admin_id']])->getField('truename');
+        if($article){
+            $article['admin'] = MS("admin")->where(['id'=>$article['admin_id']])->getField('truename');
+        }
 
-
-        //临时：
-        $article['content'] = str_replace("/WebData/upload/ueditor","http://192.168.111.1/sanya_travel//WebData/upload/ueditor",$article['content']);
 
         $this->articleViewLog($id);
         $this->assign('next',$next);

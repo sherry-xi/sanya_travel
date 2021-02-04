@@ -28,42 +28,51 @@
 
         <div class="col-lg-8 entries">
 
+            <if condition="!$article">
+                <article class="entry">
+                    <h2 class="entry-title">
+                        <a href="#">文章不存在^_^</a>
+                    </h2>
+                </article><!-- End blog entry -->
+             <else/>
 
-            <article class="entry">
+                <article class="entry">
 
 
-            <h2 class="entry-title">
-              <a href="">{$article.title}</a>
-            </h2>
+                    <h2 class="entry-title">
+                        <a href="">{$article.title}</a>
+                    </h2>
 
-            <div class="entry-meta">
-              <ul>
-                <li class="d-flex align-items-center"><i class="icofont-user"></i><a href="javascript:;">{$article.admin}</a></li>
-                <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="javascript:;"><time datetime="{$article.create_time}">{$article.create_time}</time></a></li>
-              </ul>
-            </div>
+                    <div class="entry-meta">
+                        <ul>
+                            <li class="d-flex align-items-center"><i class="icofont-user"></i><a href="javascript:;">{$article.admin}</a></li>
+                            <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="javascript:;"><time datetime="{$article.create_time}">{$article.create_time}</time></a></li>
+                        </ul>
+                    </div>
 
-            <div class="entry-content">
-              {$article.content}
-            </div>
-            <div>
-                <p>上一篇:
-                    <if condition="$prev">
-                        <a href="{:U('Article/index',['pid'=>$pid,'cid'=>$prev['cid'],'id'=>$prev['id']])}">{$prev.title}</a>
-                        <else/>
-                        没有了
-                    </if>
+                    <div class="entry-content">
+                        {$article.content}
+                    </div>
+                    <div>
+                        <p>上一篇:
+                            <if condition="$prev">
+                                <a href="{:U('Article/index',['pid'=>$pid,'cid'=>$prev['cid'],'id'=>$prev['id']])}">{$prev.title}</a>
+                                <else/>
+                                没有了
+                            </if>
 
-                </p>
-                <p>下一篇:
-                    <if condition="$next">
-                        <a href="{:U('Article/index',['pid'=>$pid,'cid'=>$next['cid'],'id'=>$next['id']])}">{$next.title}</a>
-                        <else/>
-                        没有了
-                    </if>
-                </p>
-            </div>
-          </article><!-- End blog entry -->
+                        </p>
+                        <p>下一篇:
+                            <if condition="$next">
+                                <a href="{:U('Article/index',['pid'=>$pid,'cid'=>$next['cid'],'id'=>$next['id']])}">{$next.title}</a>
+                                <else/>
+                                没有了
+                            </if>
+                        </p>
+                    </div>
+                </article><!-- End blog entry -->
+            </if>
+
 
 
         </div><!-- End blog entries list -->
