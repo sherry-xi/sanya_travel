@@ -1901,3 +1901,16 @@ div.edui-box {
 .edui-default  .edui-pastecontainer .edui-button  .edui-state-hover .edui-plaintxticon{
     background-position: -72px -34px;
 }
+/* 秀米图标 */
+.edui-button.edui-for-xiumi-connect .edui-button-wrap .edui-button-body .edui-icon {
+    background-image: url("/Public/image/xiumi-connect-icon.png") !important;
+    background-size: contain;
+}
+
+/* 135编辑器图标 */
+.edui-button.edui-for-135editor .edui-button-wrap .edui-button-body .edui-icon {
+    background-image: url("/Public/image/editor-135-icon.png") !important;
+    background-size: 85%;
+    background-position: center;
+    background-repeat: no-repeat;
+}

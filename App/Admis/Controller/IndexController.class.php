@@ -66,8 +66,8 @@ class IndexController extends BaseController{
                     'href' => U('welcome')
                     ],
                 'logoInfo' => [
-                    'title' => '旅业管理学院',
-                    'image' => "/Public/image/logo_admin.png",
+                    'title' => '旅游与康体产业学院',
+                    'image' => "/Public/image/logo_index.png",
                     'href' => U('Index')
                     ],
                 'menuInfo' => [
