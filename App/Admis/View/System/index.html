@@ -175,6 +175,9 @@ $(function(){
                 hex += ', ' + opacity;
             }
             $("#styleColor").val(hex);
+            parent.$(".layui-layout-admin .layui-header").css("cssText","background-color:"+hex+" !important");
+            parent.$(".layuimini-menu-left .layui-nav-tree .layui-this a").css("cssText","background-color:"+hex+" !important");
+
         },
 
     });

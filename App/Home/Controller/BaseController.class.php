@@ -53,9 +53,8 @@ class BaseController extends Controller{
         $this->config = formatConfig(M('config')->select());
 
         if($this->config['close']){
-            //网站关闭了
-            $msg = $this->config['close_reasion']?$this->config['close_reasion']:'抱歉！网站维护中,暂时关闭';
-            echo "<h1 style='text-align:center;margin-top:200px;color:#666;'>$msg</h1>";
+            $this->assign('reasion',$this->config['close_reasion']);
+            $this->display("index/close");
             exit;
         }
     }

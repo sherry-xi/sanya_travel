@@ -48,7 +48,6 @@ class UserController extends BaseController{
         }
         $password = I('password');
         $data = array(
-            'id'        => session("user.id"),
             'truename'  => trim(I("post.truename")),
         );
         if($password){
@@ -60,7 +59,7 @@ class UserController extends BaseController{
                 $this->ajax(1,"新密码与旧密码一致");
             }
         }
-        $res = MS("admin")->save($data);
+        $res = MS("admin")->where(['id'=>I('id')])->save($data);
         if($password){
             $this->ajax(2,"密码修改成功请重新登陆吧");
         }else{
