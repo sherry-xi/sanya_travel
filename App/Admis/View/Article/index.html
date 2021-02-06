@@ -77,7 +77,15 @@
                 {field: 'navigator', title: '所属导航'},
                 {field: 'top', title: '文章置顶',width:100,hide:true},
                 {field: 'viewCnt', title: '浏览次数',width:100,hide:true},
-                {field: 'audit', title: '审核状态',width:100},
+                {field: 'audit', title: '审核状态',width:100,templet:function(data){
+                    if(data.audit == '未审核'){
+                        return '<span  class="green">未审核</span>';
+                    }else if(data.audit == '审核不通过'){
+                        return '<span  class="red">审核不通过</span>';
+                    }else{
+                        return data.audit;
+                    }
+                    }},
                 {field: 'create_time', title: '创建时间'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center",width:150}
             ],

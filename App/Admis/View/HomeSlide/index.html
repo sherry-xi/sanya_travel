@@ -26,7 +26,13 @@
                     {field: 'show_id', title: 'ID',width:100},
                     {field: 'link', title: '链接'},
                     {field: 'show_img', title: '图片'},
-                    {field: 'show', title: '状态'},
+                    {field: 'show', title: '状态',templet:function(data){
+                        if(data.show == '不显示'){
+                            return '<span  class="red">不显示</span>';
+                        }else{
+                            return '<span  class="green">显示</span>';
+                        }
+                        }},
                     {field: 'sort', title: '排序'},
                     {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
                 ]

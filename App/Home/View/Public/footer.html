@@ -12,7 +12,7 @@
                     <h4>实用链接</h4>
                     <ul>
                         <foreach name="quikLink" item="v" >
-                            <li><i class="bx bx-chevron-right"></i> <a href="{:U('Channel/index',['pid'=>$value['id'],'sid'=>$v['id']])}">{$v.name}</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="{:U('Channel/index',['pid'=>$v['parent_id'],'cid'=>$v['id']])}">{$v.name}</a></li>
                         </foreach>
 
                     </ul>
