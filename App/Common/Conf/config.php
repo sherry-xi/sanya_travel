@@ -16,14 +16,14 @@ return array(
 
     'UPLOAD_IMAGE' => '/WebData/upload/image/', // 图片上传文件夹
     'UPLOAD_FILE' => '/WebData/upload/file/', // 文件上传文件夹
-
+    'WEB_ROOT' => '',//项目绝对路径
 
     //拓展配置
     'LOAD_EXT_CONFIG' => 'mysql,language,channel,web,theme',
 
     'TMPL_ACTION_ERROR'     =>  './Component/dispatch_jump', // 默认错误跳转对应的模板文件
     'TMPL_ACTION_SUCCESS'   =>  './Component/dispatch_jump', // 默认成功跳转对应的模板文件
-    'TMPL_EXCEPTION_FILE'   =>  './Public/Tpl/think_exception.tpl',// 异常页面的模板文件
+    //'TMPL_EXCEPTION_FILE'   =>  './Public/Tpl/think_exception.tpl',// 异常页面的模板文件
 
     'MESSAGE_ERR' => '操作繁忙,请刷新再试试',
 

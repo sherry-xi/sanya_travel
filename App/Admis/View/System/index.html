@@ -153,7 +153,7 @@ layui.use(['form'], function(){
                 if(data.status == 1){
                     layerErr(data.msg);
                 }else{
-                    layerSuc(data.msg);
+                    layer.msg(data.msg,{icon:6,offset: '200px'});
                 }
             },'json');
             return false;

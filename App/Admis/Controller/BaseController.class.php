@@ -31,6 +31,10 @@ class BaseController extends Controller{
     public function __construct(){
 
         parent::__construct();
+        if(IS_AJAX){
+            ob_clean();
+        }
+
 
         $this->dbTool   = new DBTool();
         $this->userTool = new UserTool();
