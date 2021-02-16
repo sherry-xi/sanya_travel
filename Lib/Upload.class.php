@@ -22,7 +22,7 @@ class Upload{
         $upload->savePath  =     ''; // 设置附件上传（子）目录
 
         //来源页面不同存储位置不同
-        $path = ""; //相对路径
+        $path = C('UPLOAD_IMAGE'); //相对路径
 
         switch (CONTROLLER_NAME){
             case 'File': //文件列表
@@ -53,7 +53,7 @@ class Upload{
         $info['errcode'] = 0;
         $info['msg']     = '上传成功';
         $info['path']    = $path.$info['savepath'].$info['savename'];
-        $info['url']     = C('DOMAIN').$path.$info['savepath'].$info['savename'];
+        $info['url']     = $path.$info['savepath'].$info['savename'];
         return $info;
 
 

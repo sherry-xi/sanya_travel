@@ -9,6 +9,8 @@
 
 namespace Admis\Controller;
 
+use Lib\Upload;
+
 /**
  * Class SystemController
  * @package Admis\Controller
@@ -123,5 +125,13 @@ class SystemController extends BaseController{
         }
 
         $this->ajax(0,'设置成功');
+    }
+
+    /**
+     * 上传文件
+     */
+    public function uploadFile(){
+        $result = (new Upload())->upload();
+        echo "<script>parent.uploadHandle.finish('".json_encode($result)."');</script>";
     }
 }

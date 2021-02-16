@@ -4,7 +4,7 @@ $(function(){
     //手机端特殊处理一些样式
     if(IsMobile()){
         $(".logo-mobile").fadeIn(100);
-        $("#main").css("marginTop","20px");
+       // $("#main").css("marginTop","20px");
 
         $("#footer-quikLink").hide();
         $("#footer-idea").hide();
@@ -12,10 +12,10 @@ $(function(){
         $("#footer-weixin").css("text-align","center");
 
         $(".index-news").css("margin-top","15px");
-
+        $(".slider-main").css("padding-top","80px");
     }else{
         $(".logo-pc").fadeIn(100);
-        $("#main").css("marginTop","65px");
+        //$("#main").css("marginTop","65px");
     }
 
     //横幅朱家 鼠标小手指

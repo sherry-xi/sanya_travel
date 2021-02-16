@@ -16,7 +16,7 @@ return array(
 
     'UPLOAD_IMAGE' => '/WebData/upload/image/', // 图片上传文件夹
     'UPLOAD_FILE' => '/WebData/upload/file/', // 文件上传文件夹
-    'WEB_ROOT' => '',//项目绝对路径
+    'WEB_ROOT' => 'C:\CodeSoft\PhpStudyV8\phpstudy_pro\WWW\sanya_travel',//项目绝对路径
 
     //拓展配置
     'LOAD_EXT_CONFIG' => 'mysql,language,channel,web,theme',

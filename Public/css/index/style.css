@@ -469,15 +469,22 @@ section {
 
 .section-title {
   text-align: center;
-  padding-bottom: 30px;
+  padding-bottom: 0px;
+
 }
 
 .section-title h2 {
   font-size: 28px;
   font-weight: 400;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
+  margin-bottom: 0px;
+  padding-bottom: 10px;
   position: relative;
+  background:url("/Public/image/index_news_title_bg.jpg") repeat;
+  padding-top: 15px;
+  color:#fff;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+
 }
 
 .section-title h2::before {

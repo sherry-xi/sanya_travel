@@ -1,5 +1,8 @@
 <include file="Component/header"/>
 <link rel="stylesheet" href="__LIB__/color/jquery.minicolors.css">
+<style>
+    .slide-img img{max-height: 100px; max-width: 100px;margin-top: 5px;}
+</style>
 <div class="form-block">
     <form>
         <div class="layui-form layuimini-form form-main" >
@@ -31,12 +34,30 @@
             </div>
         </div>
             <div class="layui-form-item">
-                <label class="layui-form-label required"  >网站配色</label>
+                <label class="layui-form-label required"  >网站主题配色</label>
                 <div class="layui-input-block">
-                    <span class="color-select pointer" ></span>
+                    <span class="styleColor pointer" ></span>
                     <input type="hidden" value="{$config.styleColor}" name="styleColor" id="styleColor"/>
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required"  >新闻动态背景色</label>
+                <div class="layui-input-block">
+                    <span class="styleColorNews pointer" ></span>
+                    <input type="hidden" value="{$config.styleColorNews}" name="styleColorNews" id="styleColorNews"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required"  >首页背景图</label>
+                <div class="layui-input-block">
+                    <a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadIndexImgBtn">选择图片</a>
+                    <div class="slide-img" >
+                        <a href="{$config.index_bg_img}" target="_blank"><img src="{$config.index_bg_img}"/></a>
+                    </div>
+                    <input type="hidden" name="index_bg_img"  value="{$config.index_bg_img}"/>
+                </div>
+            </div>
+
 
             <div class="layui-form-item">
                 <label class="layui-form-label required"  >学校地址</label>
@@ -51,6 +72,19 @@
                     <input type="text" value="{$config.phone}" name="phone" class="layui-input" lay-verify="required"/>
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required"  >邮编</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$config.postcode}" name="postcode" class="layui-input" lay-verify="required"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required"  >招生咨询</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$config.apply_phone}" name="apply_phone" class="layui-input" lay-verify="required"/>
+                </div>
+            </div>
+            <!--
             <div class="layui-form-item">
                 <label class="layui-form-label required"  >Email</label>
                 <div class="layui-input-block">
@@ -70,6 +104,7 @@
                     <input type="text" value="{$config.weixin}" name="weixin" class="layui-input" lay-verify="required"/>
                 </div>
             </div>
+            -->
         <div class="layui-form-item">
             <label class="layui-form-label required"  >网站描述</label>
             <div class="layui-input-block">
@@ -140,6 +175,7 @@
 </div>
 <include file="Component/footer"/>
 <script src="__LIB__/color/jquery.minicolors.js"></script>
+<script type="text/javascript" src="__JS__/upload/upload.js"></script>
 <script>
 
 layui.use(['form'], function(){
@@ -160,7 +196,21 @@ layui.use(['form'], function(){
         });
 });
 $(function(){
-    $(".color-select").minicolors({
+
+    uploadHandle.upload({
+        id:"uploadIndexImgBtn",
+        name:'file', //服务端接收的名称
+        fileType:'image', //允许上传的文件类型
+        url:"{:U('uploadFile')}",
+        callback:function(data){
+            log(data);
+            $('.slide-img').html('<img src="'+data.url+'"/>');
+            $("input[name=index_bg_img]").val(data.path);
+        }
+    });
+
+
+    $(".styleColor").minicolors({
         control: $(this).attr('data-control') || 'hue',
         defaultValue: $(this).attr('data-defaultValue') || '{$config.styleColor}',
         inline: $(this).attr('data-inline') === 'true',
@@ -178,6 +228,25 @@ $(function(){
             parent.$(".layui-layout-admin .layui-header").css("cssText","background-color:"+hex+" !important");
             parent.$(".layuimini-menu-left .layui-nav-tree .layui-this a").css("cssText","background-color:"+hex+" !important");
 
+        },
+
+    });
+
+    $(".styleColorNews").minicolors({
+        control: $(this).attr('data-control') || 'hue',
+        defaultValue: $(this).attr('data-defaultValue') || '{$config.styleColorNews}',
+        inline: $(this).attr('data-inline') === 'true',
+        letterCase: $(this).attr('data-letterCase') || 'lowercase',
+        opacity: $(this).attr('data-opacity'),
+        position: $(this).attr('data-position') || 'bottom left',
+        change: function(hex, opacity) {
+            if( !hex ){
+                return;
+            }
+            if( opacity ) {
+                hex += ', ' + opacity;
+            }
+            $("#styleColorNews").val(hex);
         },
 
     });

@@ -30,9 +30,9 @@ class IndexController extends BaseController{
         //新闻动态
         $news = MS("article")->field('id,cid,title,content')->where(['cid'=>199,'is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit(9)->select();
         //通知公告
-        $infomation = MS("article")->field('id,cid,title,content')->where(['cid'=>200,'is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit(9)->select();
+        $infomation = MS("article")->field('id,cid,title,content')->where(['cid'=>200,'is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit(8)->select();
         //康体服务
-        $service = MS("article")->field('id,cid,title,content')->where(['cid'=>201,'is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit(10)->select();
+        $service = MS("article")->field('id,cid,title,content')->where(['cid'=>201,'is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit(8)->select();
 
         $channelList = MS("channel")->where(['parent_id'=>['gt',0]])->field('id,parent_id')->select();
 
