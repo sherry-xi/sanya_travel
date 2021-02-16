@@ -204,7 +204,7 @@ class BaseController extends Controller{
             'is_del' => ['eq',0],
             'audit' => ['eq',1]
         ];
-        $latestNews = MS("article")->field("id,cid,title,content,create_time")->where($where)->order("id desc")->limit(6)->select();
+        $latestNews = MS("article")->field("id,cid,title,content,create_time,thumb")->where($where)->order("id desc")->limit(6)->select();
         foreach($latestNews as $k=>$v){
             $latestNews[$k]['pid'] = MS('channel')->where(['id'=>$v['cid']])->getField('parent_id');
         }

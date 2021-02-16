@@ -9,6 +9,8 @@
 namespace Admis\Controller;
 
 
+use Lib\Upload;
+
 class ArticleController extends BaseController{
 
 
@@ -134,7 +136,8 @@ class ArticleController extends BaseController{
             'title'     => trim(I('title')),
             'admin_id'  => session('user')['id'],
             'top'       => I('top','') == 'on'?1:0,
-            'content' => $_POST['content']
+            'content' => $_POST['content'],
+            'thumb' => I('thumb'),
         );
 
         if(!$this->user['isNewsPoster']){ //新闻发布员没有审核功能
@@ -196,6 +199,15 @@ class ArticleController extends BaseController{
         $where['id'] = ['in',$id];
         MS("article")->where($where)->save(['audit'=>I('audit')]);
         $this->ajax(0,'审核成功');
+    }
+
+
+    /**
+     * 上传文件
+     */
+    public function uploadFile(){
+        $result = (new Upload())->upload();
+        echo "<script>parent.uploadHandle.finish('".json_encode($result)."');</script>";
     }
 
 }

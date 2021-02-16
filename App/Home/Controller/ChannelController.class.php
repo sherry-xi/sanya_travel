@@ -33,13 +33,13 @@ class ChannelController extends BaseController{
         ];
         $count = MS("article")->where($where)->count();
         $page    = getpage($count,8);
-        $article = MS("article")->field("id,cid,admin_id,title,content,create_time")
+        $article = MS("article")->field("id,cid,admin_id,title,content,create_time,thumb")
                     ->where($where)
                     ->limit($page->firstRow.','.$page->listRows)
                     ->order("top desc,id desc")
                     ->select();
 
-        if((count($article) == 1) && $this->cid){ //只有一篇文章而且是二级导航直接跳到文章详细页面
+        if((count($article) == 1) && $this->cid &&(!I("p"))){ //只有一篇文章而且是二级导航直接跳到文章详细页面
             redirect(U("Article/index",['id'=>$article[0]['id'],'pid'=>$this->pid,'cid'=>$this->cid  ]));
         }
         $article = getThumbImage($article,100,false);

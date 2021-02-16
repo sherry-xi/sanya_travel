@@ -581,7 +581,12 @@ function getThumbImage($articles,$limit = 100,$fliter = true){
         if(count($data) >= $limit ){ //最多要五个
             break;
         }
-        preg_match_all("/<[img|IMG].*?[src|SRC]=[\'|\"](.*?(?:[\.gif|\.png|\.jpg|\.bmp|\.jpeg]))[\'|\"].*?[\/]?>/", $v['content'], $image);
+        if($v['thumb']){
+            $v['image'] = $v['thumb'];
+            $data[] = $v;
+            continue; //有缩略图 不用自动抓取文章内容的图片
+        }
+        preg_match_all("/<[img|IMG].*?[src|SRC]=[\'|\"](.*?(?:[\.gif|\.png|\.jpg|\.bmp|\.jpeg|\.JPG|\.JPEG]))[\'|\"].*?[\/]?>/", $v['content'], $image);
 
         if($fliter && !$image[1]){
             continue; //没有图片的不要
@@ -590,6 +595,10 @@ function getThumbImage($articles,$limit = 100,$fliter = true){
         $v['image'] = '';
         foreach($image[1] as $img){
             $imgInfo = getimagesize('./'.$img);
+            if(!$imgInfo){
+                $v['image'] = $img;
+                break;
+            }
             if($imgInfo[0] <500 || $imgInfo[1]<200){ //宽度太小不要 最小宽高500*300
                 continue;
             }else{
