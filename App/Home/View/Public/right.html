@@ -1,4 +1,4 @@
-<div class="col-lg-4">
+<div class="col-lg-3">
     <div class="sidebar">
 
 
@@ -8,7 +8,7 @@
         <div class="sidebar-item categories">
             <ul>
                 <foreach name="channelItem.channel.son" item="son">
-                    <li>
+                    <li style="margin-left: 30px;">
                         <a href="{:U('Channel/index',['pid'=>$son['parent_id'],'cid'=>$son['id']] )}" <if condition="$son['current']">class='channel-select'</if> >{$son.name} <span>({$son.article})</span></a>
                     </li>
                 </foreach>

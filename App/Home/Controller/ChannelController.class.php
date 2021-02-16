@@ -39,7 +39,9 @@ class ChannelController extends BaseController{
                     ->order("top desc,id desc")
                     ->select();
 
-
+        if((count($article) == 1) && $this->cid){ //只有一篇文章而且是二级导航直接跳到文章详细页面
+            redirect(U("Article/index",['id'=>$article[0]['id'],'pid'=>$this->pid,'cid'=>$this->cid  ]));
+        }
         $article = getThumbImage($article,100,false);
         foreach($article as $k=>$v){
             $article[$k]['content'] = strip_tags($v['content']);
