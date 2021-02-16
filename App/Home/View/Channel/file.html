@@ -34,7 +34,12 @@
 
                   <foreach name="files" item="value">
                     <tr>
-                      <td><a style="font-size: 15px;color: #0C0C0C" href="{$value.path}"  download="{$value.name}">{$value.name}</a></td>
+                      <td>
+                        <if condition="$value['fileIcon']">
+                        <img src="/Public/image/file/{$value.fileIcon}" width="30"/>&nbsp;&nbsp;
+                        </if>
+                        <a style="font-size: 15px;color: #0C0C0C" href="{$value.path}"  download="{$value.name}">{$value.name}</a>
+                      </td>
                       <td><small>{$value.size}</small></td>
                       <td>
                         <a href="{$value.url}" download="{$value.name}">

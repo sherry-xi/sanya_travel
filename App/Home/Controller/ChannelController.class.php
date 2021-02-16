@@ -114,11 +114,27 @@ class ChannelController extends BaseController{
 
         $files = M('file')->where($where)->limit($page->firstRow.','.$page->listRows)->order("id desc")->select();
 
+        $fileIcon = [
+            'doc' =>'file_docx.png',
+            'docx' => 'file_docx.png',
+            'ppt' => 'file_pptx.png',
+            'pptx' => 'file_pptx.png',
+            'zip' => 'file_zip.png',
+            'rar' => 'file_rar.png',
+            'tar' => 'file_zip.png',
+            'xls' => 'file_xlsx.png',
+            'xlsx' =>'file_xlsx.png',
+            'txt' => 'file_text.png',
+            'pdf' => 'file_pdf.png'
+        ];
+
         foreach($files as $k=>$file){
+
+            $fileType = strtolower(substr($file['path'],strpos($file['path'],'.')+1));
+            $files[$k]['fileIcon'] = isset($fileIcon[$fileType])?$fileIcon[$fileType]:'';
             $files[$k]['size'] = file_size_format($file['size']);
             $files[$k]['url'] = $this->config['domain'].$file['path'];
         }
-
 
         $this->assign('channelItem',$this->getChannelItem("filedownload"));
 
