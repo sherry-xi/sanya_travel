@@ -44,7 +44,7 @@ class UserLoginController extends Controller {
      * 验证码获取
      */
     public function verify(){
-
+        ob_clean();
         $config =    array(
             'imageW'    => 150,
             'imageH'    => 35,

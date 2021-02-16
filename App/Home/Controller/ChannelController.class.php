@@ -21,9 +21,11 @@ class ChannelController extends BaseController{
 
         if(!$this->cid){ //一级频道
             $cid = array_column($this->channel[$this->pid]['son'],'id');
+            $cid = $cid?$cid:[-1];//避免为空
         }else{//二级频道
             $cid = [$this->cid];
         }
+
         $where = [
             'is_del' => ['eq',0],
             'audit' => ['eq',1],
