@@ -1,0 +1,236 @@
+<include file="Public/header"/>
+<style>
+  .apartment-list{display: none;}
+  .blog .sidebar .recent-posts img{width: 0px;}
+  .blog .sidebar .recent-posts img.apartment-thumb{width: 100%;height: auto;
+    border: 3px solid {$config.styleColor};margin-bottom: 10px;border-top: 0px;
+  }
+
+  .opacity{
+    filter:alpha(opacity=90);
+    -moz-opacity:0.9;
+    -khtml-opacity: 0.9;
+    opacity: 0.9;
+  }
+  .apartment-name{
+    font-size: 13px;color: #fff;font-weight: bold;text-align: center;
+    letter-spacing: 1px;width: 100%;height: auto;
+    background: {$config.styleColor};
+    padding: 10px ;
+    border: 3px solid {$config.styleColor};border-bottom: 0px;
+  }
+  .entry-content img{max-width: 95%;}
+
+  .checked-thumb{border-color: #fd7e0a !important;}
+  .checked-name{
+    background: #fd7e0a;
+    border-color:  #fd7e0a;
+  }
+  .post-item{cursor:pointer;}
+  .blog .sidebar{padding: 0px;}
+  .apartment-main{display: none;}
+  .apartment-nav{margin-bottom: 10px;}
+</style>
+<main id="main">
+
+  <!-- ======= Blog Section ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2></h2>
+
+
+      </div>
+
+    </div>
+  </section><!-- End Blog Section -->
+
+  <!-- ======= Blog Section ======= -->
+  <section class="blog" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+    <div class="container-fluid">
+
+      <div class="row" style="width:95%;margin: auto">
+
+        <if condition="$isMobile">
+          <div class="col-lg-12 apartment-mobile" >
+
+              <div class="sidebar" style="margin-left: 0px;">
+                <div class="sidebar-item recent-posts">
+
+                  <div class="post-item1 clearfix apartment-nav" data-show="show" data-name="{$apartmentName}">
+                    <div class="apartment-name ">
+                      <div class="apartment-name-ch" >{$apartmentName}</div>
+                    </div>
+                  </div>
+
+                  <foreach name="article" item="value" key="k">
+                    <div class="post-item clearfix" data-id="{$value.id}">
+                      <div class="apartment-name ">
+                        <div class="apartment-name-ch">{$value.title}</div>
+                      </div>
+                      <img src="{$value.image}" class="apartment-thumb  " >
+                    </div>
+                  </foreach>
+
+                </div><!-- End sidebar recent posts-->
+
+
+
+              </div><!-- End sidebar -->
+
+
+            </div>
+
+
+        </if>
+
+        <div class="col-lg-9 entries apartment-main">
+
+          <foreach name="article" item="value" key="k">
+            <div class="apartment-list"  id="apartment-{$value.id}" <if condition="$k eq 0"> style="display:block" </if>  >
+
+            <if condition="$value['banner']">
+              <div class="row">
+
+                <div class="col-lg-12 entries">
+                  <img src="{$value.banner}" style="max-width: 100%;"/>
+                </div>
+              </div>
+            </if>
+
+
+            <article class="entry">
+              <div class="row">
+
+                <div class="col-lg-12 entries">
+                    <h2 class="entry-title text-center">
+                      <a href="">{$value.title}</a>
+                    </h2>
+                    <div class="entry-content">
+                      {$value.content2}
+                    </div>
+
+                </div><!-- End blog entries list -->
+              </div>
+          </article><!-- End blog entry -->
+            </div>
+
+          </foreach>
+
+
+        </div><!-- End blog entries list -->
+
+
+        <if condition="!$isMobile">
+          <div class="col-lg-3">
+          <div class="sidebar">
+            <div class="sidebar-item recent-posts">
+              <foreach name="article" item="value" key="k">
+                <div class="post-item clearfix" data-id="{$value.id}">
+                  <div class="apartment-name ">
+                    <div class="apartment-name-ch">{$value.title}</div>
+                  </div>
+                  <img src="{$value.image}" class="apartment-thumb  " >
+                </div>
+              </foreach>
+
+            </div><!-- End sidebar recent posts-->
+
+
+
+          </div><!-- End sidebar -->
+
+        </div>
+        </if>
+
+
+        <!-- End blog sidebar -->
+
+      </div><!-- End .row -->
+
+    </div><!-- End .container -->
+
+  </section><!-- End Blog Section -->
+
+</main><!-- End #main -->
+
+<include file="Public/footer"/>
+
+<script>
+  $(function(){
+
+    $(".apartment-nav").click(function () {
+
+      if($(this).attr("data-name") == $(this).find(".apartment-name-ch").text()){
+        return ;
+      }
+
+      if($(this).attr("data-show") == 'show'){
+        $(".post-item").hide();
+        $(this).attr("data-show","none");
+      }else{
+        $(".post-item").show();
+        $(this).attr("data-show","show");
+      }
+
+    });
+
+    if(IsMobile()){
+      $(".post-item").css("margin","0px").css("border-bottom","3px solid #fff");
+      $(".blog").css("padding-top","10px");
+
+    }
+
+    $(".post-item").click(function(){
+
+      if(IsMobile()){
+        $(".apartment-nav").attr("data-show","none");
+        $(".post-item").hide();
+        $(".apartment-main").show();
+        $(".apartment-nav").find(".apartment-name-ch").text($(".apartment-nav").attr("data-name") + ">"+$(this).find(".apartment-name-ch").text())
+
+      }
+
+      $(".post-item").each(function(index){
+          $(this).attr("data-checked","nochecked");
+          $(this).find(".apartment-thumb").removeClass("checked-thumb");
+          $(this).find(".apartment-name").removeClass("checked-name");
+      });
+      $(this).find(".apartment-thumb").addClass("checked-thumb");
+      $(this).find(".apartment-name").addClass("checked-name");
+      $(this).attr("data-checked","checked");
+
+      $(".apartment-list").fadeOut(500);
+      $("#apartment-"+$(this).attr("data-id")).fadeIn(500);
+    });
+
+    if(!IsMobile()){
+      $(".apartment-main").show();
+      $(".post-item").each(function(index){
+        if(index == 0){
+          $(this).find(".apartment-thumb").addClass("checked-thumb");
+          $(this).find(".apartment-name").addClass("checked-name");
+          $(this).attr("data-checked","checked");
+        }else{
+          $(this).attr("data-checked","nochecked");
+        }
+      });
+    }else{
+      $(".apartment-list").hide();
+    }
+
+
+
+    $(".post-item").hover(function(){
+      $(this).find(".apartment-thumb").addClass("checked-thumb");
+      $(this).find(".apartment-name").addClass("checked-name");
+    },function(){
+      if($(this).attr("data-checked") == 'nochecked'){
+        $(this).find(".apartment-thumb").removeClass("checked-thumb");
+        $(this).find(".apartment-name").removeClass("checked-name");
+      }
+
+    });
+  });
+</script>
