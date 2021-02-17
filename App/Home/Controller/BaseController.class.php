@@ -206,9 +206,10 @@ class BaseController extends Controller{
             'audit' => ['eq',1]
         ];
         $latestNews = MS("article")->field("id,cid,title,content,create_time,thumb")->where($where)->order("id desc")->limit(6)->select();
+
         foreach($latestNews as $k=>$v){
             $latestNews[$k]['pid'] = MS('channel')->where(['id'=>$v['cid']])->getField('parent_id');
         }
-        return getThumbImage($latestNews,6);
+        return getThumbImage($latestNews,6,false);
     }
 }
