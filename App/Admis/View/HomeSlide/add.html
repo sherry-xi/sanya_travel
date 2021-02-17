@@ -11,7 +11,7 @@
                 <label class="layui-form-label">图片上传</label>
                 <div class="layui-input-block">
                     <a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadImgBtn">选择图片</a>
-                    <span class="layui-word-aux">最佳大小 620px*350px</span>
+                    <span class="layui-word-aux">最佳大小 1200px*400px</span>
                     <div class="slide-img">
                         <if condition="$data">
                             <a href="{$data.img_url}" target="_blank"><img src="{$data.img_url}"/></a>
@@ -44,7 +44,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">排序</label>
                 <div class="layui-input-block">
-                    <input type="text" value="{$slide.sort|default='100'}" name="sort"  class="layui-input"/>
+                    <input type="text" value="{$data.sort|default='100'}" name="sort"  class="layui-input"/>
                     <div class="layui-form-mid layui-word-aux">越小越靠前</div>
                 </div>
             </div>
