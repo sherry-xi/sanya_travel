@@ -80,3 +80,32 @@
 </body>
 
 </html>
+<script>
+    $(function(){
+
+
+
+        $(document).scroll(function(e){
+            if(IsMobile()){
+                return ;
+            }
+            var top = $(document).scrollTop();
+            var number = 700;
+            if(top > number){
+                $(".logo-pc").hide(500);
+            }else{
+                $(".logo-pc").show(500);
+            }
+        });
+
+        if(!IsMobile()){
+            var top = $(document).scrollTop();
+            var number = 700;
+            if(top > number){
+                $(".logo-pc").hide();
+            }else{
+                $(".logo-pc").show();
+            }
+        }
+    });
+</script>
