@@ -40,6 +40,7 @@ class BaseController extends Controller{
         $this->assign('config',$this->config);
         $this->assign('channel',  $this->channel);
         $this->assign("keyword",I('keyword'));
+        $this->assign("isMobile",isMobile());
         //$this->assign('configCss',makeCss($this->config));
 
 
@@ -161,8 +162,8 @@ class BaseController extends Controller{
             if($cid == $id){
                 return $channels; //一级频道
             }
-            foreach($channels['son'] as $sonId => $channel){
-                if($sonId == $id){
+            foreach($channels['son'] as $channel){
+                if($channel['id'] == $id){
                     return $channel; //二级频道
                 }
             }

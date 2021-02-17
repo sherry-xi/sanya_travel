@@ -37,7 +37,7 @@ class ChannelController extends BaseController{
         ];
         $count = MS("article")->where($where)->count();
         $page    = getpage($count,$pageSize);
-        $article = MS("article")->field("id,cid,admin_id,title,content,create_time,thumb")
+        $article = MS("article")->field("id,cid,admin_id,title,content,create_time,thumb,banner")
                     ->where($where)
                     ->limit($page->firstRow.','.$page->listRows)
                     ->order("top desc,id desc")
@@ -58,6 +58,8 @@ class ChannelController extends BaseController{
         $this->assign('article',$article);
 
         if(($this->cid == 168) || ($this->channel[$this->pid]['name'] == '专业介绍')){
+            $this->assign('article',$article);
+            $this->assign("apartmentName",$this->getChannelById($this->cid)['name']);
             $this->display("apartment");
             exit;
         }

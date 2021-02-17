@@ -5,12 +5,12 @@
 <style>
     #edui1{z-index: 1 !important;}
     .layui-disabled{color: #000 !important;font-weight:bold;font-size:15px;font-style: italic;}
-    .slide-img img{max-width: 100px;max-height: 100px;margin: 10px;}
+    .img-thumb{max-width: 70px;max-height: 70px;margin: 10px;cursor: pointer;margin-left: 15px;}
 </style>
 <div class="form-block" >
     <form action="{:U('addArticleHandle')}" method="post" enctype="multipart/form-data">
         <div class="layui-form layuimini-form form-main" >
-            <a href="{:U('Article/index')}" class="layui-btn"  style="position: absolute;right: 50px;top: 40px;">返回</a>
+            <a href="{:U('Article/index')}" class="layui-btn"  style="position: absolute;right: 50px;top: 50px;">返回</a>
 
         <div class="layui-form-item" >
             <label class="layui-form-label required">文章标题</label>
@@ -39,18 +39,33 @@
             </div>
         </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">缩略图</label>
+                <label class="layui-form-label">封面缩略图</label>
                 <div class="layui-input-block">&nbsp;&nbsp;&nbsp;
                     <a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadImgBtn">选择图片</a>
                     <span class="layui-word-aux"><small>最佳大小 500px*500px 无缩略图自动抓取文章内容的图片</small></span>
                     <div class="slide-img">
                         <if condition="$article">
-                            <a href="{$article.thumb}" target="_blank"><img src="{$article.thumb}"/></a>
+                            <a href="{$article.thumb}" target="_blank"><img src="{$article.thumb}" class="img-thumb"/></a>
                         </if>
                     </div>
                     <input type="hidden" name="thumb" value="{$article.thumb}"/>
                 </div>
             </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">详情页横幅</label>
+                <div class="layui-input-block">&nbsp;&nbsp;&nbsp;
+                    <a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadImg2Btn">选择图片</a>
+                    <span class="layui-word-aux"><small>最佳大小 1200px*400px 可不上传</small></span>
+                    <div class="slide-img2">
+                        <if condition="$article">
+                            <a href="{$article.banner}" target="_blank"><img src="{$article.banner}" class="img-thumb"/></a>
+                        </if>
+                    </div>
+                    <input type="hidden" name="banner" value="{$article.banner}"/>
+                </div>
+            </div>
+
             <if condition="!$user['isNewsPoster']">
                 <div class="layui-form-item">
                     <label class="layui-form-label">文章审核</label>
@@ -91,6 +106,7 @@
 <script type="text/javascript" src="__LIB__/ueditor/ueditor.all.js"></script>
 <script type="text/javascript" src="__JS__/ueditorConfig.js"></script>
 <script type="text/javascript" src="__JS__/upload/upload.js"></script>
+<script type="text/javascript" src="__JS__/upload/upload2.js"></script>
 <script src="__LIB__/ueditor/third-party/xiumi/xiumi-ue-dialog-v5.js" charset="utf-8"></script>
 <script src="__LIB__/ueditor/third-party/135editor/135editor.js" charset="utf-8"></script>
 
@@ -103,15 +119,25 @@
         $("#cancelBtn").click(function(){
             history.go(0);
         });
-
         uploadHandle.upload({
             id:"uploadImgBtn",
             name:'file', //服务端接收的名称
             fileType:'image', //允许上传的文件类型
             url:"{:U('uploadFile')}",
             callback:function(data){
-                $('.slide-img').html('<img src="'+data.url+'"/>');
+                $('.slide-img').html('<img class="img-thumb"  src="'+data.url+'"/>');
                 $("input[name=thumb]").val(data.path);
+            }
+        });
+
+        uploadHandle2.upload({
+            id:"uploadImg2Btn",
+            name:'file', //服务端接收的名称
+            fileType:'image', //允许上传的文件类型
+            url:"{:U('uploadFile2')}",
+            callback:function(data){
+                $('.slide-img2').html('<img class="img-thumb" src="'+data.url+'"/>');
+                $("input[name=banner]").val(data.path);
             }
         });
     });
