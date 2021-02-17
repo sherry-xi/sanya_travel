@@ -13,9 +13,11 @@ $(function(){
 
         $(".index-news").css("margin-top","15px");
         $(".slider-main").css("padding-top","80px");
+
     }else{
         $(".logo-pc").fadeIn(100);
         //$("#main").css("marginTop","65px");
+        //$("#header").css("min-width","1300px");
     }
 
     //横幅朱家 鼠标小手指

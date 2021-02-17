@@ -11,10 +11,14 @@ class ChannelController extends BaseController{
 
     public function index(){
 
+        $pageSize = 8;
 
-        if($this->pid == C("channelId")['download'] || $this->channel[$this->pid]['name'] == '下载专区'){
+        if(($this->pid == C("channelId")['download']) || ($this->channel[$this->pid]['name'] == '下载专区')){
             $this->fileChannel();
             exit;
+        }
+        if(($this->cid == 168) || ($this->channel[$this->pid]['name'] == '专业介绍')){
+            $pageSize = 1000; //专业介绍页面不分页
         }
 
         $this->assign('channelItem',$this->getChannelItem());
@@ -32,7 +36,7 @@ class ChannelController extends BaseController{
             'cid'   => ['in',$cid]
         ];
         $count = MS("article")->where($where)->count();
-        $page    = getpage($count,8);
+        $page    = getpage($count,$pageSize);
         $article = MS("article")->field("id,cid,admin_id,title,content,create_time,thumb")
                     ->where($where)
                     ->limit($page->firstRow.','.$page->listRows)
@@ -44,6 +48,7 @@ class ChannelController extends BaseController{
         }
         $article = getThumbImage($article,100,false);
         foreach($article as $k=>$v){
+            $article[$k]['content2'] = $v['content'];
             $article[$k]['content'] = strip_tags($v['content']);
             $article[$k]['admin'] = MS("admin")->where(['id'=>$v['admin_id']])->getField("truename");
         }
@@ -51,6 +56,11 @@ class ChannelController extends BaseController{
         $this->assign('page',getPageShow($page));
         $this->assign('pageShow',$page->show());
         $this->assign('article',$article);
+
+        if(($this->cid == 168) || ($this->channel[$this->pid]['name'] == '专业介绍')){
+            $this->display("apartment");
+            exit;
+        }
         $this->display();
     }
 
