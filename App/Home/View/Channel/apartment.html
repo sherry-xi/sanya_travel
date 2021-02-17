@@ -50,10 +50,10 @@
   <section class="blog" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
     <div class="container-fluid">
 
-      <div class="row" style="width:95%;margin: auto">
+      <div class="row" style="width:100%;margin: auto">
 
         <if condition="$isMobile">
-          <div class="col-lg-12 apartment-mobile" >
+          <div class="col-lg-12 apartment-mobile"  style="padding-left: 0px ;padding-right: 0px;">
 
               <div class="sidebar" style="margin-left: 0px;">
                 <div class="sidebar-item recent-posts">
@@ -85,10 +85,10 @@
 
         </if>
 
-        <div class="col-lg-9 entries apartment-main">
+        <div class="col-lg-9 entries apartment-main" style="padding-left: 0px;padding-right: 0px;">
 
           <foreach name="article" item="value" key="k">
-            <div class="apartment-list"  id="apartment-{$value.id}" <if condition="$k eq 0"> style="display:block" </if>  >
+            <div class="apartment-list"  id="apartment-{$value.id}">
 
             <if condition="$value['banner']">
               <div class="row">
@@ -103,11 +103,11 @@
             <article class="entry">
               <div class="row">
 
-                <div class="col-lg-12 entries">
+                <div class="col-lg-12 entries" style="padding: 0px;margin: 0px;">
                     <h2 class="entry-title text-center">
                       <a href="">{$value.title}</a>
                     </h2>
-                    <div class="entry-content">
+                    <div class="entry-content" >
                       {$value.content2}
                     </div>
 
@@ -206,16 +206,34 @@
     });
 
     if(!IsMobile()){
+
+      var selectedId = getCurrentQueryVariable("id"); //url选择的id
+
       $(".apartment-main").show();
+      $(".post-item").attr("data-checked","nochecked");
+
       $(".post-item").each(function(index){
-        if(index == 0){
+
+
+        if($(this).attr("data-id") == selectedId){
+
           $(this).find(".apartment-thumb").addClass("checked-thumb");
           $(this).find(".apartment-name").addClass("checked-name");
           $(this).attr("data-checked","checked");
-        }else{
-          $(this).attr("data-checked","nochecked");
+          $(".apartment-list").fadeOut(500);
+          $("#apartment-"+$(this).attr("data-id")).fadeIn(500);
+        }else  if((selectedId == false) && (index == 0)){ //选中第一个
+            $(this).find(".apartment-thumb").addClass("checked-thumb");
+            $(this).find(".apartment-name").addClass("checked-name");
+            $(this).attr("data-checked","checked");
+          $(".apartment-list").fadeOut(500);
+          $("#apartment-"+$(this).attr("data-id")).fadeIn(500);
+
         }
+
+
       });
+
     }else{
       $(".apartment-list").hide();
     }
@@ -232,5 +250,42 @@
       }
 
     });
+
+
+    //手机端默认选中专业
+    if(IsMobile()){
+      var selectedId = getCurrentQueryVariable("id"); //url选择的id
+      if(selectedId != false){
+        $(".apartment-nav").attr("data-show","none");
+        $(".post-item").hide();
+        $("#apartment-"+selectedId).show();
+        $(".apartment-main").show();
+        $(".post-item").each(function(){
+          if($(this).attr("data-id") == selectedId){
+            $(".apartment-nav").find(".apartment-name-ch").text($(".apartment-nav").attr("data-name") + ">"+$(this).find(".apartment-name-ch").text())
+          }
+        });
+
+      }
+
+    }
+
+
   });
+
+  /**
+   * 获取当前url参数
+   * @param variable
+   * @returns {string|boolean}
+   */
+  function getCurrentQueryVariable(variable)
+  {
+    var query = window.location.search.substring(1); //默认当前url链接
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+      var pair = vars[i].split("=");
+      if(pair[0] == variable){return pair[1];}
+    }
+    return false;
+  }
 </script>

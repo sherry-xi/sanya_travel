@@ -13,7 +13,21 @@
 .index-news{background: {$config.styleColorNews};
   border:5px solid #ffc107;
   }
+  .carousel-caption  h3{
+    color:#fdd824 !important;font-size: 30px;font-weight: bold;letter-spacing: 5px;
+    position:relative;top:-20px;;
 
+  }
+  .carousel-caption  h3 span{
+    border-bottom: 5px double #fdd824;
+  }
+  .carousel-caption p{background: url('__PUBLIC__/image/pic_zhuanye_jt2.png');padding: 10px;
+    filter:alpha(opacity=80);
+    -moz-opacity:0.8;
+    -khtml-opacity: 0.8;
+    opacity: 0.8;
+  }
+  .carousel-caption p img{position: relative;top:-32px;left:30px}
 </style>
 <!-- 幻灯片 -->
 
@@ -29,8 +43,11 @@
       <foreach name="slide" item="v" key="k">
         <div  data-url="{$v.link}"    <if condition="$k eq 0"> class=" carousel-item  active " <else/> class="carousel-item" </if>    style="background-image: url('.{$v.img}')">
         <div class="carousel-caption d-none d-md-block text-left"  >
-          <if condition="$v['title']"><h3>{$v.title}</h3></if>
-          <if condition="$v['content']"><p>{$v.content}</p></if>
+          <if condition="$v['title']"><h3><span>{$v.title}</span></h3></if>
+          <if condition="$v['content']"><p>
+            <img src="__PUBLIC__/image/pic_zhuanye_jt.png"/>
+            {$v.content}
+          </p></if>
 
         </div>
     </div>
