@@ -1,7 +1,7 @@
 <include file="Component/header"/>
 <link rel="stylesheet" href="__LIB__/color/jquery.minicolors.css">
 <style>
-    .slide-img img{max-height: 100px; max-width: 100px;margin-top: 5px;}
+    .img-thumb{max-height: 100px; max-width: 100px;margin-top: 5px;}
 </style>
 <div class="form-block">
     <form>
@@ -66,9 +66,19 @@
                 <div class="layui-input-block">
                     <a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadIndexImgBtn">选择图片</a>
                     <div class="slide-img" >
-                        <a href="{$config.index_bg_img}" target="_blank"><img src="{$config.index_bg_img}"/></a>
+                        <a href="{$config.index_bg_img}" target="_blank"><img  class="img-thumb" src="{$config.index_bg_img}"/></a>
                     </div>
                     <input type="hidden" name="index_bg_img"  value="{$config.index_bg_img}"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required"  >首页新闻标题背景</label>
+                <div class="layui-input-block">
+                    <a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadIndexImg2Btn">选择图片</a>
+                    <div class="slide-img2" >
+                        <a href="{$config.index_bg_img2}" target="_blank"><img  class="img-thumb" src="{$config.index_bg_img2}"/></a>
+                    </div>
+                    <input type="hidden" name="index_bg_img2"  value="{$config.index_bg_img2}"/>
                 </div>
             </div>
 
@@ -190,6 +200,7 @@
 <include file="Component/footer"/>
 <script src="__LIB__/color/jquery.minicolors.js"></script>
 <script type="text/javascript" src="__JS__/upload/upload.js"></script>
+<script type="text/javascript" src="__JS__/upload/upload2.js"></script>
 <script>
 
 layui.use(['form'], function(){
@@ -217,9 +228,19 @@ $(function(){
         fileType:'image', //允许上传的文件类型
         url:"{:U('uploadFile')}",
         callback:function(data){
-            log(data);
-            $('.slide-img').html('<img src="'+data.url+'"/>');
+            $('.slide-img').html('<img class="img-thumb" src="'+data.url+'"/>');
             $("input[name=index_bg_img]").val(data.path);
+        }
+    });
+
+    uploadHandle2.upload({
+        id:"uploadIndexImg2Btn",
+        name:'file', //服务端接收的名称
+        fileType:'image', //允许上传的文件类型
+        url:"{:U('uploadFile2')}",
+        callback:function(data){
+            $('.slide-img2').html('<img class="img-thumb" src="'+data.url+'"/>');
+            $("input[name=index_bg_img2]").val(data.path);
         }
     });
 

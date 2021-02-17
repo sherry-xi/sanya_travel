@@ -134,4 +134,12 @@ class SystemController extends BaseController{
         $result = (new Upload())->upload();
         echo "<script>parent.uploadHandle.finish('".json_encode($result)."');</script>";
     }
+
+    /**
+     * 上传文件
+     */
+    public function uploadFile2(){
+        $result = (new Upload())->upload();
+        echo "<script>parent.uploadHandle2.finish('".json_encode($result)."');</script>";
+    }
 }

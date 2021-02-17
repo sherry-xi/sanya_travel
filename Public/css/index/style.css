@@ -474,20 +474,18 @@ section {
 }
 
 .section-title h2 {
-  font-size: 28px;
+  font-size: 25px;
   font-weight: 400;
   margin-bottom: 0px;
-  padding-bottom: 10px;
+  padding-bottom: 8px;
   position: relative;
-  background:url("/Public/image/index_news_title_bg.jpg") repeat;
-  padding-top: 15px;
+  padding-top: 8px;
   color:#fff;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
 
 }
 
 .section-title h2::before {
+  /*
   content: '';
   position: absolute;
   display: block;
@@ -495,10 +493,11 @@ section {
   height: 1px;
   background: #ddd;
   bottom: 1px;
-  left: calc(50% - 60px);
+  left: calc(50% - 60px);*/
 }
 
 .section-title h2::after {
+  /*
   content: '';
   position: absolute;
   display: block;
@@ -507,6 +506,7 @@ section {
   background: #68A4C4;
   bottom: 0;
   left: calc(50% - 20px);
+  */
 }
 
 .section-title p {
