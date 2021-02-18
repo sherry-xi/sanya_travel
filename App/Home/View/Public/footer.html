@@ -1,5 +1,5 @@
-<!-- ======= Footer ======= -->
-<footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+<!-- ======= Footer ======= data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500"  -->
+<footer id="footer" >
 
 
 
@@ -90,20 +90,28 @@
                 return ;
             }
             var top = $(document).scrollTop();
-            var number = 700;
+            var number = 400;
             if(top > number){
-                $(".logo-pc").hide(500);
+                $("#header.header-scrolled").css("padding","0px");
+                $("#searchForm").hide();
+                $(".logo-pc").hide(1000);
             }else{
-                $(".logo-pc").show(500);
+                $("#header.header-scrolled").css("padding","10px 0px");
+                $("#searchForm").fadeIn(500);
+                $(".logo-pc").fadeIn(1000);
             }
         });
 
         if(!IsMobile()){
             var top = $(document).scrollTop();
-            var number = 700;
+            var number = 400;
             if(top > number){
+                $("#header.header-scrolled").css("padding","0px");
+                $("#searchForm").hide();
                 $(".logo-pc").hide();
             }else{
+                $("#header.header-scrolled").css("padding","10px 0px");
+                $("#searchForm").show();
                 $(".logo-pc").show();
             }
         }

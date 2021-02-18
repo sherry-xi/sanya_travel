@@ -1,45 +1,36 @@
 <include file="Public/header"/>
+
+
 <main id="main">
 
-  <!-- ======= Blog Section ======= -->
-  <section class="breadcrumbs">
-    <div class="container">
-
-      <div class="d-flex justify-content-between align-items-center">
-        <h2></h2>
+  <include file="Public/channelBanner"/>
 
 
-      </div>
-
-    </div>
-  </section><!-- End Blog Section -->
-
-  <!-- ======= Blog Section ======= -->
-  <section class="blog" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+  <!-- ======= Blog Section ======= data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500"-->
+  <section class="blog"  >
     <div class="container-fluid">
+
+
 
       <div class="row" style="border: 0px solid #000;width: 95%;margin: auto">
         <div class="col-lg-9 entries"  style="padding-left:0px;padding-right: 0px; ">
-
+          <article class="entry">
           <foreach name="article" item="value">
-            <article class="entry">
-             <div class="row">
+
+             <div class="row" style="margin-bottom: 30px;border-bottom: 1px dotted #ccc;padding-bottom: 10px;">
 
                <!-- 缩略图 -->
                <div class="col-lg-3">
-                 <if condition="$value['image']">
+
                    <div class="entry-img" style="padding: 10px;text-align: center;">
                     <table style="width: 100%;min-height: 200px;">
                       <tr>
                         <td >
-
-                          <img src="{$value.image}" alt="无缩略图" class="img-fluid" style="align-items: center;">
+                          <img src="{$value.thumb}" alt="无缩略图" class="img-fluid" style="align-items: center;border: 1px solid #ccc;">
                         </td>
                       </tr>
                     </table>
-
                    </div>
-                 </if>
 
                </div>
                <!-- end 缩略图 -->
@@ -67,21 +58,18 @@
                <!--end 文章内容 -->
 
              </div>
-
-
-
-
-          </article><!-- End blog entry -->
           </foreach>
 
+            <if condition="!$article">
+                <h2 class="entry-title">
+                  <a href="#">该分类没有文章^_^</a>
+                </h2>
+            </if>
 
-          <if condition="!$article">
-          <article class="entry">
-            <h2 class="entry-title">
-              <a href="#">该分类没有文章^_^</a>
-            </h2>
           </article><!-- End blog entry -->
-          </if>
+
+
+
 
           <if condition="$article">
             <div class="blog-pagination">

@@ -36,13 +36,19 @@ class ArticleController extends BaseController{
             $article['admin'] = MS("admin")->where(['id'=>$article['admin_id']])->getField('truename');
         }
 
-
+        $this->assign('isSchoolChannel',$this->cid == 167); //是否学校简介分类
         $this->articleViewLog($id);
         $this->assign('next',$next);
         $this->assign('prev',$prev);
         $this->assign('article',$article);
         $this->assign('channelItem',$this->getChannelItem());
-        $this->display();
+
+        if(isMobile()){
+            $this->display("mobile");
+        }else{
+            $this->display();
+        }
+
     }
 
     /***

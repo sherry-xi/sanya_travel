@@ -6,15 +6,11 @@
 
             <foreach name="latestNews" item="news">
                 <div class="post-item clearfix">
-                    <if condition="$news['image']">
-                        <img src="{$news.image}" alt="" >
-                        <else/>
-                        <img src="__PUBLIC__/image/logo_index.png" alt="" style="height: 60px;">
-                    </if>
-
-
+                    <img src="{$news.thumb}" alt=""  style="border: 1px solid #ccc;">
                     <h4><a href="{:U('Article/index',['id'=>$news['id'],'pid'=>$news['pid'],'cid'=>$news['cid']])}"><script>mySubstring('{$news.title}',20)</script></a></h4>
+                    <!--
                     <time datetime="{$news.create_time}">{$news.create_time}</time>
+                    -->
                 </div>
             </foreach>
 

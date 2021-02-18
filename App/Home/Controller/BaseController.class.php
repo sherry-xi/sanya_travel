@@ -17,7 +17,7 @@ class BaseController extends Controller{
     public $channel;            //只显示在首页的导航频道
     public $allChannel;         //所有导航
     public $pid;                //当前浏览一级频道id
-    public $cid;                //当前浏览二级频道ID
+    public $audit;                //当前浏览二级频道ID
     public $config;             //网站配置数据
     /**
      * 初始化
@@ -36,13 +36,13 @@ class BaseController extends Controller{
 
 
         $this->assign('pid',$this->pid);
-        $this->assign('mid',$this->cid);
+        $this->assign('cid',$this->cid);
         $this->assign('config',$this->config);
         $this->assign('channel',  $this->channel);
         $this->assign("keyword",I('keyword'));
         $this->assign("isMobile",isMobile());
         //$this->assign('configCss',makeCss($this->config));
-
+        $this->assign("channelBanner",$this->getChannelBanner()); //当前访问导航页面的banner图
 
     }
 
@@ -65,7 +65,7 @@ class BaseController extends Controller{
      */
     public function setChannel(){
 
-        $field  = ['id','parent_id','name','show_nav'];
+        $field  = ['id','parent_id','name','show_nav','banner'];
 
         $parents = M('channel')->field($field)->where(['status'=>0,'parent_id'=>0])->order("parent_id asc,sort asc,id asc")->select();
 
@@ -80,6 +80,8 @@ class BaseController extends Controller{
             $this->allChannel[$v['id']] = $v;
 
         }
+
+
     }
 
     /**
@@ -205,11 +207,30 @@ class BaseController extends Controller{
             'is_del' => ['eq',0],
             'audit' => ['eq',1]
         ];
-        $latestNews = MS("article")->field("id,cid,title,content,create_time,thumb")->where($where)->order("id desc")->limit(6)->select();
+        $news = MS("article")->field("id,cid,title,content,create_time,thumb")->where($where)->order("id desc")->limit(6)->select();
 
-        foreach($latestNews as $k=>$v){
-            $latestNews[$k]['pid'] = MS('channel')->where(['id'=>$v['cid']])->getField('parent_id');
+        foreach($news as $k=>$v){
+            $news[$k] = getThumbImage($v,C('image')['thumb_latestnews']); //获取缩略图
+            $news[$k]['pid'] = MS('channel')->where(['id'=>$v['cid']])->getField('parent_id');
         }
-        return getThumbImage($latestNews,6,false);
+        return $news;
+    }
+
+    public function getChannelBanner(){
+        if(!$this->pid){
+            return '';
+        }
+
+        $banner = $this->allChannel[$this->pid]['banner'];
+        $banner2 = '';
+        foreach($this->allChannel[$this->pid]['son'] as $son){
+            if($son['id'] == $this->cid){
+                $banner2 = $son['banner'];
+            }
+        }
+
+        return $banner2?$banner2:$banner;//优先子级banner图
+
+
     }
 }

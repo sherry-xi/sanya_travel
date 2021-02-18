@@ -46,11 +46,13 @@ class ChannelController extends BaseController{
         if((count($article) == 1) && $this->cid &&(!I("p"))){ //只有一篇文章而且是二级导航直接跳到文章详细页面
             redirect(U("Article/index",['id'=>$article[0]['id'],'pid'=>$this->pid,'cid'=>$this->cid  ]));
         }
-        $article = getThumbImage($article,100,false);
         foreach($article as $k=>$v){
-            $article[$k]['content2'] = $v['content'];
-            $article[$k]['content'] = strip_tags($v['content']);
-            $article[$k]['admin'] = MS("admin")->where(['id'=>$v['admin_id']])->getField("truename");
+            $v = getThumbImage($v,C("image")['thumb_channelnews']);
+            $v['content2'] = $v['content'];
+            $v['content']  = strip_tags($v['content']);
+            $v['admin']    = MS("admin")->where(['id'=>$v['admin_id']])->getField("truename");
+
+            $article[$k] = $v;
         }
 
         $this->assign('page',getPageShow($page));
@@ -58,6 +60,13 @@ class ChannelController extends BaseController{
         $this->assign('article',$article);
 
         if(($this->cid == 168) || ($this->channel[$this->pid]['name'] == '专业介绍')){
+            $selectArticle = $article[0]; //默认选中的专业文章
+            foreach($article as $v){
+                if($v['id'] == I('id')){
+                    $selectArticle = $v;
+                }
+            }
+            $this->assign('selectArticle',$selectArticle);
             $this->assign('article',$article);
             $this->assign("apartmentName",$this->getChannelById($this->cid)['name']);
             $this->display("apartment");
@@ -65,6 +74,7 @@ class ChannelController extends BaseController{
         }
         $this->display();
     }
+
 
 
     /**
@@ -88,7 +98,7 @@ class ChannelController extends BaseController{
         $page    = getpage($count,10);
 
         $article = M('article')
-                ->field("id,cid,admin_id,title,create_time")
+                ->field("id,cid,admin_id,title,create_time,content")
                 ->where($where)
                 ->order("top desc,id desc")
                 ->limit($page->firstRow.','.$page->listRows)
@@ -99,12 +109,12 @@ class ChannelController extends BaseController{
         $keywordReplace = "<span style='color: #ffc107 !important;'>{$keyword}</span>";
 
         foreach($article as $k=>$v){
+            $article[$k] = getThumbImage($v,C("image")['thumb_channelnews']);
             $article[$k]['title'] = str_replace($keyword,$keywordReplace,$v['title']); //搜索词部分替换成高亮
             $article[$k]['pid'] = MS("channel")->where(['id'=>$v['cid']])->getField('parent_id');
         }
-
+        $this->assign("latestNews",$this->getLatestNews());
         $this->assign('keyword',$keyword);
-        $this->assign('latestNews',$this->getLatestNews());
         $this->assign('page',getPageShow($page));
         $this->assign('article',$article);
         $this->display();

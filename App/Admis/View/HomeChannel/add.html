@@ -32,6 +32,20 @@
             </div>
         </div>
 
+        <div class="layui-form-item">
+            <label class="layui-form-label">导航横幅图</label>
+            <div class="layui-input-block">
+                <a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadImgBtn">选择图片</a>
+                <span class="layui-word-aux">最佳大小 1200px*300px</span>
+                <div class="slide-img">
+                    <if condition="$channel and $channel['banner']">
+                        <a href="{$channel.banner}" target="_blank" id="banner"><img src="{$channel.banner}"/></a>
+                        <a class="{$theme.databar.delete.style} "  title="删除" id="delete-banner">{$theme.databar.delete.icon}</a>
+                    </if>
+                </div>
+                <input type="hidden" name="banner" value="{$channel.banner}"/>
+            </div>
+        </div>
         <!--
         <div class="layui-form-item">
             <label class="layui-form-label">导航类型：</label>
@@ -57,7 +71,27 @@
     </div>
 </div>
 <include file="Component/footer"/>
+<script type="text/javascript" src="__JS__/upload/upload.js"></script>
     <script>
+    $(function(){
+
+        uploadHandle.upload({
+            id:"uploadImgBtn",
+            name:'file', //服务端接收的名称
+            fileType:'image', //允许上传的文件类型
+            url:"{:U('uploadFile')}",
+            callback:function(data){
+                $('.slide-img').html('<img src="'+data.url+'"/>');
+                $("input[name=banner]").val(data.path);
+            }
+        });
+        $("#delete-banner").click(function(){
+            $("input[name=banner]").val('');
+            $(this).remove();
+            $("#banner").remove();
+        });
+    })
+
 
         layui.use(['form'], function () {
             var form = layui.form,

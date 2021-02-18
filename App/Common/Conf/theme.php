@@ -21,5 +21,10 @@ return [
             'show' => ['text'=>'查 看', 'style' => 'layui-btn layui-btn-primary layui-btn-xs','icon' => '<i class="layui-icon">&#xe615;</i>'],
             'add' => ['text'=>'添加', 'style' => 'layui-btn layui-btn-primary layui-btn-xs','icon' => '<i class="layui-icon">&#xe624;</i>'],
         ],
+    ],
+
+    'image' =>[
+        'thumb_latestnews' => '/Public/image/thumb_latestnews.png', //最新文章列表缩略图
+        'thumb_channelnews' => '/Public/image/thumb_latestnews.png' //导航文章列表缩略图
     ]
 ];

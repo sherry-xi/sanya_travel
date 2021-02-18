@@ -573,8 +573,9 @@ function getFileUrl($file){
  * 根据文章内容获取缩略图
  * @param $articles
  * @param $fliter 是否过滤掉没有图片的 false 否 true 是
+ * @deprecated
  */
-function getThumbImage($articles,$limit = 100,$fliter = true){
+function getThumbImage_bak($articles,$limit = 100,$fliter = true){
 
     $data = [];
     foreach($articles as $k=>$v){
@@ -612,6 +613,33 @@ function getThumbImage($articles,$limit = 100,$fliter = true){
     }
     return $data;
 
+}
+
+/**
+ * 从文章中解析文章缩略图
+ * @param $article
+ * @param $defaultThumb 默认缩略图
+ */
+function getThumbImage($article,$defaultThumb = ''){
+    if($article['thumb']){ //文章配置有缩略图
+        return $article;
+    }
+    preg_match_all("/<[img|IMG].*?[src|SRC]=[\'|\"](.*?(?:[\.gif|\.png|\.jpg|\.bmp|\.jpeg|\.JPG|\.JPEG]))[\'|\"].*?[\/]?>/", $article['content'], $image);
+
+    foreach($image[1] as $img){
+
+        $imgInfo = getimagesize('./'.$img);
+        if((!$imgInfo) || ( $imgInfo[0] <500 || $imgInfo[1]<300 ) ){ //宽度太小不要 最小宽高500*300
+            continue;
+        }
+
+        $article['thumb'] = $img;
+        break;
+    }
+    if(!$article['thumb']){
+        $article['thumb'] = $defaultThumb;
+    }
+    return $article;
 }
 
 /**

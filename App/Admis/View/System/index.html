@@ -65,9 +65,14 @@
                 <label class="layui-form-label required"  >首页背景图</label>
                 <div class="layui-input-block">
                     <a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadIndexImgBtn">选择图片</a>
+
                     <div class="slide-img" >
+                        <if condition="$config['index_bg_img']">
                         <a href="{$config.index_bg_img}" target="_blank"><img  class="img-thumb" src="{$config.index_bg_img}"/></a>
+                        <a class="{$theme.databar.delete.style} "  title="删除" id="delete-banner">{$theme.databar.delete.icon}</a>
+                        </if>
                     </div>
+
                     <input type="hidden" name="index_bg_img"  value="{$config.index_bg_img}"/>
                 </div>
             </div>
@@ -243,6 +248,12 @@ $(function(){
             $('.slide-img2').html('<img class="img-thumb" src="'+data.url+'"/>');
             $("input[name=index_bg_img2]").val(data.path);
         }
+    });
+
+    $("#delete-banner").click(function(){
+        $("input[name=index_bg_img]").val('');
+        $(this).remove();
+        $(".img-thumb").remove();
     });
 
 

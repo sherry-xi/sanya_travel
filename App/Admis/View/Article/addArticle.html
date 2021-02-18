@@ -38,24 +38,26 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">置顶设置</label>
-            <div class="layui-input-block">&nbsp;&nbsp;&nbsp;
+            <div class="layui-input-block">
                 <input type="checkbox" name="top" lay-skin="switch" <if  condition="$article['top']"> checked </if>  lay-text="文章置顶|不置顶">
             </div>
         </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">封面缩略图</label>
-                <div class="layui-input-block">&nbsp;&nbsp;&nbsp;
-                    <a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadImgBtn">选择图片</a>
+                <div class="layui-input-block"><a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadImgBtn">选择图片</a>
                     <span class="layui-word-aux"><small>最佳大小 500px*500px 无缩略图自动抓取文章内容的图片</small></span>
                     <div class="slide-img">
-                        <if condition="$article">
-                            <a href="{$article.thumb}" target="_blank"><img src="{$article.thumb}" class="img-thumb"/></a>
+                        <if condition="$article and $article['thumb']">
+                            <a href="{$article.thumb}" target="_blank" id="thumb"><img src="{$article.thumb}" class="img-thumb"/></a>
+                            <a class="{$theme.databar.delete.style} "  title="删除" id="delete-banner">{$theme.databar.delete.icon}</a>
+
                         </if>
                     </div>
                     <input type="hidden" name="thumb" value="{$article.thumb}"/>
                 </div>
             </div>
 
+            <!--
             <div class="layui-form-item">
                 <label class="layui-form-label">详情页横幅</label>
                 <div class="layui-input-block">&nbsp;&nbsp;&nbsp;
@@ -69,11 +71,11 @@
                     <input type="hidden" name="banner" value="{$article.banner}"/>
                 </div>
             </div>
-
+            -->
             <if condition="!$user['isNewsPoster']">
                 <div class="layui-form-item">
                     <label class="layui-form-label">文章审核</label>
-                    <div class="layui-input-block">&nbsp;&nbsp;&nbsp;
+                    <div class="layui-input-block">
                         <input type="radio" name="audit" value="0" title="未审核" <if  condition="$article['audit'] eq 0"> checked </if> >
                         <input type="radio" name="audit" value="1" title="审核通过" <if  condition="$article['audit'] eq 1"> checked </if>>
                         <input type="radio" name="audit" value="2" title="审核不通过" <if  condition="$article['audit'] eq 2"> checked </if>>
@@ -143,6 +145,13 @@
                 $('.slide-img2').html('<img class="img-thumb" src="'+data.url+'"/>');
                 $("input[name=banner]").val(data.path);
             }
+        });
+
+
+        $("#delete-banner").click(function(){
+            $("input[name=thumb]").val('');
+            $(this).remove();
+            $("#thumb").remove();
         });
 
         if("{$articleHandleMsg}"){

@@ -1,6 +1,8 @@
 <?php
 namespace Admis\Controller;
 
+use Lib\Upload;
+
 /**
  * 首页管理-导航管理
  * Class HomeChannel
@@ -118,7 +120,8 @@ class HomeChannelController extends BaseController {
             'name'       => trim(I('name')),
             'sort'       => I('sort'),
             'show_nav'   => I('show_nav'),
-            'classify'  => I('classify')
+            'classify'  => I('classify'),
+            'banner'     => I("banner")
         );
 
         if($id){ //编辑
@@ -155,7 +158,8 @@ class HomeChannelController extends BaseController {
             'name'       => trim(I('name')),
             'sort'       => I('sort'),
             'show_nav'   => I('show_nav'),
-            'classify'  => I('classify')
+            'classify'  => I('classify'),
+            'banner'    => I('banner')
         );
         if($id){ //编辑
 
@@ -178,4 +182,12 @@ class HomeChannelController extends BaseController {
         MS('channel')->where(array('id'=>$id))->save(['status'=>1]);
         $this->ajax(0,"删除成功");
     }
+    /**
+     * 上传文件
+     */
+    public function uploadFile(){
+        $result = (new Upload())->upload();
+        echo "<script>parent.uploadHandle.finish('".json_encode($result)."');</script>";
+    }
+
 }

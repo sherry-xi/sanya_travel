@@ -65,7 +65,7 @@
 
 #footer .footer-top {
 
-    border-bottom: 1px solid #3d4042;
+    border-bottom: 1px dotted #fff;
 }
 .logo-pc{display: none;}
 .logo-mobile{display: none;}
@@ -73,7 +73,7 @@
 /* 频道页面 */
 .categories li a:hover{text-decoration: underline;}
 .channel-select{text-decoration: underline;}
-.blog .entry .entry-title{font-size: 22px !important;}
+.blog .entry .entry-title{font-size: 20px !important;}
 
 /* 公共样式 */
 .text-left{text-align: left}
@@ -82,3 +82,12 @@
 
 /*** 首页 ***/
 /** end 首页 **/
+
+.blog{background: #fdfdfd}
+.entries,.sidebar{background: #fff;}
+.sidebar-title{
+    background: url('/Public/image/pic_title_4.jpg') repeat;
+        color:#fff !important;padding: 10px !important;letter-spacing: 2px;}
+.sidebar-title a{color:#fff;}
+.channelBanner{padding-top: 10px;padding-left: 0px;padding-right: 0px;}
+.channelBanner img{max-height: 300px;width: 1400px;}

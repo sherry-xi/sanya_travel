@@ -37,14 +37,25 @@ class IndexController extends BaseController{
         $channelList = MS("channel")->where(['parent_id'=>['gt',0]])->field('id,parent_id')->select();
 
         $this->assign('news',$news);
-        $this->assign('channelList',array_column($channelList,null,'id'));
-        $this->assign('service',getThumbImage($service,6));
         $this->assign('information',$infomation);
-        $this->assign('newsImage',getThumbImage($news,4));
-        $this->assign('informationImage',getThumbImage($infomation,4));
-        ;
+        $this->assign('service',$this->setArticleThumb($service));
+        $this->assign('newsImage',$this->setArticleThumb($news));
+        $this->assign('informationImage',$this->setArticleThumb($infomation));
+
+        $this->assign('channelList',array_column($channelList,null,'id'));;
         $this->display();
 
+    }
+
+    private function setArticleThumb($articles){
+        $data = [];
+        foreach($articles as $k=>$v){
+            $v = getThumbImage($v);
+            if($v['thumb']){
+                $data[] = $v;
+            }
+        }
+        return $data;
     }
 
 
@@ -69,12 +80,12 @@ class IndexController extends BaseController{
         $field = array('id,title');
         //查找上一篇文章
         $wherePre['id']  = array('lt',$id);
-        $wherePre['cid'] = array('eq',$this->mid);
+        $wherePre['cid'] = array('eq',$this->cid);
         $articlePre        = M('article')->field($field)->where($wherePre)->order("id desc")->find();
 
         //下一篇文章
         $whereNext['id']  = array('gt',$id);
-        $whereNext['cid'] = array('eq',$this->mid);
+        $whereNext['cid'] = array('eq',$this->cid);
         $articleNext      = M('article')->field($field)->where($whereNext)->order("id desc")->find();
 
         if($article){
@@ -120,12 +131,12 @@ class IndexController extends BaseController{
         $field = array('id,title');
         //查找上一篇文章
         $wherePre['id']  = array('lt',$id);
-        $wherePre['cid'] = array('eq',$this->mid);
+        $wherePre['cid'] = array('eq',$this->cid);
         $articlePre        = M('article')->field($field)->where($wherePre)->order("id desc")->find();
 
         //下一篇文章
         $whereNext['id']  = array('gt',$id);
-        $whereNext['cid'] = array('eq',$this->mid);
+        $whereNext['cid'] = array('eq',$this->cid);
         $articleNext      = M('article')->field($field)->where($whereNext)->order("id desc")->find();
 
         if($article){

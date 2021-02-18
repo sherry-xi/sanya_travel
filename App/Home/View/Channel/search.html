@@ -27,13 +27,14 @@
 
           <foreach name="article" item="value">
             <article class="entry">
-
+              <!--
               <if condition="$value['image']">
                 <div class="entry-img">
 
                   <img src="{$value.image}" alt="无缩略图" class="img-fluid">
                 </div>
               </if>
+              -->
 
               <h2 class="entry-title">
                 <a href="{:U('Article/index',['id'=>$value['id'],'pid'=>$value['pid'],'cid'=>$value['cid']])}" target="_blank">{$value.title}</a>
