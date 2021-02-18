@@ -113,14 +113,14 @@ function eventBind(config,obj,toolbarType){
  * @param config
  */
 function hyperlinkEvent(config,obj){
+
     /**
      * _blank 打开新网页标签页
      * _parent  本浏览器标签页父级窗口打开
      * _top 本浏览器标签页顶级窗口打开
      * _self 默认
      */
-
-    if(config.urlParam.target == '_blank'){
+    if(config.hasOwnProperty('urlParam') && (config.urlParam.target == '_blank')){
         var tempwindow=window.open('_blank');
         tempwindow.location=config.content+getUrlParam(config.urlParam,obj.data);
 

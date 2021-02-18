@@ -36,6 +36,11 @@ class ArticleController extends BaseController{
 
 
         if(!I('get')){
+            //一次性提示信息
+            $msg = session("articleHandleMsg");
+            unset($_SESSION[C("SESSION_PREFIX")]['articleHandleMsg']);
+
+            $this->assign('articleHandleMsg',$msg);
             $this->display();
             exit;
         }
@@ -117,6 +122,13 @@ class ArticleController extends BaseController{
             $article = MS('article')->where(array('id'=>$id))->find();
             $this->assign('article',$article);
         }
+
+        //一次性提示信息
+        $msg = session("articleHandleMsg");
+        unset($_SESSION[C("SESSION_PREFIX")]['articleHandleMsg']);
+        $this->assign('articleHandleMsg',$msg);
+
+
         $this->assign('from',I('from'));
         $this->assign('channel',$this->getChannel());
         $this->display();
@@ -158,16 +170,17 @@ class ArticleController extends BaseController{
         }
 
 
-        $url = I("from")?U(I("from")):'';
+        $url = I("from")?I("from"):"addArticle";
         if($id){
             $res  = MS('article')->where(array('id'=>$id))->save($data);
-
-            $this->success('编辑成功',$url);
+            session('articleHandleMsg',"编辑成功");
         }else{
             $data['create_time'] = date('Y-m-d H:i:s');
             MS('article')->add($data);
-            $this->success('添加成功',$url);
+            session('articleHandleMsg',"添加成功");
         }
+
+        $this->redirect($url);
 
     }
 

@@ -10,7 +10,11 @@
 <div class="form-block" >
     <form action="{:U('addArticleHandle')}" method="post" enctype="multipart/form-data">
         <div class="layui-form layuimini-form form-main" >
-            <a href="{:U('Article/index')}" class="layui-btn"  style="position: absolute;right: 50px;top: 50px;">返回</a>
+            <div style="position: absolute;right: 50px;top: 50px;">
+                <button class="layui-btn" lay-submit >保存</button>
+                <a href="{:U('Article/index')}" class="layui-btn layui-btn-primary"  >返回</a>
+            </div>
+
 
         <div class="layui-form-item" >
             <label class="layui-form-label required">文章标题</label>
@@ -90,7 +94,7 @@
                 <input type="hidden" name="token" value="{$token}"/>
                 <input type="hidden" name="id" value="{$article.id}"/>
                 <input type="hidden" name="from" value="{$from}"/>
-                <button class="layui-btn" lay-submit >确定</button>
+                <button class="layui-btn" lay-submit >保存</button>
                 <a href="{:U('Article/index')}" class="layui-btn layui-btn-primary" >返回</a>
             </div>
         </div>
@@ -140,6 +144,10 @@
                 $("input[name=banner]").val(data.path);
             }
         });
+
+        if("{$articleHandleMsg}"){
+            layerSuc("{$articleHandleMsg}");
+        }
     });
 
 

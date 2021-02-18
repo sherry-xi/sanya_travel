@@ -12,7 +12,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label" style="padding-left: 0px;width: 65px;">导航</label>
                     <div class="layui-input-inline">
-                        <select id="cid" lay-filter="aihao"  lay-verify="required" lay-reqtext="请选择导航">
+                        <select id="cid" lay-filter="cid"  lay-verify="required" lay-reqtext="请选择导航">
                             <option value="">选择导航</option>
                             <foreach name="channel" item="ch">
                                 <option value="parent_{$ch.id}" >{$ch.name}</option>
@@ -26,7 +26,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label" style="padding-left: 0px;width: 65px;">审核状态</label>
                     <div class="layui-input-inline">
-                        <select id="audit" >
+                        <select id="audit" lay-filter="audit" >
                             <option value="-1">全部</option>
                             <foreach name="audits" item="v" key="k">
                                 <option value="{$k}"  <if condition="$k eq $audit"> selected </if> >{$v}</option>
@@ -209,23 +209,41 @@
         layerTableHandle({render:config.render});
     }
 
+
+    layui.use(['form'], function () {
+             var form = layui.form;
+             form.on('select(cid)', function(data){
+                 return searchArticle();
+                });
+        form.on('select(audit)', function(data){
+            return searchArticle();
+        });
+        });
     $(function(){
+
         $("#search").click(function(){
-
-            var keyword = $("#keyword").val();
-            var cid = $("#cid").val();
-            var audit = $("#audit").val();
-            var url = "{:U('Article/index',['get'=>1])}?keyword="+keyword+"&cid="+cid+"&audit="+audit;
-
-            var tempConfig = config.render;
-            tempConfig.url = url;
-            layerTableHandle({render:tempConfig});
-            return false;
+            return searchArticle();
         });
 
         $("#reset").click(function(){
 
             location.href = "{:U('Article/index')}";
         });
+
+        if("{$articleHandleMsg}"){
+            layerSuc("{$articleHandleMsg}");
+        }
     });
+
+    function searchArticle(){
+        var keyword = $("#keyword").val();
+        var cid = $("#cid").val();
+        var audit = $("#audit").val();
+        var url = "{:U('Article/index',['get'=>1])}?keyword="+keyword+"&cid="+cid+"&audit="+audit;
+
+        var tempConfig = config.render;
+        tempConfig.url = url;
+        layerTableHandle({render:tempConfig});
+        return false;
+    }
 </script>
