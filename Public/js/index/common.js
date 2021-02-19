@@ -37,6 +37,6 @@ $(function(){
 
 
     //导航栏 banner设置
-    $(".channel-banner").css("margin-top",$("#header").height()+10);
+    $(".channel-banner").css("margin-top",$("#header").height()-15);
 });
 

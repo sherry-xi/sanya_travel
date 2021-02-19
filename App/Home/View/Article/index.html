@@ -5,27 +5,8 @@
 <main id="main">
 
     <if condition="$isSchoolChannel">
-        <div  class="channel-banner">
-            <img  class="channel-banner-img" src="{$channelBanner.banner}"/>
-            <div class="channel-banner-text text-left-top" >
-                <if condition="$channelBanner['banner_title']">
-                    <h3><span>{$channelBanner.banner_title}</span></h3>
-                </if>
-                <if condition="$channelBanner['banner_content']">
-                    <p>{$channelBanner.banner_content}</p>
-                </if>
-            </div>
-        </div>
-        <else/>
-        <section class="breadcrumbs" >
-            <div class="container">
+        <include file="Public/channelBanner"/>
 
-                <div class="d-flex justify-content-between align-items-center">
-                    <h2></h2>
-                </div>
-
-            </div>
-        </section><!-- End Blog Section -->
     </if>
 
   <!-- ======= Blog Section ======= -->

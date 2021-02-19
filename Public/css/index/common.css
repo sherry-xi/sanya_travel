@@ -101,7 +101,7 @@
 .channel-banner-text h3{font-size: 30px;color:#fff;margin-bottom: 0px;
 
 }
-.channel-banner-text h3 span{border-bottom: 5px double #fdd824;display: block;background: #000;padding: 10px 20px;
+.channel-banner-text h3 span{border-bottom: 5px double #fdd824;display: block;background: #383434;padding: 10px 20px;
     filter:alpha(opacity=70);
     -moz-opacity:0.7;
     -khtml-opacity: 07;
