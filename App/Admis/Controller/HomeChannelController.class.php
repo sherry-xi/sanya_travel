@@ -121,7 +121,9 @@ class HomeChannelController extends BaseController {
             'sort'       => I('sort'),
             'show_nav'   => I('show_nav'),
             'classify'  => I('classify'),
-            'banner'     => I("banner")
+            'banner'     => I("banner"),
+            'banner_title'     => I("banner_title"),
+            'banner_content'     => I("banner_content"),
         );
 
         if($id){ //编辑
@@ -159,7 +161,9 @@ class HomeChannelController extends BaseController {
             'sort'       => I('sort'),
             'show_nav'   => I('show_nav'),
             'classify'  => I('classify'),
-            'banner'    => I('banner')
+            'banner'    => I('banner'),
+            'banner_title'     => I("banner_title"),
+            'banner_content'     => I("banner_content"),
         );
         if($id){ //编辑
 

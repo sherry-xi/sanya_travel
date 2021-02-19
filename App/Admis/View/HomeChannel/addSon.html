@@ -44,6 +44,18 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">导航横幅图标题：</label>
+            <div class="layui-input-block">
+                <input type="text" value="{$channel.banner_title}" name="banner_title"  class="layui-input" placeholder="可留空"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">导航横幅图内容：</label>
+            <div class="layui-input-block">
+                <input type="text" value="{$channel.banner_content}" name="banner_content"  class="layui-input" placeholder="可留空"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <div class="layui-input-block">
                 <input type="hidden" name="token" value="{$token}"/>
                 <input type="hidden" name="id" id="id" value="{$channel.id}"/>

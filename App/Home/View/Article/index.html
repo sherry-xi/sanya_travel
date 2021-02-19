@@ -5,9 +5,17 @@
 <main id="main">
 
     <if condition="$isSchoolChannel">
-        <section style="padding: 0px;margin-top: 120px;">
-            <img src="{$channelBanner}" style="width: 100%;max-height: 400px;"/>
-        </section>
+        <div  class="channel-banner">
+            <img  class="channel-banner-img" src="{$channelBanner.banner}"/>
+            <div class="channel-banner-text text-left-top" >
+                <if condition="$channelBanner['banner_title']">
+                    <h3><span>{$channelBanner.banner_title}</span></h3>
+                </if>
+                <if condition="$channelBanner['banner_content']">
+                    <p>{$channelBanner.banner_content}</p>
+                </if>
+            </div>
+        </div>
         <else/>
         <section class="breadcrumbs" >
             <div class="container">
@@ -62,21 +70,12 @@
                         {$article.content}
                     </div>
                     <div>
-                        <p>上一篇:
-                            <if condition="$prev">
-                                <a href="{:U('Article/index',['pid'=>$pid,'cid'=>$prev['cid'],'id'=>$prev['id']])}">{$prev.title}</a>
-                                <else/>
-                                没有了
-                            </if>
-
-                        </p>
-                        <p>下一篇:
-                            <if condition="$next">
-                                <a href="{:U('Article/index',['pid'=>$pid,'cid'=>$next['cid'],'id'=>$next['id']])}">{$next.title}</a>
-                                <else/>
-                                没有了
-                            </if>
-                        </p>
+                        <if condition="$prev">
+                            <p>上一篇:<a href="{:U('Article/index',['pid'=>$pid,'cid'=>$prev['cid'],'id'=>$prev['id']])}">{$prev.title}</a></p>
+                        </if>
+                        <if condition="$next">
+                            <p>下一篇:<a href="{:U('Article/index',['pid'=>$pid,'cid'=>$next['cid'],'id'=>$next['id']])}">{$next.title}</a></p>
+                        </if>
                     </div>
                 </article><!-- End blog entry -->
             </if>

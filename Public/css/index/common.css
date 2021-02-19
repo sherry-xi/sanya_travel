@@ -91,3 +91,29 @@
 .sidebar-title a{color:#fff;}
 .channelBanner{padding-top: 10px;padding-left: 0px;padding-right: 0px;}
 .channelBanner img{max-height: 300px;width: 1400px;}
+
+/* 导航横幅文字 */
+.channel-banner{padding: 0px;position: relative;}
+.channel-banner-img{width: 100%;max-height: 400px;}
+.channel-banner-text{position: absolute;color: #fff;max-width: 30%;letter-spacing: 2px;
+
+}
+.channel-banner-text h3{font-size: 30px;color:#fff;margin-bottom: 0px;
+
+}
+.channel-banner-text h3 span{border-bottom: 5px double #fdd824;display: block;background: #000;padding: 10px 20px;
+    filter:alpha(opacity=70);
+    -moz-opacity:0.7;
+    -khtml-opacity: 07;
+    opacity: 0.7;
+    border-radius: 5px;
+}
+
+.channel-banner-text p{background: url('/Public/image/pic_zhuanye_jt2.png') repeat;
+            color: #fff;padding: 10px 20px;}
+
+.text-left-top{top:30px;left:60px;}
+.text-right-top{top:40px;right:30px;}
+.text-left-bottom{bottom:40px;left:30px;}
+.text-right-bottom{bottom:40px;right:30px;}
+.text-center{top:30%;left:40%;}

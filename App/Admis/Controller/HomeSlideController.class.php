@@ -64,7 +64,7 @@ class HomeSlideController extends BaseController {
             'img'       => trim(I('img')),
             'sort'      => intval(I('sort')),
             'title'       => trim(I('title')),
-            'content'       => trim(I('content'))
+            'content'       => trim(I('content')),
         );
 
         if($id){

@@ -53,21 +53,12 @@
                         {$article.content}
                     </div>
                     <div>
-                        <p>上一篇:
-                            <if condition="$prev">
-                                <a href="{:U('Article/index',['pid'=>$pid,'cid'=>$prev['cid'],'id'=>$prev['id']])}">{$prev.title}</a>
-                                <else/>
-                                没有了
-                            </if>
-
-                        </p>
-                        <p>下一篇:
-                            <if condition="$next">
-                                <a href="{:U('Article/index',['pid'=>$pid,'cid'=>$next['cid'],'id'=>$next['id']])}">{$next.title}</a>
-                                <else/>
-                                没有了
-                            </if>
-                        </p>
+                        <if condition="$prev">
+                            <p>上一篇:<a href="{:U('Article/index',['pid'=>$pid,'cid'=>$prev['cid'],'id'=>$prev['id']])}">{$prev.title}</a></p>
+                        </if>
+                        <if condition="$next">
+                            <p>下一篇:<a href="{:U('Article/index',['pid'=>$pid,'cid'=>$next['cid'],'id'=>$next['id']])}">{$next.title}</a></p>
+                        </if>
                     </div>
                 </article><!-- End blog entry -->
             </if>

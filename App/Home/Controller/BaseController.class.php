@@ -65,7 +65,7 @@ class BaseController extends Controller{
      */
     public function setChannel(){
 
-        $field  = ['id','parent_id','name','show_nav','banner'];
+        $field  = ['id','parent_id','name','show_nav','banner','banner_title',"banner_content"];
 
         $parents = M('channel')->field($field)->where(['status'=>0,'parent_id'=>0])->order("parent_id asc,sort asc,id asc")->select();
 
@@ -221,15 +221,17 @@ class BaseController extends Controller{
             return '';
         }
 
-        $banner = $this->allChannel[$this->pid]['banner'];
-        $banner2 = '';
+        $banner = $this->allChannel[$this->pid];
+
         foreach($this->allChannel[$this->pid]['son'] as $son){
-            if($son['id'] == $this->cid){
-                $banner2 = $son['banner'];
+            if(($son['id'] == $this->cid) && $son['banner']){
+                $banner = $son;///子级banner图覆盖父级
             }
         }
-
-        return $banner2?$banner2:$banner;//优先子级banner图
+        if(isMobile()){ //手机端页面太小不显示文字
+            $banner['banner_title']  =$banner['banner_content'] = '';
+        }
+        return $banner;//优先子级banner图
 
 
     }

@@ -1,14 +1,18 @@
-<if condition="$channelBanner">
-    <if condition="$isMobile">
-        <section style="padding: 0px;margin-top: 50px;">
-            <img src="{$channelBanner}" style="width: 100%;max-height: 400px;"/>
-        </section>
-        <else/>
-        <section style="padding: 0px;margin-top: 120px;">
-            <img src="{$channelBanner}" style="width: 100%;max-height: 400px;"/>
-        </section>
-    </if>
-    <else/>
+<if condition="$channelBanner['banner']">
+    <div  class="channel-banner">
+        <img  class="channel-banner-img" src="{$channelBanner.banner}"/>
+        <div class="channel-banner-text text-left-top" >
+            <if condition="$channelBanner['banner_title']">
+                <h3><span>{$channelBanner.banner_title}</span></h3>
+            </if>
+            <if condition="$channelBanner['banner_content']">
+                <p>{$channelBanner.banner_content}</p>
+            </if>
+        </div>
+    </div>
+</if>
+
+<if condition="!$channelBanner['banner'] and !$isMobile">
     <section class="breadcrumbs" >
         <div class="container">
 
@@ -19,3 +23,4 @@
         </div>
     </section><!-- End Blog Section -->
 </if>
+
