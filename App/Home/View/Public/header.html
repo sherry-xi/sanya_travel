@@ -68,6 +68,7 @@
 
     <div class="container-fluid" >
 
+        <if condition="!$isMobile">
         <div  class="logo-box logo-pc" >
             <!-- xl普通笔记本 lg 平板ipad pro  md 平板小ipad-->
             <div  class=" logo float-left col-xl-9 col-lg-9 col-md-12 col-sm-12">
@@ -115,7 +116,7 @@
             </div>
             -->
         </div>
-
+                <else/>
         <div  class="logo-box logo-mobile" >
             <!-- xl普通笔记本 lg 平板ipad pro  md 平板小ipad-->
             <div  class=" logo float-left col-xl-6 col-lg-8 col-md-12 col-sm-6">
@@ -128,7 +129,7 @@
                 </div>
             </div>
         </div>
-
+        </if>
 
         <nav class="nav-menu d-none d-lg-block" >
 

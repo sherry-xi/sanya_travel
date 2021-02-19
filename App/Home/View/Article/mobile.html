@@ -4,10 +4,10 @@
 </style>
 <main id="main">
 
-    <if condition="$isSchoolChannel">
-        <section style="padding: 0px;">
-            <img src="{$channelBanner}" style="width: 100%;max-height: 400px;margin-top: 15px;"/>
-        </section>
+    <if condition="$isSchoolChannel and $channelBanner['banner']">
+        <div  class="channel-banner">
+            <img  class="channel-banner-img" src="{$channelBanner.banner}"/>
+        </div>
     </if>
 
 

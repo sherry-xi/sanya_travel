@@ -67,8 +67,8 @@
 
     border-bottom: 1px dotted #fff;
 }
-.logo-pc{display: none;}
-.logo-mobile{display: none;}
+.logo-pc{}
+.logo-mobile{}
 
 /* 频道页面 */
 .categories li a:hover{text-decoration: underline;}

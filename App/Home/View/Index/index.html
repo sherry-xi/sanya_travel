@@ -44,9 +44,11 @@
       <foreach name="slide" item="v" key="k">
         <div  data-url="{$v.link}"    <if condition="$k eq 0"> class=" carousel-item  active " <else/> class="carousel-item" </if>    style="background-image: url('.{$v.img}')">
         <div class="carousel-caption d-none d-md-block text-left"  >
-          <if condition="$v['title']"><h3><span>{$v.title}</span></h3></if>
-          <if condition="$v['content']"><p class="banner-text">
+          <if condition="$v['title']"><h3 style="float: right"><span>{$v.title}</span></h3></if>
+          <if condition="$v['content']"><p class="banner-text" style="float: right">
+            <!--
             <img src="__PUBLIC__/image/pic_zhuanye_jt.png"/>
+            -->
             {$v.content}
           </p></if>
 
@@ -145,7 +147,7 @@
       </div>
     </section><!-- End Features Section -->
 
-    <section class="features" data-aos="fade-up" date-aos-delay="200" style="padding-top: 0px;">
+    <section class="features"  style="padding-top: 0px;">
       <div class="container">
         <div class="section-title">
           <h2 style="cursor: pointer;background:url('__PUBLIC__/image/pic_title_3.jpg') repeat;">
@@ -218,7 +220,7 @@
       </div>
     </section>
 
-    <section class="services-section-two style-two" data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 0px;">
+    <section class="services-section-two style-two" style="margin-bottom: 0px;">
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-12 d-flex align-items-stretch"  >

@@ -3,7 +3,6 @@ $(function(){
 
     //手机端特殊处理一些样式
     if(IsMobile()){
-        $(".logo-mobile").fadeIn(100);
        // $("#main").css("marginTop","20px");
 
         $("#footer-quikLink").hide();
@@ -12,12 +11,43 @@ $(function(){
         $("#footer-weixin").css("text-align","center");
 
         $(".index-news").css("margin-top","15px");
-        $(".slider-main").css("padding-top","80px");
+        $(".slider-main").css("padding-top",$("#header").height()-20);
 
     }else{
-        $(".logo-pc").fadeIn(100);
         //$("#main").css("marginTop","65px");
         //$("#header").css("min-width","1300px");
+        //$(".slider-main").css("padding-top",$("#header").height()-20);
+    }
+
+    $(document).scroll(function(e){
+        if(IsMobile()){
+            return ;
+        }
+
+        var top = $(document).scrollTop();
+        var number = 700;
+        if(top > number){
+            $("#searchForm").hide();
+            $(".logo-pc").hide(1000);
+        }else{
+            $("#searchForm").fadeIn(500);
+            $(".logo-pc").fadeIn(1000);
+        }
+    });
+
+    if(!IsMobile()){
+        /*
+        var top = $(document).scrollTop();
+        var number = 400;
+        if(top > number){
+            $("#header.header-scrolled").css("padding","0px");
+            $("#searchForm").hide();
+            $(".logo-pc").hide();
+        }else{
+            $("#header.header-scrolled").css("padding","10px 0px");
+            $("#searchForm").show();
+            $(".logo-pc").show();
+        }*/
     }
 
     //横幅朱家 鼠标小手指
@@ -37,6 +67,12 @@ $(function(){
 
 
     //导航栏 banner设置
-    $(".channel-banner").css("margin-top",$("#header").height()-15);
+    if(IsMobile()){
+        $(".channel-banner").css("margin-top","40px");
+        $("#main").css("margin-top","55px");
+    }else{
+        $(".channel-banner").css("margin-top",$("#header").height()-15);
+    }
+
 });
 
