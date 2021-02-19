@@ -16,7 +16,8 @@ $(function(){
     }else{
         //$("#main").css("marginTop","65px");
         //$("#header").css("min-width","1300px");
-        //$(".slider-main").css("padding-top",$("#header").height()-20);
+        log($("#header").height());
+        $(".slider-main").css("padding-top",$("#header").height()-15);
     }
 
     $(document).scroll(function(e){
