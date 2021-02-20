@@ -16,8 +16,11 @@ $(function(){
     }else{
         //$("#main").css("marginTop","65px");
         //$("#header").css("min-width","1300px");
-        log($("#header").height());
         $(".slider-main").css("padding-top",$("#header").height()-15);
+
+        if(window.screen.width > 1440){
+            $(".carousel-item").css("min-height",window.screen.width/3.415);//大分辨率电脑banner不能定400 否则页面看不完整图片
+        }
     }
 
     $(document).scroll(function(e){
