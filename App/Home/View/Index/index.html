@@ -103,7 +103,7 @@
               <div class="carousel-inner" role="listbox" style="max-height: 350px;padding: 0px;margin: 0px;">
 
                 <foreach name="newsImage" item="v" key="k">
-                  <div <if condition="$k eq 0">class="carousel-item  active" <else/> class="carousel-item " </if> style="background-image: url('.{$v.thumb}')"
+                  <div <if condition="$k eq 0">class="carousel-item  active" <else/> class="carousel-item " </if> style="background-image: url('{$v.thumb}')"
                     data-url="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}"
                   >
                     <div class="carousel-caption d-none d-md-block" style="top: 240px;left: 5%;text-align: left;height: 50px;">
@@ -176,7 +176,7 @@
               <div class="carousel-inner" role="listbox" style="max-height: 350px;padding: 0px;margin: 0px;">
 
                 <foreach name="informationImage" item="v" key="k">
-                  <div <if condition="$k eq 0">class="carousel-item  active" <else/> class="carousel-item " </if> style="background-image: url('.{$v.thumb}')"
+                  <div <if condition="$k eq 0">class="carousel-item  active" <else/> class="carousel-item " </if> style="background-image: url('{$v.thumb}')"
                   data-url="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}"
                   >
                   <div class="carousel-caption d-none d-md-block" style="top: 240px;left: 5%;text-align: left;height: 50px;">
@@ -249,7 +249,7 @@
               <div class="inner-box">
                 <div class="image">
                   <a href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}">
-                      <img src=".{$v.thumb}" alt="">
+                      <img src="{$v.thumb}" alt="">
                   </a>
                   <div class="overlay">
                     <div class="link-btn"><a href="service-details.html"><i class="flaticon-add"></i></a></div>
