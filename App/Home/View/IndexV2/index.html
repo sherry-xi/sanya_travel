@@ -1,0 +1,94 @@
+<include file="Public/V2/header"/>
+
+<!-- 轮播 -->
+<div class="row">
+    <div class="col-lg-12">
+
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <foreach name="slide" item="v" key="k">
+                <li data-target="#carouselExampleCaptions" data-slide-to="{$k}" class="<if condition='$k eq 0'> active</if>"></li>
+                </foreach>
+            </ol>
+            <div class="carousel-inner">
+                <foreach name="slide" item="v" key="k">
+                    <div class="carousel-item <if condition='$k eq 0'>active</if> ">
+                    <img src="{$v.img}" class="d-block w-100" alt="banner">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2>{$v.title}</h2>
+                        <p>{$v.content}</p>
+                    </div>
+                </div>
+                </foreach>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- end 轮播 --->
+
+<!-- 专业介绍 -->
+<section class="services">
+    <div class="container">
+        <div class="row">
+
+    <div class="col-md-12 col-lg-12 d-flex align-items-stretch"  style="margin-top: 20px;">
+
+        <div class="section-title" style="width: 80%;margin: auto;">
+            <h2 style="color: #000;">学校理念</h2>
+            <p style="text-align: left">
+                学院以应用型特色人才为导向，围绕海南国际旅游岛发展新业态，依托海南国际旅游岛建设发展大格局，基于地方经济发展人才需要，初步构建出以“大旅游、大休闲”为核心，瞄准以旅游新业态产业链布局为发展导向，积极培育社会发展需求集中的优势旅游人才并日益成为海南国际旅游岛建设的重要人力资源支撑
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up">
+        <div class="icon-box icon-box-pink">
+
+            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+
+            <h4 class="title"><a href="">校训</a></h4>
+            <p class="description">自立更生、合力更新、有容乃大、不懈则优</p>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3 d-flex align-items-stretch" >
+        <div class="icon-box icon-box-cyan">
+            <div class="icon"><i class="bx bx-file"></i></div>
+            <h4 class="title"><a href="">校风</a></h4>
+            <p class="description">豪气、大气、正气、勇气、志气</p>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3 d-flex align-items-stretch" >
+        <div class="icon-box icon-box-green">
+            <div class="icon"><i class="bx bx-tachometer"></i></div>
+            <h4 class="title"><a href="">学风</a></h4>
+            <p class="description">勤学苦练、志学高远、精益求精<span style="display: inline-block;width: 5em;"></span></p>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3 d-flex align-items-stretch" >
+        <div class="icon-box icon-box-blue">
+            <div class="icon"><i class="bx bx-world"></i></div>
+            <h4 class="title"><a href="">教风</a></h4>
+            <p class="description">志业、敬业、专业、乐业，团队<span style="display: inline-block;width: 5em;"></span></p>
+        </div>
+    </div>
+
+</div>
+    </div>
+</section>
+<!-- end 专业介绍 -->
+
+</div>
+
+<include file="Public/V2/footer"/>
+
