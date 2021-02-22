@@ -35,7 +35,7 @@
         margin-bottom: 3px}
     .news-list li a{color:#0b2e13;}
     .news-time{float: right;font-size: 13px;margin-top: 5px;}
-    .container-fluid{padding: 0px;}
+    .container-fluid{}
     .services-section-two{margin-bottom: 0px;}
     .main{background: #fff;}
 .news-more svg{float:right;margin-right:5px;color:#fff; width:20px; height:20px;position: relative;top:5px;}
@@ -59,13 +59,15 @@
     .news-list-bg-5{background: #f7feff;border-color: #EE7B80 }
     .news-list-bg-6{margin-top: 10px ;}
     .news-list-bg-7{padding-top: 10px;}
-
+    .index-banner{padding-top: 100px;}
+    @media screen and (max-width: 500px) {
+        .index-banner {padding-top: 50px}
+    }
 </style>
-
 <!-- banner轮播 -->
-<div class="container-fluid index-banner" >
+<div class="container-fluid index-banner"  >
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12" style="padding: 0px;">
 
             <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -75,8 +77,8 @@
                 </ol>
                 <div class="carousel-inner">
                     <foreach name="slide" item="v" key="k">
-                        <div class="carousel-item <if condition='$k eq 0'>active</if> ">
-                        <img src="{$v.img}" class="d-block w-100 " alt="banner"  style="height: {$bannerHeight}px ;">
+                        <div class="carousel-item <if condition='$k eq 0'>active</if> " style="min-height: auto">
+                        <img src="{$v.img}" class="d-block w-100 index-banner-img " alt="banner" data-width="{$v['size'][0]}" data-height="{$v.['size'][1]}"  >
                         <div class="carousel-caption d-none d-md-block">
                             <h2>{$v.title}</h2>
                             <p>{$v.content}</p>
@@ -96,13 +98,13 @@
             </div>
         </div>
     </div>
-</div>
+</div style>
 <!-- end 轮播 --->
 
 
-<div class="container-fluid main" style="width: 100%;padding: 10px;">
+<div class="container-fluid main" style="width: 100%;">
 
-    <div class="row">
+    <div class="row" style="margin-top: 10px;" >
         <!-- 新闻动态 -->
         <div class="col-lg-8">
             <div class=" section-title section-title-1">
@@ -183,7 +185,7 @@
     <section class="services-section-two style-two" >
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-4" style="padding-left: 0px;<if condition='$isMobile'>padding:0px;</if>">
                     <div class="section-title section-title-3">
                         <h2>
                             师资队伍
@@ -201,7 +203,7 @@
                         </foreach>
                     </ul>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4" style="<if condition='$isMobile'>padding:0px;</if>">
                     <div class="section-title section-title-4">
                         <h2>
                             就业创业
@@ -220,7 +222,7 @@
                     </ul>
                 </div>
                 <!-- 就业创业  -->
-                <div class="col-lg-4">
+                <div class="col-lg-4" style="padding-right: 0px;<if condition='$isMobile'>padding:0px;</if>">
                     <div class="section-title section-title-5">
                         <h2>
                             学生风采
@@ -245,7 +247,7 @@
     </section>
     <!--end 旅游和康体服务 -->
 
-    <section class="services-section-two style-two" >
+    <section class="services-section-two style-two"   >
         <div class="container-fluid" style="">
             <div class="col-md-12 col-lg-12 d-flex align-items-stretch" style="padding: 0px;">
 
@@ -287,7 +289,7 @@
     </section>
 
     <!-- 专业介绍 -->
-    <section class="services major"  style="padding-bottom: 0px;padding-top:0px;background: url('__PUBLIC__/image/index-major-bg.jpg')">
+    <section class="services major"  style="padding-bottom: 0px;padding-top:0px;">
         <div class="container-fluid">
 
             <div class="row">
@@ -355,6 +357,14 @@
         });
         $(".index-travel-title").each(function(){
             $(this).text(mySubstring($(this).attr('data-text'),25,true));
+        });
+        $(".major-thumb img").css("height",'auto');
+        $(".major-thumb").css("width",'100%');
+
+        var width = window.screen.width ;
+        log(width);
+        $(".index-banner-img").each(function(){
+
         });
     });
 

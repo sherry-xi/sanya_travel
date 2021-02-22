@@ -21,10 +21,8 @@ class IndexV2Controller extends BaseController{
 
         //横幅幻灯片
         $slide = MS('slide')->where(['status'=>0,'show'=>0])->order("sort asc,id desc")->select();
-        $height = 0;
         foreach($slide as $k=>$v){
-            $size = getimagesize(C('WEB_ROOT').$v['img']);
-            $height += $size?$size[1]:400;
+            $slide[$k]['size'] = getimagesize(C('WEB_ROOT').$v['img']);
         }
 
         $indexArticleChannel = [
@@ -46,7 +44,6 @@ class IndexV2Controller extends BaseController{
         $major = MS("article")->field('id,cid,title,content,thumb,create_time')->where(['cid'=>168,'is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit(9)->select();
 
         $this->assign('slide',$slide);
-        $this->assign('bannerHeight',$height/count($slide));
         $this->assign('news',$news);
         $this->assign('information',$infomation);
         $this->assign('service',$this->setArticleThumb($service));

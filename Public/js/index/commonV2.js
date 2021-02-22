@@ -14,6 +14,10 @@ $(function(){
         $(".index-banner").css("padding-top",$("#header").height()-20);//首页banner设置
         $(".channel-banner").css("margin-top","40px");//导航栏 频道banner设置
 
+        //首页专业列表去掉背景
+        $(".major ").css("background","#fff");
+        $(".major .icon-box").css("margin-bottom","10px");
+        $(".index-banner .carousel-item img").css("height","auto");
     }else{
 
         $(".index-banner").css("padding-top",$("#header").height()-15);
