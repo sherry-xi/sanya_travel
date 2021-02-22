@@ -61,8 +61,9 @@
     .news-list-bg-7{padding-top: 10px;}
 
 </style>
+
 <!-- banner轮播 -->
-<div class="container-fluid" >
+<div class="container-fluid index-banner" >
     <div class="row">
         <div class="col-lg-12">
 
@@ -75,7 +76,7 @@
                 <div class="carousel-inner">
                     <foreach name="slide" item="v" key="k">
                         <div class="carousel-item <if condition='$k eq 0'>active</if> ">
-                        <img src="{$v.img}" class="d-block w-100" alt="banner">
+                        <img src="{$v.img}" class="d-block w-100 " alt="banner"  style="height: {$bannerHeight}px ;">
                         <div class="carousel-caption d-none d-md-block">
                             <h2>{$v.title}</h2>
                             <p>{$v.content}</p>
@@ -269,10 +270,11 @@
                                     <div class="link-btn"><a href="service-details.html"><i class="flaticon-add"></i></a></div>
                                 </div>
                             </div>
-                            <div class="lower-content" style="">
+                            <div class="lower-content" >
                                 <div class="text">
-                                    <a style="color: #0b2e13" href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}"  target="_blank">
-                                        {$k+1}.<script>mySubstring("{$v.title}",20)</script>
+                                    <a style="color: #0b2e13"  class="index-travel-title"
+                                       data-text="{$k+1}.{$v.title}"
+                                       href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}"  target="_blank">
                                     </a>
                                 </div>
                                 <div class="read-more-btn"><a href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}"  target="_blank">详细</a></div>
@@ -321,12 +323,6 @@
 
 </div>
 
-
-
-
-
-
-
 <include file="Public/V2/footer"/>
 
 <script>
@@ -356,6 +352,9 @@
 
         $(".major-thumb").click(function(){
             location.href = $(this).find("a").attr("href");
+        });
+        $(".index-travel-title").each(function(){
+            $(this).text(mySubstring($(this).attr('data-text'),25,true));
         });
     });
 
