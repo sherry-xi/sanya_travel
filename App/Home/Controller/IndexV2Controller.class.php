@@ -28,7 +28,7 @@ class IndexV2Controller extends BaseController{
         ];
 
         //新闻动态
-        $news = MS("article")->field('id,cid,title,content,thumb,create_time')->where(['cid'=>199,'is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit(9)->select();
+        $news = MS("article")->field('id,cid,title,content,thumb,create_time')->where(['cid'=>199,'is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit(8)->select();
         //通知公告
         $infomation = MS("article")->field('id,cid,title,content,thumb,create_time')->where(['cid'=>200,'is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit(8)->select();
         //康体服务
@@ -46,10 +46,9 @@ class IndexV2Controller extends BaseController{
         $this->assign('newsImage',$this->setArticleThumb($news));
         $this->assign('informationImage',$this->setArticleThumb($infomation));
 
-        $this->assign('channelList',array_column($channelList,null,'id'));;
-
-        $this->assign("channel",array_slice($this->channel,0,6));
+        $this->assign('channelList',array_column($channelList,null,'id'));
         $this->assign("major",$major);
+        $this->assign('more',C("theme")['more-svg']);
         $this->display();
 
     }

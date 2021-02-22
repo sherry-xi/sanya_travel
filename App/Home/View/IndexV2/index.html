@@ -1,94 +1,362 @@
 <include file="Public/V2/header"/>
+<style>
 
-<!-- 轮播 -->
-<div class="row">
-    <div class="col-lg-12">
+    .main{}
+    .major{padding-top: 20px;cursor: pointer}
+    .major .section-title{text-align: center;width: 100%;}
+    .major-thumb{position: relative;}
+    .major-thumb img{width: 100%;height: 200px;}
+    .major-thumb  .title-name-show{position: absolute;top: 10px;font-size: 20px;left: 10px;color: #fd7e0a;}
+    .major .icon-box{padding: 5px;}
+    .major .title-bg{margin: 0px;position: absolute;top: 0px;background: #fd7e0a;
+        width: 100%;height: 100%;text-align: center;padding-top: 70px;
+        filter:alpha(opacity=80);
+        -moz-opacity:0.8;
+        -khtml-opacity: 0.8;
+        opacity: 0.8;
+        display: none;
+    }
+    .major .title-name{color:#fff ;margin: 0px;position: absolute;top: 0px;padding: 20px;
+        width: 100%;height: 100%;text-align: center;padding-top: 70px;z-index: 99999;font-weight: bold;letter-spacing: 2px;
+        display: none;
+    }
+    .section-title{width: 100%;}
+    .section-title h2{color:#fff;}
 
-        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <foreach name="slide" item="v" key="k">
-                <li data-target="#carouselExampleCaptions" data-slide-to="{$k}" class="<if condition='$k eq 0'> active</if>"></li>
-                </foreach>
-            </ol>
-            <div class="carousel-inner">
-                <foreach name="slide" item="v" key="k">
-                    <div class="carousel-item <if condition='$k eq 0'>active</if> ">
-                    <img src="{$v.img}" class="d-block w-100" alt="banner">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h2>{$v.title}</h2>
-                        <p>{$v.content}</p>
+
+    .news-title{width: 100%;text-align: center;background: #ccc;}
+
+
+    .news-list{list-style-type: none;padding: 10px 10px 0px 10px;margin: 0px;width: 100%;
+        border:1px solid #ccc;border-bottom-right-radius: 3px;border-bottom-left-radius: 3px;
+
+    }
+    .news-list li{list-style-type: none;border-bottom: 1px dotted #ccc;    padding-bottom: 7px;
+        margin-bottom: 3px}
+    .news-list li a{color:#0b2e13;}
+    .news-time{float: right;font-size: 13px;margin-top: 5px;}
+    .container-fluid{padding: 0px;}
+    .services-section-two{margin-bottom: 0px;}
+    .main{background: #fff;}
+.news-more svg{float:right;margin-right:5px;color:#fff; width:20px; height:20px;position: relative;top:5px;}
+    .services-section-two{margin-top: 30px;margin-bottom: 50px;}
+
+    .news-main{border: 1px solid #11BFC8;padding: 0px;margin: 0px;margin-top: 10px;border-radius: 3px;}
+    .news-main .carousel-inner{height: 290px !important;}
+    .news-main .carousel-inner img{min-height: 290px;}
+
+    .section-title-1{background: url("__PUBLIC__/image/pic_title_4.jpg");}
+    .section-title-2{background: url("__PUBLIC__/image/pic_title_5.jpg");}
+    .section-title-3{background: url("__PUBLIC__/image/pic_title_6.jpg");}
+    .section-title-4{background: url("__PUBLIC__/image/pic_title_6.jpg");}
+    .section-title-5{background: url("__PUBLIC__/image/pic_title_3.jpg");}
+    .section-title-6{background: url("__PUBLIC__/image/pic_title_4.jpg");}
+    .section-title-7{background: url("__PUBLIC__/image/pic_title_3.jpg");}
+    .news-list-bg-1{background: #f7feff;margin-top: 10px;}
+    .news-list-bg-2{background: #fff8bb;margin-top: 10px ;border-color: #F7BC60 }
+    .news-list-bg-3{background: #f7feff;border-color: #59B836 }
+    .news-list-bg-4{background: #f7feff;border-color: #59B836 }
+    .news-list-bg-5{background: #f7feff;border-color: #EE7B80 }
+    .news-list-bg-6{margin-top: 10px ;}
+    .news-list-bg-7{padding-top: 10px;}
+
+</style>
+<!-- banner轮播 -->
+<div class="container-fluid" >
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <foreach name="slide" item="v" key="k">
+                    <li data-target="#carouselExampleCaptions" data-slide-to="{$k}" class="<if condition='$k eq 0'> active</if>"></li>
+                    </foreach>
+                </ol>
+                <div class="carousel-inner">
+                    <foreach name="slide" item="v" key="k">
+                        <div class="carousel-item <if condition='$k eq 0'>active</if> ">
+                        <img src="{$v.img}" class="d-block w-100" alt="banner">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h2>{$v.title}</h2>
+                            <p>{$v.content}</p>
+                        </div>
                     </div>
+                    </foreach>
                 </div>
-                </foreach>
+
+                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
         </div>
     </div>
 </div>
 <!-- end 轮播 --->
 
-<!-- 专业介绍 -->
-<section class="services">
-    <div class="container">
-        <div class="row">
 
-    <div class="col-md-12 col-lg-12 d-flex align-items-stretch"  style="margin-top: 20px;">
+<div class="container-fluid main" style="width: 100%;padding: 10px;">
 
-        <div class="section-title" style="width: 80%;margin: auto;">
-            <h2 style="color: #000;">学校理念</h2>
-            <p style="text-align: left">
-                学院以应用型特色人才为导向，围绕海南国际旅游岛发展新业态，依托海南国际旅游岛建设发展大格局，基于地方经济发展人才需要，初步构建出以“大旅游、大休闲”为核心，瞄准以旅游新业态产业链布局为发展导向，积极培育社会发展需求集中的优势旅游人才并日益成为海南国际旅游岛建设的重要人力资源支撑
-            </p>
+    <div class="row">
+        <!-- 新闻动态 -->
+        <div class="col-lg-8">
+            <div class=" section-title section-title-1">
+                <h2>
+                    新闻动态
+                    <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多">{$more}</a>
+                </h2>
+            </div>
+            <div class="row news-main" >
+                <div class="col-lg-6" style="padding-right: 0px;padding-left: 0px;">
+                        <div id="carouselNewsCaptions" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <foreach name="newsImage" item="v" key="k">
+                                    <li data-target="#carouselNewsCaptions" data-slide-to="{$k}" class="<if condition='$k eq 0'> active</if>"></li>
+                                </foreach>
+                            </ol>
+                            <div class="carousel-inner" >
+                                <foreach name="newsImage" item="v" key="k">
+                                    <div class="carousel-item <if condition='$k eq 0'>active</if> ">
+                                        <img src="{$v.thumb}" class="d-block w-100" alt="banner">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <p><script>mySubstring("{$v.title}",20)</script></p>
+                                        </div>
+                                    </div>
+                                </foreach>
+                            </div>
+
+                            <a class="carousel-control-prev" href="#carouselNewsCaptions" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselNewsCaptions" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+
+
+                    </div style>
+                <div class="col-lg-6"  style="padding-left: 0px;">
+                        <ul class="news-list " style="border: 0px;">
+                            <foreach name="news" item="value">
+                                <li>
+                                    <a href="">
+                                        <script>mySubstring("{$value.title}",20)</script>
+                                    </a>
+                                    <span class="news-time">{$v.create_time|substr=###,0,10}</span>
+                                </li>
+                            </foreach>
+                        </ul>
+                    </div>
+            </div>
+
         </div>
+        <!-- 通知动态  -->
+        <div class="col-lg-4">
+            <div class="section-title section-title-2">
+                <h2>
+                    通知公告
+                    <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多">{$more}</a>
+                </h2>
+            </div>
+            <ul class="news-list news-list-bg-2">
+                <foreach name="information" item="value">
+                    <li>
+                        <a href="">
+                            <script>mySubstring("{$value.title}",20)</script>
+                        </a>
+                        <span class="news-time">{$v.create_time|substr=###,0,10}</span>
+                    </li>
+                </foreach>
+            </ul>
+        </div>
+
     </div>
 
-    <div class="col-md-6 col-lg-3 d-flex align-items-stretch" data-aos="fade-up">
-        <div class="icon-box icon-box-pink">
+    <!-- 旅游和康体服务 -->
+    <section class="services-section-two style-two" >
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="section-title section-title-3">
+                        <h2>
+                            师资队伍
+                            <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多">{$more}</a>
+                        </h2>
+                    </div>
+                    <ul class="news-list news-list-bg-3">
+                        <foreach name="information" item="value">
+                            <li>
+                                <a href="">
+                                    <script>mySubstring("{$value.title}",20)</script>
+                                </a>
+                                <span class="news-time">{$v.create_time|substr=###,0,10}</span>
+                            </li>
+                        </foreach>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="section-title section-title-4">
+                        <h2>
+                            就业创业
+                            <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多">{$more}</a>
+                        </h2>
+                    </div>
+                    <ul class="news-list news-list-bg-4" >
+                        <foreach name="information" item="value">
+                            <li>
+                                <a href="">
+                                    <script>mySubstring("{$value.title}",20)</script>
+                                </a>
+                                <span class="news-time">{$v.create_time|substr=###,0,10}</span>
+                            </li>
+                        </foreach>
+                    </ul>
+                </div>
+                <!-- 就业创业  -->
+                <div class="col-lg-4">
+                    <div class="section-title section-title-5">
+                        <h2>
+                            学生风采
+                            <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多">{$more}</a>
+                        </h2>
+                    </div>
+                    <ul class="news-list news-list-bg-5">
+                        <foreach name="information" item="value">
+                            <li>
+                                <a href="">
+                                    <script>mySubstring("{$value.title}",20)</script>
+                                </a>
+                                <span class="news-time">{$v.create_time|substr=###,0,10}</span>
+                            </li>
+                        </foreach>
+                    </ul>
+                </div>
 
-            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+            </div>
 
-            <h4 class="title"><a href="">校训</a></h4>
-            <p class="description">自立更生、合力更新、有容乃大、不懈则优</p>
         </div>
-    </div>
+    </section>
+    <!--end 旅游和康体服务 -->
 
-    <div class="col-md-6 col-lg-3 d-flex align-items-stretch" >
-        <div class="icon-box icon-box-cyan">
-            <div class="icon"><i class="bx bx-file"></i></div>
-            <h4 class="title"><a href="">校风</a></h4>
-            <p class="description">豪气、大气、正气、勇气、志气</p>
-        </div>
-    </div>
+    <section class="services-section-two style-two" >
+        <div class="container-fluid" style="">
+            <div class="col-md-12 col-lg-12 d-flex align-items-stretch" style="padding: 0px;">
 
-    <div class="col-md-6 col-lg-3 d-flex align-items-stretch" >
-        <div class="icon-box icon-box-green">
-            <div class="icon"><i class="bx bx-tachometer"></i></div>
-            <h4 class="title"><a href="">学风</a></h4>
-            <p class="description">勤学苦练、志学高远、精益求精<span style="display: inline-block;width: 5em;"></span></p>
+                <div class="section-title section-title-6" >
+                    <h2 >
+                        旅游与健康服务
+                        <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多服务">
+                            {$more}
+                        </a>
+                    </h2>
+                </div>
+            </div>
+            <div class="theme_carousel owl-theme owl-carousel" data-options='{"loop": true, "margin": 0, "autoheight":true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 300, "responsive":{ "0" :{ "items": "1" }, "600" :{ "items" : "2" }, "768" :{ "items" : "2" } , "992":{ "items" : "3" }, "1200":{ "items" : "4" }}}'>
+                <foreach name="service" item="v" key="k">
+                    <div class="service-block-two col-12 news-list-bg-6" >
+                        <div class="inner-box">
+                            <div class="image">
+                                <a href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}">
+                                    <img src="{$v.thumb}" alt="">
+                                </a>
+                                <div class="overlay">
+                                    <div class="link-btn"><a href="service-details.html"><i class="flaticon-add"></i></a></div>
+                                </div>
+                            </div>
+                            <div class="lower-content" style="">
+                                <div class="text">
+                                    <a style="color: #0b2e13" href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}"  target="_blank">
+                                        {$k+1}.<script>mySubstring("{$v.title}",20)</script>
+                                    </a>
+                                </div>
+                                <div class="read-more-btn"><a href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}"  target="_blank">详细</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </foreach>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <div class="col-md-6 col-lg-3 d-flex align-items-stretch" >
-        <div class="icon-box icon-box-blue">
-            <div class="icon"><i class="bx bx-world"></i></div>
-            <h4 class="title"><a href="">教风</a></h4>
-            <p class="description">志业、敬业、专业、乐业，团队<span style="display: inline-block;width: 5em;"></span></p>
+    <!-- 专业介绍 -->
+    <section class="services major"  style="padding-bottom: 0px;padding-top:0px;background: url('__PUBLIC__/image/index-major-bg.jpg')">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-12 col-lg-12 d-flex align-items-stretch"  >
+                    <div class="section-title  section-title-7" >
+                        <h2 >
+                            专业介绍
+                            <a href="{:U('Channel/index',['pid'=>157,'cid'=>168])}" class="news-more" title="更多">{$more}</a>
+                        </h2>
+                    </div>
+                </div>
+
+                <foreach name="major" item="value">
+                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch news-list-bg-7" >
+                        <div class="icon-box icon-box-blue major-thumb" >
+                            <div style="width: 100%;position: relative">
+                                <img src="{$value.thumb}" />
+                                <h4 class="title-name-show">{$value.title}</h4>
+                                <h4 class="title-bg"></h4>
+                                <h4 class="title-name">{$value.title}</h4>
+                                <a href="{:U('Article/index',['id'=>$value['id'],'pid'=>$channelList[$value['cid']]['parent_id'],'cid'=>$value['cid']])}"></a>
+                            </div>
+                            <!--
+                            <p class="description">志业、敬业、专业、乐业，团队<span style="display: inline-block;width: 5em;"></span></p>
+                            -->
+                        </div>
+                    </div>
+                </foreach>
+            </div>
         </div>
-    </div>
+    </section>
+    <!-- end 专业介绍 -->
 
 </div>
-    </div>
-</section>
-<!-- end 专业介绍 -->
 
-</div>
+
+
+
+
+
 
 <include file="Public/V2/footer"/>
 
+<script>
+
+    if ($('.theme_carousel').length) {
+        $(".theme_carousel").each(function (index) {
+            var $owlAttr = {},
+                $extraAttr = $(this).data("options");
+            $.extend($owlAttr, $extraAttr);
+            $(this).owlCarousel($owlAttr);
+        });
+    }
+    $(function () {
+
+
+        //专业介绍
+        $(".major-thumb").hover(function(){
+            $(this).find(".title-bg").fadeIn(500);
+            $(this).find(".title-name").fadeIn(500);
+            $(this).find(".title-name-show").hide();
+        },function(){
+            $(this).find(".title-bg").hide();
+            $(this).find(".title-name").hide();
+            $(this).find(".title-name-show").fadeIn(500);
+
+        });
+
+        $(".major-thumb").click(function(){
+            location.href = $(this).find("a").attr("href");
+        });
+    });
+
+</script>

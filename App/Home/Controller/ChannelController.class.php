@@ -49,7 +49,7 @@ class ChannelController extends BaseController{
         foreach($article as $k=>$v){
             $v = getThumbImage($v,C("image")['thumb_channelnews']);
             $v['content2'] = $v['content'];
-            $v['content']  = strip_tags($v['content']);
+            $v['content']  = trim(strip_tags($v['content']));
             $v['admin']    = MS("admin")->where(['id'=>$v['admin_id']])->getField("truename");
 
             $article[$k] = $v;

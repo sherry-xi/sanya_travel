@@ -28,9 +28,7 @@
     display: none;
   }
 
-.index-news{background: {$config.styleColorNews};
-  border:2px solid #ffc107;border-top:0px;border-left:0px;
-  }
+.index-news{}
   .carousel-caption  h3{
     color:#fdd824 !important;font-size: 30px;font-weight: bold;letter-spacing: 5px;
     position:relative;top:-20px;;
@@ -47,7 +45,7 @@
   }
   .carousel-caption p.banner-text img{position: relative;top:-32px;left:30px}
   .carousel-item{cursor: pointer;}
-  .section-title h2{color: #000;}
+  .section-title h2{color: #000;border-bottom: 1px solid #ccc;}
 </style>
 <!-- 幻灯片 -->
 
@@ -89,9 +87,91 @@
 
   <main id="main" >
 
-
-    <!-- 新闻和通知公告 -->
     <div class="container-fluid">
+
+      <!-- 新闻动态 -->
+      <div class="row">
+
+        <div class="col-lg-7">
+          <div class="section-title">
+            <h2 >
+              新闻动态
+              <a href="{:U('Channel/index',['pid'=>198,'cid'=>199])}" title="更多新闻">
+                <svg style="float:right;margin-right:20px;color:#000" width="25" height="25" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+                  <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+              </a>
+            </h2>
+          </div>
+
+          <div class="row">
+            <div id="carouselNewsCaptions" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <foreach name="newsImage" item="v" key="k">
+                  <li data-target="#carouselNewsCaptions" data-slide-to="{$k}" class="<if condition='$k eq 0'> active</if>"></li>
+                </foreach>
+              </ol>
+              <div class="carousel-inner">
+                <foreach name="newsImage" item="v" key="k">
+                  <div class="carousel-item <if condition='$k eq 0'>active</if> ">
+                    <img src="{$v.thumb}" class="d-block w-100" alt="image" style="max-width: 100%;">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h2>{$v.title}</h2>
+                    </div>
+                  </div>
+                </foreach>
+              </div>
+              <a class="carousel-control-prev" href="#carouselNewsCaptions" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselNewsCaptions" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="col-lg-5">
+        </div>
+      </div>
+
+
+
+
+      <!--  新闻动态 -->
+      <section class="features">
+
+        <div class="row">
+          <div class="col-lg-7">
+
+
+
+              <div class="col-lg-6" >
+
+              </div>
+
+            <div class="col-lg-6" style="padding: 0px;margin: 0px;">
+              <ul>
+                <foreach name="news" item="v" key="k">
+                  <li >
+                    <a href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}" target="_blank" style="color: #0b2e13">
+                      <script>mySubstring('{$v.title}',10)</script>
+                    </a>
+                  </li>
+                </foreach>
+              </ul>
+            </div>
+        </div>
+    </div>
+    </section><!-- End Features Section -->
+
+
+
 
       <section class="features">
         <div class="container-fluid">
@@ -101,7 +181,6 @@
             </div>
             <div class="col-md-7 pt-5">
               <h3>新闻动态</h3>
-              <p>通知公告:{$information[0].title}</p>
               <ul>
                 <foreach name="news2" item="value">
                   <li><i class="icofont-check"></i>{$value.title}</li>
@@ -190,12 +269,12 @@
       <!--end 旅游和康体服务 -->
 
       <!-- 专业介绍 -->
-      <section class="services major">
+      <section class="services major" >
         <div class="container-fluid">
           <div class="row">
 
             <div class="col-md-12 col-lg-12 d-flex align-items-stretch"  >
-              <div class="section-title">
+              <div class="section-title" >
                 <h2 >专业介绍</h2>
                 <p></p>
               </div>
