@@ -36,12 +36,18 @@ class IndexController extends BaseController{
 
         $channelList = MS("channel")->where(['parent_id'=>['gt',0]])->field('id,parent_id')->select();
 
+        $major = MS("article")->field('id,cid,title,content,thumb,create_time')->where(['cid'=>168,'is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit(9)->select();
+
+
         $this->assign('news',$news);
         $this->assign('information',$infomation);
         $this->assign('service',$this->setArticleThumb($service));
         $this->assign('newsImage',$this->setArticleThumb($news));
         $this->assign('informationImage',$this->setArticleThumb($infomation));
 
+        $this->assign('news2',array_slice($news,0,7));
+        $this->assign('information2',array_slice($infomation,0,9));
+        $this->assign("major",$this->setArticleThumb($major));
         $this->assign('channelList',array_column($channelList,null,'id'));;
         $this->display();
 

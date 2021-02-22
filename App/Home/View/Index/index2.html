@@ -1,0 +1,256 @@
+<include file="Public/header"/>
+
+<style>
+  #main{background: url('{$config.index_bg_img}') repeat;
+    /*
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;*/
+    margin-top: 0px;
+  }
+  .major{padding-top: 20px;cursor: pointer}
+  .major .section-title{text-align: center;width: 100%;}
+  .major h2{color: #000;margin-bottom: 20px;}
+  .major-thumb{position: relative;}
+  .major-thumb img{width: 100%;height: 200px;}
+  .major .icon-box{padding: 5px;}
+  .major .title-bg{margin: 0px;position: absolute;top: 0px;background: #fd7e0a;
+        width: 100%;height: 100%;text-align: center;padding-top: 70px;
+      filter:alpha(opacity=80);
+      -moz-opacity:0.8;
+      -khtml-opacity: 0.8;
+      opacity: 0.8;
+    display: none;
+  }
+  .major .title-name{color:#fff ;margin: 0px;position: absolute;top: 0px;padding: 20px;
+    width: 100%;height: 100%;text-align: center;padding-top: 70px;z-index: 99999;font-weight: bold;letter-spacing: 2px;
+    display: none;
+  }
+
+.index-news{background: {$config.styleColorNews};
+  border:2px solid #ffc107;border-top:0px;border-left:0px;
+  }
+  .carousel-caption  h3{
+    color:#fdd824 !important;font-size: 30px;font-weight: bold;letter-spacing: 5px;
+    position:relative;top:-20px;;
+
+  }
+  .carousel-caption  h3 span{
+    border-bottom: 5px double #fdd824;
+  }
+  .carousel-caption p.banner-text{background: url('__PUBLIC__/image/pic_zhuanye_jt2.png');padding: 10px;
+    filter:alpha(opacity=80);
+    -moz-opacity:0.8;
+    -khtml-opacity: 0.8;
+    opacity: 0.8;
+  }
+  .carousel-caption p.banner-text img{position: relative;top:-32px;left:30px}
+  .carousel-item{cursor: pointer;}
+  .section-title h2{color: #000;}
+</style>
+<!-- 幻灯片 -->
+
+<section  class="slider-main"   style="padding-top: 100px;padding-bottom: 0px;">
+  <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <foreach name="slide" item="v" key="k">
+        <li data-target="#carouselExampleIndicators" data-slide-to="{$k}" <if condition="$k eq 0"> class="active"</if> ></li>
+      </foreach>
+
+    </ol>
+    <div class="carousel-inner" role="listbox" >
+      <foreach name="slide" item="v" key="k">
+        <div  data-url="{$v.link}"    <if condition="$k eq 0"> class=" carousel-item  active " <else/> class="carousel-item" </if>    style="background-image: url('.{$v.img}')">
+        <div class="carousel-caption d-none d-md-block text-left"  >
+          <if condition="$v['title']"><h3 style="float: right"><span>{$v.title}</span></h3></if>
+          <if condition="$v['content']"><p class="banner-text" style="float: right">
+            <!--
+            <img src="__PUBLIC__/image/pic_zhuanye_jt.png"/>
+            -->
+            {$v.content}
+          </p></if>
+
+        </div>
+    </div>
+    </foreach>
+
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only" >Next</span>
+  </a>
+  </div>
+</section>
+
+  <main id="main" >
+
+
+    <!-- 新闻和通知公告 -->
+    <div class="container-fluid">
+
+      <section class="features">
+        <div class="container-fluid">
+          <div class="row" >
+            <div class="col-md-5">
+              <img src="__PUBLIC__/image/features-3.svg" class="img-fluid" alt="">
+            </div>
+            <div class="col-md-7 pt-5">
+              <h3>新闻动态</h3>
+              <p>通知公告:{$information[0].title}</p>
+              <ul>
+                <foreach name="news2" item="value">
+                  <li><i class="icofont-check"></i>{$value.title}</li>
+                </foreach>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section><!-- End Features Section -->
+
+
+      <!-- 旅游和康体服务 -->
+
+      <section class="services-section-two style-two" style="margin-bottom: 0px;">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-7">
+
+              <div class="col-md-12 col-lg-12 d-flex align-items-stretch" >
+
+                <div class="section-title" style="width: 100%">
+                  <h2  style="color: #000">
+                    <svg class="bi bi-people-fill" style="color:#fff" width="22" height="22" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                    </svg>
+                    旅游与健康服务
+                    <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" title="更多服务">
+                      <svg style="float:right;margin-right:20px;color:#fff" width="25" height="25" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+                        <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+                      </svg>
+                    </a>
+                  </h2>
+                </div>
+              </div>
+
+              <div  class="theme_carousel owl-theme owl-carousel" data-options='{"loop": true, "margin": 0, "autoheight":true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 300, "responsive":{ "0" :{ "items": "1" }, "600" :{ "items" : "2" }, "768" :{ "items" : "2" } , "992":{ "items" : "3" }, "1200":{ "items" : "3" }}}'>
+                <foreach name="service" item="v" key="k">
+                  <div class="service-block-two col-12" >
+                    <div class="inner-box">
+                      <div class="image">
+                        <a href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}">
+                          <img src="{$v.thumb}" alt="">
+                        </a>
+                        <div class="overlay">
+                          <div class="link-btn"><a href="service-details.html"><i class="flaticon-add"></i></a></div>
+                        </div>
+                      </div>
+                      <div class="lower-content" style="">
+                        <div class="text">
+                          <a style="color: #0b2e13" href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}"  target="_blank">
+                            {$k+1}.<script>mySubstring("{$v.title}",20)</script>
+                          </a>
+                        </div>
+                        <div class="read-more-btn"><a href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}"  target="_blank">详细</a></div>
+                      </div>
+                    </div>
+                  </div>
+                </foreach>
+              </div>
+
+            </div>
+
+            <div class="col-lg-5">
+
+              <section class="features" style="margin: 0px;padding: 0px;padding-top: 10px;">
+                  <div class="row" >
+                    <div class="col-md-12 pt-5" style="padding-top: 0rem !important;">
+                      <h3>通知公告</h3>
+                      <ul>
+                        <foreach name="news2" item="value">
+                          <li><i class="icofont-check"></i>
+                          <script>mySubstring("{$value.title}",28)</script>
+                          </li>
+                        </foreach>
+                      </ul>
+                    </div>
+                  </div>
+              </section><!-- End Features Section -->
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+      <!--end 旅游和康体服务 -->
+
+      <!-- 专业介绍 -->
+      <section class="services major">
+        <div class="container-fluid">
+          <div class="row">
+
+            <div class="col-md-12 col-lg-12 d-flex align-items-stretch"  >
+              <div class="section-title">
+                <h2 >专业介绍</h2>
+                <p></p>
+              </div>
+            </div>
+
+            <foreach name="major" item="value">
+              <div class="col-md-6 col-lg-3 d-flex align-items-stretch" >
+              <div class="icon-box icon-box-blue major-thumb" >
+                <div style="width: 100%;position: relative">
+                  <img src="{$value.thumb}"/>
+                  <h4 class="title-bg"></h4>
+                  <h4 class="title-name">{$value.title}</h4>
+                  <a href="{:U('Article/index',['id'=>$value['id'],'pid'=>$channelList[$value['cid']]['parent_id'],'cid'=>$value['cid']])}"></a>
+                </div>
+                <!--
+                <p class="description">志业、敬业、专业、乐业，团队<span style="display: inline-block;width: 5em;"></span></p>
+                -->
+              </div>
+            </div>
+            </foreach>
+          </div>
+        </div>
+      </section>
+      <!-- end  专业介绍 -->
+
+    </div>
+  </main><!-- End #main -->
+
+<include file="Public/footer"/>
+
+<script>
+  if ($('.theme_carousel').length) {
+    $(".theme_carousel").each(function (index) {
+      var $owlAttr = {},
+              $extraAttr = $(this).data("options");
+      $.extend($owlAttr, $extraAttr);
+      $(this).owlCarousel($owlAttr);
+    });
+  }
+
+$(function () {
+
+
+  //专业介绍
+  $(".major-thumb").hover(function(){
+    $(this).find(".title-bg").show();
+    $(this).find(".title-name").show();
+  },function(){
+    $(this).find(".title-bg").hide();
+    $(this).find(".title-name").hide();
+  });
+
+  $(".major-thumb").click(function(){
+    location.href = $(this).find("a").attr("href");
+  });
+});
+
+</script>
