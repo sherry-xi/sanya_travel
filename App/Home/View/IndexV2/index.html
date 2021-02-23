@@ -1,7 +1,7 @@
 <include file="Public/V2/header"/>
 <style>
 
-    .main{}
+    .main{ /*background: url('{$config.index_bg_img}') repeat*/}
     .major{padding-top: 20px;cursor: pointer}
     .major .section-title{text-align: center;width: 100%;}
     .major-thumb{position: relative;}
@@ -27,21 +27,21 @@
     .news-title{width: 100%;text-align: center;background: #ccc;}
 
 
-    .news-list{list-style-type: none;padding: 10px 10px 0px 10px;margin: 0px;width: 100%;
+    .news-list{list-style-type: none;padding: 10px 10px 0px 15px;margin: 0px;width: 100%;
         border:1px solid #ccc;border-bottom-right-radius: 3px;border-bottom-left-radius: 3px;
 
     }
     .news-list li{list-style-type: none;border-bottom: 1px dotted #ccc;    padding-bottom: 7px;
         margin-bottom: 3px}
     .news-list li a{color:#0b2e13;}
+    .news-list li a:hover{text-decoration: underline;}
     .news-time{float: right;font-size: 13px;margin-top: 5px;}
     .container-fluid{}
     .services-section-two{margin-bottom: 0px;}
-    .main{background: #fff;}
-.news-more svg{float:right;margin-right:5px;color:#fff; width:20px; height:20px;position: relative;top:5px;}
+    .news-more svg{float:right;margin-right:5px;color:#fff; width:20px; height:20px;position: relative;top:5px;}
     .services-section-two{margin-top: 30px;margin-bottom: 50px;}
 
-    .news-main{border: 1px solid #11BFC8;padding: 0px;margin: 0px;margin-top: 10px;border-radius: 3px;}
+    .news-main{border: 1px solid #11BFC8;padding: 0px;margin: 0px;border-radius: 3px;background: #fff;padding-top: 10px;}
     .news-main .carousel-inner{height: 290px !important;}
     .news-main .carousel-inner img{min-height: 290px;}
 
@@ -52,17 +52,50 @@
     .section-title-5{background: url("__PUBLIC__/image/pic_title_3.jpg");}
     .section-title-6{background: url("__PUBLIC__/image/pic_title_4.jpg");}
     .section-title-7{background: url("__PUBLIC__/image/pic_title_3.jpg");}
-    .news-list-bg-1{background: #f7feff;margin-top: 10px;}
-    .news-list-bg-2{background: #fff8bb;margin-top: 10px ;border-color: #F7BC60 }
-    .news-list-bg-3{background: #f7feff;border-color: #59B836 }
-    .news-list-bg-4{background: #f7feff;border-color: #59B836 }
-    .news-list-bg-5{background: #f7feff;border-color: #EE7B80 }
-    .news-list-bg-6{margin-top: 10px ;}
-    .news-list-bg-7{padding-top: 10px;}
+    .news-list-bg-1{background: #f7feff;}
+    .news-list-bg-2{background: #fff8bb ;border-color: #F7BC60 ;margin-top: 10px;}
+    .news-list-bg-3{background: #f8fff6;border-color: #59B836 }
+    .news-list-bg-4{background: #f8fff6;border-color: #59B836 }
+    .news-list-bg-5{background: #fffcfb;border-color: #EE7B80 }
+    .news-list-bg-6{background: #f7feff;}
+    .news-list-bg-7{background: #f7feff;padding-top: 10px;}
     .index-banner{padding-top: 100px;}
     @media screen and (max-width: 500px) {
         .index-banner {padding-top: 50px}
     }
+    @media screen and (max-width: 450px) {/*  不大于 */
+        .index-banner-img {height: 150px }
+    }
+    @media screen and (min-width: 1330px) {/* 不小于 */
+        .index-banner-img {height: 450px}
+    }
+    @media screen and (min-width: 1800px) {/* 不小于 */
+        .index-banner-img {height: 500px}
+    }
+    @media screen and (max-width: 450px) {/*  不大于 */
+        .index-banner .carousel-caption h2 {font-size: 18px; }
+        .index-banner .carousel-caption {bottom: 5%; }
+    }
+    .index-channel-news-shadow{width: 100%;height: 100%;position: absolute;background: #000;
+        filter:alpha(opacity=30);
+        -moz-opacity:0.3;
+        -khtml-opacity: 0.3;
+        opacity: 0.3;
+    }
+    .index-channel-news-flag{
+        width: 250px;height: 120px;background: #ffa726;color:#fff;
+        margin: auto;
+        margin-top: 30px;
+        position: relative;;
+    }
+    .index-channel-news-flag .index-channel-news-flag-item{position: absolute;width: 100%;text-align: center;
+        top:20px;font-size: 25px;font-weight: bold;;letter-spacing: 3px;
+    }
+    .flag-en-name{border-top: 1px solid #fff;border-bottom: 1px solid #fff;width: 70%;margin: 5px auto 0px auto;
+        font-weight: normal;
+    }
+    body{background: #fdfdfd;}
+
 </style>
 <!-- banner轮播 -->
 <div class="container-fluid index-banner"  >
@@ -78,8 +111,8 @@
                 <div class="carousel-inner">
                     <foreach name="slide" item="v" key="k">
                         <div class="carousel-item <if condition='$k eq 0'>active</if> " style="min-height: auto">
-                        <img src="{$v.img}" class="d-block w-100 index-banner-img " alt="banner" data-width="{$v['size'][0]}" data-height="{$v.['size'][1]}"  >
-                        <div class="carousel-caption d-none d-md-block">
+                        <img src="{$v.img}" class="d-block w-100 index-banner-img " alt="banner" data-width="{$v['size'][0]}" data-height="{$v['size'][1]}"  >
+                        <div class="carousel-caption <if condition='!$isMobile'>d-none</if> d-md-block">
                             <h2>{$v.title}</h2>
                             <p>{$v.content}</p>
                         </div>
@@ -104,17 +137,17 @@
 
 <div class="container-fluid main" style="width: 100%;">
 
-    <div class="row" style="margin-top: 10px;" >
+    <div class="row" style="margin-top: 40px;margin-bottom: 50px;" >
         <!-- 新闻动态 -->
-        <div class="col-lg-8">
+        <div class="col-lg-8" style="">
             <div class=" section-title section-title-1">
                 <h2>
                     新闻动态
                     <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多">{$more}</a>
                 </h2>
             </div>
-            <div class="row news-main" >
-                <div class="col-lg-6" style="padding-right: 0px;padding-left: 0px;">
+            <div class="row news-main " >
+                <div class="col-lg-6 " style="padding-right: 0px;padding-left: 0px;">
                         <div id="carouselNewsCaptions" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                                 <foreach name="newsImage" item="v" key="k">
@@ -144,12 +177,12 @@
 
 
                     </div style>
-                <div class="col-lg-6"  style="padding-left: 0px;">
+                <div class="col-lg-6 news-list-bg-1"  style="padding-left: 0px;">
                         <ul class="news-list " style="border: 0px;">
                             <foreach name="news" item="value">
                                 <li>
                                     <a href="">
-                                        <script>mySubstring("{$value.title}",20)</script>
+                                        <script>mySubstring("{$value.title}",19)</script>
                                     </a>
                                     <span class="news-time">{$v.create_time|substr=###,0,10}</span>
                                 </li>
@@ -167,25 +200,65 @@
                     <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多">{$more}</a>
                 </h2>
             </div>
-            <ul class="news-list news-list-bg-2">
-                <foreach name="information" item="value">
-                    <li>
-                        <a href="">
-                            <script>mySubstring("{$value.title}",20)</script>
-                        </a>
-                        <span class="news-time">{$v.create_time|substr=###,0,10}</span>
-                    </li>
-                </foreach>
-            </ul>
+                <ul class="news-list news-list-bg-2">
+                    <foreach name="information" item="value">
+                        <li>
+                            <a href="">
+                                <script>mySubstring("{$value.title}",20)</script>
+                            </a>
+                            <span class="news-time">{$v.create_time|substr=###,0,10}</span>
+                        </li>
+                    </foreach>
+                </ul>
         </div>
 
     </div>
 
     <!-- 旅游和康体服务 -->
-    <section class="services-section-two style-two" >
+    <section class="services-section-two style-two"  style="position:relative;background: url('__PUBLIC__/image/index-channel-news-bg.jpg')">
+        <div class="index-channel-news-shadow"></div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4" style="padding-left: 0px;<if condition='$isMobile'>padding:0px;</if>">
+                <div class="col-lg-12" style="min-height: 200px;padding-bottom: 10px;">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="index-channel-news-flag">
+                                <div class="index-channel-news-flag-item">
+                                    <div>以学生为中心</div>
+                                    <div class="flag-en-name">Student</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="index-channel-news-flag">
+                                <div class="index-channel-news-flag-item">
+                                    <div>以进取者为榜样</div>
+                                    <div class="flag-en-name">Enthusiast</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="index-channel-news-flag">
+                                <div class="index-channel-news-flag-item">
+                                    <div>以教育情怀为乐趣</div>
+                                    <div class="flag-en-name">Education</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="index-channel-news-flag">
+                                <div class="index-channel-news-flag-item">
+                                    <div>教学理实一体化</div>
+                                    <div class="flag-en-name">Integration</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-4" style="<if condition='$isMobile'>padding:0px;</if>">
                     <div class="section-title section-title-3">
                         <h2>
                             师资队伍
@@ -203,7 +276,7 @@
                         </foreach>
                     </ul>
                 </div>
-                <div class="col-lg-4" style="<if condition='$isMobile'>padding:0px;</if>">
+                <div class="col-lg-4" style=";<if condition='$isMobile'>padding:0px;</if>">
                     <div class="section-title section-title-4">
                         <h2>
                             就业创业
@@ -222,7 +295,7 @@
                     </ul>
                 </div>
                 <!-- 就业创业  -->
-                <div class="col-lg-4" style="padding-right: 0px;<if condition='$isMobile'>padding:0px;</if>">
+                <div class="col-lg-4" style="<if condition='$isMobile'>padding:0px;</if>">
                     <div class="section-title section-title-5">
                         <h2>
                             学生风采
@@ -240,18 +313,18 @@
                         </foreach>
                     </ul>
                 </div>
-
+                <div class="col-lg-12" style="height: 100px;"></div>
             </div>
 
         </div>
     </section>
     <!--end 旅游和康体服务 -->
 
-    <section class="services-section-two style-two"   >
-        <div class="container-fluid" style="">
-            <div class="col-md-12 col-lg-12 d-flex align-items-stretch" style="padding: 0px;">
+    <section class="services-section-two style-two news-list-bg-6"   >
+        <div class="container-fluid" style="padding: 0px !important;">
+            <div class="col-md-12 col-lg-12 d-flex align-items-stretch" style="padding: 0px !important;">
 
-                <div class="section-title section-title-6" >
+                <div class="section-title section-title-6" style="margin-bottom: 20px;" >
                     <h2 >
                         旅游与健康服务
                         <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多服务">
@@ -262,7 +335,7 @@
             </div>
             <div class="theme_carousel owl-theme owl-carousel" data-options='{"loop": true, "margin": 0, "autoheight":true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 300, "responsive":{ "0" :{ "items": "1" }, "600" :{ "items" : "2" }, "768" :{ "items" : "2" } , "992":{ "items" : "3" }, "1200":{ "items" : "4" }}}'>
                 <foreach name="service" item="v" key="k">
-                    <div class="service-block-two col-12 news-list-bg-6" >
+                    <div class="service-block-two col-12 " >
                         <div class="inner-box">
                             <div class="image">
                                 <a href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}">
@@ -293,7 +366,7 @@
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col-md-12 col-lg-12 d-flex align-items-stretch"  >
+                <div class="col-md-12 col-lg-12 d-flex align-items-stretch" style="padding: 0px;" >
                     <div class="section-title  section-title-7" >
                         <h2 >
                             专业介绍
@@ -358,14 +431,14 @@
         $(".index-travel-title").each(function(){
             $(this).text(mySubstring($(this).attr('data-text'),25,true));
         });
-        $(".major-thumb img").css("height",'auto');
+        if(IsMobile()){
+            $(".major-thumb img").css("height",'auto');
+        }else{
+            $(".major-thumb img").css("height",'200px');
+        }
+
         $(".major-thumb").css("width",'100%');
 
-        var width = window.screen.width ;
-        log(width);
-        $(".index-banner-img").each(function(){
-
-        });
     });
 
 </script>

@@ -11,13 +11,12 @@ $(function(){
         $("#footer-weixin").css("text-align","center");
 
 
-        $(".index-banner").css("padding-top",$("#header").height()-20);//首页banner设置
+        $(".index-banner").css("padding-top",$("#header").height()-15);//首页banner设置
         $(".channel-banner").css("margin-top","40px");//导航栏 频道banner设置
 
         //首页专业列表去掉背景
         $(".major ").css("background","#fff");
         $(".major .icon-box").css("margin-bottom","10px");
-        $(".index-banner .carousel-item img").css("height","auto");
     }else{
 
         $(".index-banner").css("padding-top",$("#header").height()-15);
@@ -35,13 +34,13 @@ $(function(){
         }
 
         var top = $(document).scrollTop();
-        var number = 700;
+        var number = 300;
         if(top > number){
             $("#searchForm").hide();
-            $(".logo-pc").hide(1000);
+            $(".logo-pc").hide(400);
         }else{
-            $("#searchForm").fadeIn(500);
-            $(".logo-pc").fadeIn(1000);
+            $("#searchForm").fadeIn(200);
+            $(".logo-pc").fadeIn(400);
         }
     });
 
