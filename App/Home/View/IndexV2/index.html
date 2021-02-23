@@ -1,7 +1,7 @@
 <include file="Public/V2/header"/>
 <style>
 
-    .main{ /*background: url('{$config.index_bg_img}') repeat*/}
+    .main{ width:96%;}
     .major{padding-top: 20px;cursor: pointer}
     .major .section-title{text-align: center;width: 100%;}
     .major-thumb{position: relative;}
@@ -63,8 +63,11 @@
     @media screen and (max-width: 500px) {
         .index-banner {padding-top: 50px}
     }
-    @media screen and (max-width: 450px) {/*  不大于 */
+    @media screen and (max-width: 450px) {/*  不大于 手机*/
         .index-banner-img {height: 150px }
+        .main{ width:100%;}
+        .news-time{display: none;}
+        .news-list li a{font-size: 14px;}
     }
     @media screen and (min-width: 1330px) {/* 不小于 */
         .index-banner-img {height: 450px}
@@ -131,11 +134,11 @@
             </div>
         </div>
     </div>
-</div style>
+</div >
 <!-- end 轮播 --->
 
 
-<div class="container-fluid main" style="width: 100%;">
+<div class="container-fluid main" >
 
     <div class="row" style="margin-top: 40px;margin-bottom: 50px;" >
         <!-- 新闻动态 -->
@@ -156,9 +159,9 @@
                             </ol>
                             <div class="carousel-inner" >
                                 <foreach name="newsImage" item="v" key="k">
-                                    <div class="carousel-item <if condition='$k eq 0'>active</if> ">
+                                    <div class="carousel-item <if condition='$k eq 0'>active</if> " style="min-height: auto">
                                         <img src="{$v.thumb}" class="d-block w-100" alt="banner">
-                                        <div class="carousel-caption d-none d-md-block">
+                                        <div class="carousel-caption d-none d-md-block" >
                                             <p><script>mySubstring("{$v.title}",20)</script></p>
                                         </div>
                                     </div>
@@ -182,7 +185,12 @@
                             <foreach name="news" item="value">
                                 <li>
                                     <a href="">
-                                        <script>mySubstring("{$value.title}",19)</script>
+                                        <if condition="!$isMobile">
+                                            <script>mySubstring("{$value.title}",18)</script>
+                                            <else/>
+                                            {$value.title}
+                                        </if>
+
                                     </a>
                                     <span class="news-time">{$v.create_time|substr=###,0,10}</span>
                                 </li>
@@ -204,7 +212,11 @@
                     <foreach name="information" item="value">
                         <li>
                             <a href="">
-                                <script>mySubstring("{$value.title}",20)</script>
+                                <if condition="!$isMobile">
+                                    <script>mySubstring("{$value.title}",18)</script>
+                                    <else/>
+                                    {$value.title}
+                                </if>
                             </a>
                             <span class="news-time">{$v.create_time|substr=###,0,10}</span>
                         </li>
@@ -269,7 +281,11 @@
                         <foreach name="information" item="value">
                             <li>
                                 <a href="">
-                                    <script>mySubstring("{$value.title}",20)</script>
+                                    <if condition="!$isMobile">
+                                        <script>mySubstring("{$value.title}",18)</script>
+                                        <else/>
+                                        {$value.title}
+                                    </if>
                                 </a>
                                 <span class="news-time">{$v.create_time|substr=###,0,10}</span>
                             </li>
@@ -287,7 +303,11 @@
                         <foreach name="information" item="value">
                             <li>
                                 <a href="">
-                                    <script>mySubstring("{$value.title}",20)</script>
+                                    <if condition="!$isMobile">
+                                        <script>mySubstring("{$value.title}",18)</script>
+                                        <else/>
+                                        {$value.title}
+                                    </if>
                                 </a>
                                 <span class="news-time">{$v.create_time|substr=###,0,10}</span>
                             </li>
@@ -306,7 +326,11 @@
                         <foreach name="information" item="value">
                             <li>
                                 <a href="">
-                                    <script>mySubstring("{$value.title}",20)</script>
+                                    <if condition="!$isMobile">
+                                        <script>mySubstring("{$value.title}",18)</script>
+                                        <else/>
+                                        {$value.title}
+                                    </if>
                                 </a>
                                 <span class="news-time">{$v.create_time|substr=###,0,10}</span>
                             </li>
@@ -429,7 +453,7 @@
             location.href = $(this).find("a").attr("href");
         });
         $(".index-travel-title").each(function(){
-            $(this).text(mySubstring($(this).attr('data-text'),25,true));
+            $(this).text(mySubstring($(this).attr('data-text'),20,true));
         });
         if(IsMobile()){
             $(".major-thumb img").css("height",'auto');
