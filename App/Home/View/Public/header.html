@@ -30,122 +30,112 @@
     <link href="__CSS__/index/common.css" rel="stylesheet">
     <link href="__CSS__/index/theme.css" rel="stylesheet">
     <script src="__JS__/function.js"></script>
-<style >
-    /*头部*/
-    #header.header-transparent{
+    <style >
+        /*头部*/
+        #header{
         background-color: {$config.styleColor};
-    }
-    /*返回头部*/
-    .back-to-top,.back-to-top:hover{
+        }
+        /*返回头部*/
+        .back-to-top,.back-to-top:hover{
         background: {$config.styleColor};
         color: #fff;
-    }
-    #footer,#footer .footer-top{background-color: {$config.styleColor} !important;}
+        }
+        #footer,#footer .footer-top{background-color: {$config.styleColor} !important;}
 
-    /* 二级菜单背景色 */
-    .nav-menu .drop-down ul{
-        background: {$config.styleNaviColor};
-    }
-    /* 二级菜单字体颜色 */
-    .nav-menu .drop-down ul a{
+        /* 二级菜单背景色 */
+        .nav-menu .drop-down ul{
+        background: {$config.styleColor};
+        }
+        /* 二级菜单字体颜色 */
+        .nav-menu .drop-down ul a{
         color: {$config.styleNaviTextColor};
         font-size:16px;
         letter-spacing:3px;
-    }
+        }
 
-    .nav-menu .drop-down ul a:hover{color: #fff !important;
-    border-left: 20px solid {$config.styleColor};}
-
-
-</style>
+        .nav-menu .drop-down ul a:hover{color: #fff !important;
+        border-left: 20px solid {$config.styleColor};}
+        .nav-menu{height: 45px;}
+        #header{height: auto !important;}
+    </style>
 </head>
+
 <body>
-
-
-
 <!-- ======= Header ======= -->
-<header  id="header" class="fixed-top header-transparent" >
+<header  id="header" class="fixed-top" >
 
     <div class="container-fluid" >
 
         <if condition="!$isMobile">
-        <div  class="logo-box logo-pc" >
-            <!-- xl普通笔记本 lg 平板ipad pro  md 平板小ipad-->
-            <div  class=" logo float-left col-xl-9 col-lg-9 col-md-12 col-sm-12">
-                <div  class="float-left">
-                    <a href="{$config.domain}"><img src="__PUBLIC__/image/logo_index.png" alt="" class="img-fluid"></a>
-                </div>
-                <div class="school float-left" >
-                    <div style="min-height: 20px;">
-                        <div class="school-name float-left">三亚理工职业学院</div>
-                        <div class="school-depart-name  float-left">旅游与康体产业学院</div>
+            <div  class="logo-box logo-pc" >
+                <!-- xl普通笔记本 lg 平板ipad pro  md 平板小ipad-->
+                <div  class=" logo float-left col-xl-9 col-lg-9 col-md-12 col-sm-12">
+                    <div  class="float-left">
+                        <a href="{$config.domain}"><img src="__PUBLIC__/image/logo_index.png" alt="" class="img-fluid"></a>
                     </div>
-                    <br/>
-                    <div>
-                        <div class="school-enname float-left">SANYA &nbsp;INSTITUE &nbsp;OF &nbsp;TECHNOLOGY</div>
-                        <div class="school-depart-enname float-left">SCHOOL OF &nbsp;TOURISM AND &nbsp;HEALTH INDUSTRY</div>
+                    <div class="school float-left" >
+
+                        <div style="min-height: 20px;">
+                            <!--
+                            <div class="school-name float-left">三亚理工职业学院</div>
+                            -->
+                            <div class="school-depart-name  float-left">旅游与康体产业学院</div>
+                        </div>
+                        <div>
+                            <!--
+                            <div class="school-enname float-left">SANYA &nbsp;INSTITUE &nbsp;OF &nbsp;TECHNOLOGY</div>
+                            -->
+                            <div class="school-depart-enname float-left">SCHOOL OF &nbsp;TOURISM AND &nbsp;HEALTH INDUSTRY</div>
+                        </div>
+
                     </div>
+                </div>
 
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 float-right" >
+
+                    <form class="search" id="searchForm" method="get" action="{:U('Channel/search')}" style="position: relative;top: 0px;margin: 0px;">
+
+                        <input class="form-control search-input" name="keyword" type="text" placeholder="搜索">
+                        <button class="search-btn"><i class="bx bx-search" style="font-size: 28px;position: relative;top: 2px;"></i></button>
+                        <a href='http://www.ucsanya.com/' target="_blank" class="home-page" style="display: block;margin-top: 4px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="position: relative;top: -2px;" width="13" height="13" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                                <path d="M6.5 10.995V14.5a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5V11c0-.25-.25-.5-.5-.5H7c-.25 0-.5.25-.5.495z"/>
+                                <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                            </svg>
+                            三亚理工职业学院首页</a>
+                    </form>
                 </div>
             </div>
-
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 float-right" >
-
-                <form class="search" id="searchForm" method="get" action="{:U('Channel/search')}" style="position: relative;top: 0px;margin: 0px;">
-
-                    <input class="form-control search-input" name="keyword" type="text" placeholder="搜索">
-                    <button class="search-btn"><i class="bx bx-search" style="font-size: 28px;position: relative;top: 2px;"></i></button>
-                    <a href='http://www.ucsanya.com/' target="_blank" class="home-page" style="display: block;margin-top: 4px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" style="position: relative;top: -2px;" width="13" height="13" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
-                            <path d="M6.5 10.995V14.5a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5V11c0-.25-.25-.5-.5-.5H7c-.25 0-.5.25-.5.495z"/>
-                            <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                        </svg>
-                        三亚理工职业学院首页</a>
-                </form>
-            </div>
-            <!--
-            <div class="col-xl-3 col-lg-12 col-md-6 col-sm-3 float-right"   style="text-align: right;margin-top: 10px;">
-
-                <a href='http://www.ucsanya.com/' target="_blank" class="home-page" >
-                    <svg xmlns="http://www.w3.org/2000/svg" style="position: relative;top: -2px;" width="13" height="13" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
-                        <path d="M6.5 10.995V14.5a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5V11c0-.25-.25-.5-.5-.5H7c-.25 0-.5.25-.5.495z"/>
-                        <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                    </svg>
-                    三亚理工职业学院首页</a>
-
-            </div>
-            -->
-        </div>
-                <else/>
-        <div  class="logo-box logo-mobile" >
-            <!-- xl普通笔记本 lg 平板ipad pro  md 平板小ipad-->
-            <div  class=" logo float-left col-xl-6 col-lg-8 col-md-12 col-sm-6">
-                <div  class="float-left">
-                    <a href="{$config.domain}"><img src="__PUBLIC__/image/logo_index.png" alt="" class="img-fluid" style="margin-left:0px;"></a>
-                </div>
-                <div class="school float-left" style="margin-top: 10px;font-size: 13px">
-                    <div>三亚理工职业学院|旅游与康体产业学院</div>
-                    <div style="font-size: 7px !important;">SCHOOL OF TOURISM AND HEALTH INDUSTRY</div>
+            <else/>
+            <div  class="logo-box logo-mobile" >
+                <!-- xl普通笔记本 lg 平板ipad pro  md 平板小ipad-->
+                <div  class=" logo float-left col-xl-6 col-lg-8 col-md-12 col-sm-6">
+                    <div  class="float-left">
+                        <a href="{$config.domain}"><img src="__PUBLIC__/image/logo_index.png" alt="" class="img-fluid" style="margin-left:0px;"></a>
+                    </div>
+                    <div class="school float-left" style="margin-top: 10px;font-size: 13px">
+                        <div>三亚理工职业学院|旅游与康体产业学院</div>
+                        <div style="font-size: 7px !important;">SCHOOL OF TOURISM AND HEALTH INDUSTRY</div>
+                    </div>
                 </div>
             </div>
-        </div>
         </if>
 
         <nav class="nav-menu d-none d-lg-block" >
 
-            <ul>
+            <ul >
                 <li <if condition="!$pid"> class="active" </if> ><a href="{$config.domain}">首页<i class="la la-angle-down"></i></a></li>
 
                 <foreach name="channel" item="value">
-                    <li  <if condition="$pid eq $value['id']"> class="active drop-down" <else/> class="drop-down"  </if> ><a href="{:U('Channel/index',['pid'=>$value['id']])}">{$value.name}</a>
+                    <li <if condition="$pid eq $value['id']"> class="active drop-down" <else/> class="drop-down"  </if> ><a href="{:U('Channel/index',['pid'=>$value['id']])}">{$value.name}</a>
 
-                        <if condition="$value['son']">
-                            <ul>
-                                <foreach name="value.son" item="v">
-                                    <li><a href="{:U('Channel/index',['pid' => $v['parent_id'],'cid'=>$v['id']])}">{$v.name}</a></li>
-                                </foreach>
-                            </ul>
-                        </if>
+                    <if condition="$value['son']">
+                        <ul>
+                            <foreach name="value.son" item="v">
+                                <li><a href="{:U('Channel/index',['pid' => $v['parent_id'],'cid'=>$v['id']])}">{$v.name}</a></li>
+                            </foreach>
+                        </ul>
+                    </if>
                     </li>
                 </foreach>
             </ul>

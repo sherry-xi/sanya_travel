@@ -3,25 +3,30 @@ $(function(){
 
     //手机端特殊处理一些样式
     if(IsMobile()){
-       // $("#main").css("marginTop","20px");
+
 
         $("#footer-quikLink").hide();
         $("#footer-idea").hide();
         $("#footer-contract").css("text-align","center");
         $("#footer-weixin").css("text-align","center");
 
-        $(".index-news").css("margin-top","15px");
-        $(".slider-main").css("padding-top",$("#header").height()-20);
 
+        $(".index-banner").css("padding-top",$("#header").height()-15);//首页banner设置
+        $(".channel-banner").css("margin-top","40px");//导航栏 频道banner设置
+
+        //首页专业列表去掉背景
+        $(".major ").css("background","#fff");
+        $(".major .icon-box").css("margin-bottom","10px");
     }else{
-        //$("#main").css("marginTop","65px");
-        //$("#header").css("min-width","1300px");
-        $(".slider-main").css("padding-top",$("#header").height()-15);
 
+        $(".index-banner").css("padding-top",$("#header").height()-15);
+        $(".channel-banner").css("margin-top",$("#header").height()-15);
         if(window.screen.width > 1440){
-            $(".carousel-item").css("min-height",window.screen.width/3.415);//大分辨率电脑banner不能定400 否则页面看不完整图片
+            $(".index-banner .carousel-item").css("min-height",window.screen.width/3.415);//大分辨率电脑banner不能定400 否则页面看不完整图片
         }
     }
+
+
 
     $(document).scroll(function(e){
         if(IsMobile()){
@@ -29,30 +34,17 @@ $(function(){
         }
 
         var top = $(document).scrollTop();
-        var number = 700;
+        var number = 300;
         if(top > number){
             $("#searchForm").hide();
-            $(".logo-pc").hide(1000);
+            $(".logo-pc").hide(400);
         }else{
-            $("#searchForm").fadeIn(500);
-            $(".logo-pc").fadeIn(1000);
+            $("#searchForm").fadeIn(200);
+            $(".logo-pc").fadeIn(400);
         }
     });
 
-    if(!IsMobile()){
-        /*
-        var top = $(document).scrollTop();
-        var number = 400;
-        if(top > number){
-            $("#header.header-scrolled").css("padding","0px");
-            $("#searchForm").hide();
-            $(".logo-pc").hide();
-        }else{
-            $("#header.header-scrolled").css("padding","10px 0px");
-            $("#searchForm").show();
-            $(".logo-pc").show();
-        }*/
-    }
+
 
     //横幅朱家 鼠标小手指
     $(".slider-main .carousel-item").each(function(){
@@ -70,13 +62,7 @@ $(function(){
     });
 
 
-    //导航栏 banner设置
-    if(IsMobile()){
-        $(".channel-banner").css("margin-top","40px");
-        $("#main").css("margin-top","55px");
-    }else{
-        $(".channel-banner").css("margin-top",$("#header").height()-15);
-    }
+
 
 });
 
