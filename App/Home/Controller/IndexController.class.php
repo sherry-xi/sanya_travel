@@ -53,7 +53,7 @@ class IndexController extends BaseController{
             if(isMobile()){
                 $limit = floor($limit * 0.66); //手机端不显示太多文章，会导致页面很长
             }
-            $article = MS("article")->field('id,cid,title,content,thumb,create_time')
+            $article = MS("article")->field('id,cid,title,content,thumb,show_create_time as create_time')
                         ->where($where)
                         ->where(['is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit($limit)->select();
 

@@ -126,9 +126,12 @@ class ArticleController extends BaseController{
     public function addArticle(){
         $id = intval(I('id'));
 
+        $showCreateTime = date("Y-m-d H:i:s");
+
         if($id){ //编辑文章
 		
             $article = MS('article')->where(array('id'=>$id))->find();
+            $showCreateTime = $article['show_create_time'];
             $this->assign('article',$article);
         }else{//添加文字 查询最近上次20分钟前添加文章选中的导航，方便用户不用再次选中
             $datetime = date("Y-m-d H:i:s",strtotime("-20 minute"));
@@ -141,7 +144,7 @@ class ArticleController extends BaseController{
         unset($_SESSION[C("SESSION_PREFIX")]['articleHandleMsg']);
         $this->assign('articleHandleMsg',$msg);
 
-
+        $this->assign('showCreateTime',$showCreateTime);
         $this->assign('from',I('from'));
         $this->assign('channel',$this->getChannel());
         $this->display();
@@ -165,6 +168,7 @@ class ArticleController extends BaseController{
             'content' => $_POST['content'],
             'thumb' => I('thumb'),
             'banner' => I('banner'),
+            'show_create_time' => I("show_create_time")
         );
 
         if(!$this->user['isNewsPoster']){ //新闻发布员没有审核功能

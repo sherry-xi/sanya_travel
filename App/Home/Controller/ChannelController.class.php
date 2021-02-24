@@ -37,7 +37,7 @@ class ChannelController extends BaseController{
         ];
         $count = MS("article")->where($where)->count();
         $page    = getpage($count,$pageSize);
-        $article = MS("article")->field("id,cid,admin_id,title,content,create_time,thumb,banner")
+        $article = MS("article")->field("id,cid,admin_id,title,content,show_create_time as create_time,thumb,banner")
                     ->where($where)
                     ->limit($page->firstRow.','.$page->listRows)
                     ->order("top desc,id desc")
@@ -100,7 +100,7 @@ class ChannelController extends BaseController{
         $page    = getpage($count,10);
 
         $article = M('article')
-                ->field("id,cid,admin_id,title,create_time,content")
+                ->field("id,cid,admin_id,title,show_create_time as create_time,content")
                 ->where($where)
                 ->order("top desc,id desc")
                 ->limit($page->firstRow.','.$page->listRows)

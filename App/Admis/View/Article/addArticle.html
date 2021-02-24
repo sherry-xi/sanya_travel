@@ -60,7 +60,12 @@
                     <input type="hidden" name="thumb" value="{$article.thumb}"/>
                 </div>
             </div>
-
+            <div class="layui-form-item">
+                <label class="layui-form-label required">显示发布日期</label>
+                <div class="layui-input-block">
+                    <input type="text"  style="width: 200px"  value="{$showCreateTime}" name="show_create_time" id="show_create_time" class="layui-input" readonly  lay-verify="required"/>
+                </div>
+            </div>
             <!--
             <div class="layui-form-item">
                 <label class="layui-form-label">详情页横幅</label>
@@ -123,6 +128,7 @@
 <script type="text/javascript" src="__JS__/upload/upload2.js"></script>
 <script src="__LIB__/ueditor/third-party/xiumi/xiumi-ue-dialog-v5.js" charset="utf-8"></script>
 <script src="__LIB__/ueditor/third-party/135editor/135editor.js" charset="utf-8"></script>
+<script type="text/javascript" src="__LIB__/My97DatePicker/WdatePicker.js"></script>
 
 
 <script type="text/javascript">
@@ -165,6 +171,10 @@
         if("{$articleHandleMsg}"){
             layerSuc("{$articleHandleMsg}");
         }
+
+        $("#show_create_time").click(function(){
+            WdatePicker({el:$("#show_create_time")[0],dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'{$showCreateTime}',minDate:'1970-01',maxDate:'2030-01',alwaysUseStartDate:true});
+        });
     });
 
 
