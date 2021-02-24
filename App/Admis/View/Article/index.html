@@ -6,7 +6,7 @@
                 <div class="layui-inline" style="margin-right: 0px;">
                     <label class="layui-form-label" style="padding-left: 0px;width: 65px;">关键词</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="keyword"  class="layui-input" style="margin-right: 0px;">
+                        <input type="text" id="keyword"  value="{$articleSearchCache.keyword}"  class="layui-input" style="margin-right: 0px;">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -16,8 +16,8 @@
                             <option value="">选择导航</option>
                             <foreach name="channel" item="ch">
                                 <option value="parent_{$ch.id}" >{$ch.name}</option>
-                                <foreach name="ch.son" item="son">
-                                    <option value="{$son.id}"  >&nbsp;&nbsp;&nbsp;{$son.name}</option>
+                                <foreach name="ch.son" item="son"  >
+                                    <option value="{$son.id}"  <if condition="$son['id'] eq $articleSearchCache['cid']"> selected </if>  >&nbsp;&nbsp;&nbsp;{$son.name}</option>
                                 </foreach>
                             </foreach>
                         </select>
@@ -29,7 +29,7 @@
                         <select id="audit" lay-filter="audit" >
                             <option value="-1">全部</option>
                             <foreach name="audits" item="v" key="k">
-                                <option value="{$k}"  <if condition="$k eq $audit"> selected </if> >{$v}</option>
+                                <option value="{$k}"  <if condition="$articleSearchCache and ($k eq $articleSearchCache['audit'])"> selected </if> >{$v}</option>
                             </foreach>
                         </select>
                     </div>
@@ -66,9 +66,12 @@
 <include file="Component/footer"/>
 <script src="__JS__/layerTable.js"></script>
 <script>
+    var keyword = $("#keyword").val();
+    var cid = $("#cid").val();
+    var audit = $("#audit").val();
     var config = {
         render:{ //初时候加载数据
-            url: "{:U('Article/index',['get'=>1,'audit'=>$audit])}",
+            url: "{:U('Article/index',['get'=>1])}?keyword="+keyword+"&cid="+cid+"&audit="+audit,
             cols:[
                 {type: "checkbox", width: 50},
                 {field: 'id', title: 'ID',width:70},

@@ -8,11 +8,15 @@
     .img-thumb{max-width: 70px;max-height: 70px;margin: 10px;cursor: pointer;margin-left: 15px;}
 </style>
 <div class="form-block" >
-    <form action="{:U('addArticleHandle')}" method="post" enctype="multipart/form-data">
+    <form action="{:U('Admis/Article/addArticleHandle')}" method="post" enctype="multipart/form-data">
         <div class="layui-form layuimini-form form-main" >
             <div style="position: absolute;right: 50px;top: 50px;">
                 <button class="layui-btn" lay-submit >保存</button>
-                <a href="{:U('Article/index')}" class="layui-btn layui-btn-primary"  >返回</a>
+                <if condition="$from eq 'index'">
+                    <a href="{:U('Article/index')}" class="layui-btn layui-btn-primary"  >返回</a>
+                    <else/>
+                    <a onclick="history.go(0)" class="layui-btn layui-btn-primary"  >取消</a>
+                </if>
             </div>
 
 
@@ -30,7 +34,7 @@
                     <foreach name="channel" item="ch">
                         <option value="parent_{$ch.id}" disabled <if condition="$ch['id'] eq $article['parent_cid']">selected="selected"</if>>{$ch.name}</option>
                         <foreach name="ch.son" item="son">
-                            <option value="{$son.id}" <if condition="$son['id'] eq $article['cid']">selected="selected"</if> >&nbsp;&nbsp;&nbsp;{$son.name}</option>
+                            <option value="{$son.id}" <if condition="($son['id'] eq $article['cid']) or ($lastCid eq $son['id'])">selected="selected"</if> >&nbsp;&nbsp;&nbsp;{$son.name}</option>
                         </foreach>
                     </foreach>
                 </select>
@@ -97,7 +101,11 @@
                 <input type="hidden" name="id" value="{$article.id}"/>
                 <input type="hidden" name="from" value="{$from}"/>
                 <button class="layui-btn" lay-submit >保存</button>
-                <a href="{:U('Article/index')}" class="layui-btn layui-btn-primary" >返回</a>
+                <if condition="$from eq 'index'">
+                    <a href="{:U('Article/index')}" class="layui-btn layui-btn-primary"  >返回</a>
+                    <else/>
+                    <a onclick="history.go(0)" class="layui-btn layui-btn-primary"  >取消</a>
+                </if>
             </div>
         </div>
     </div>

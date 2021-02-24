@@ -18,6 +18,12 @@ class ArticleController extends BaseController{
      * 文章列表
      */
     public function index(){
+        if(I('from') == 'menu'){
+            //来源是点击菜单导航 清除文章筛选缓存
+            unset($_SESSION[C("SESSION_PREFIX")]['articleSearchCache']);;
+        }else if(!I('get')){
+            //$this->assign('articleSearchCache',session("articleSearchCache"));
+        }
         $this->indexCommon();
     }
 
@@ -25,7 +31,7 @@ class ArticleController extends BaseController{
         $where   = [];
         $cid     = I('cid');
 
-        $audit   = intval(I("audit",-1));
+        $audit   = I("audit",-1);
         $keyword = trim(I('keyword'));
 
         $this->assign('channel',$this->getChannel());
@@ -97,8 +103,11 @@ class ArticleController extends BaseController{
             $v['create_time'] = substr($v['create_time'],0,16);
             $v['viewCnt'] = MS('article_log')->where(['article_id'=>$v['id']])->count();
             $article[$k] = $v;
+        }
 
-
+        if(!$isDel && I("get")){ //文章列表页面 缓存筛选条件，方便下次返回页面帮用户保留筛选条件
+            $search = ['cid'=>$cid,'audit'=>$audit,'keyword'=>$keyword];
+            session("articleSearchCache",$search);
         }
 
         $this->ajaxTable($article,$count);
@@ -117,10 +126,14 @@ class ArticleController extends BaseController{
     public function addArticle(){
         $id = intval(I('id'));
 
-        if($id){
+        if($id){ //编辑文章
 		
             $article = MS('article')->where(array('id'=>$id))->find();
             $this->assign('article',$article);
+        }else{//添加文字 查询最近上次20分钟前添加文章选中的导航，方便用户不用再次选中
+            $datetime = date("Y-m-d H:i:s",strtotime("-20 minute"));
+            $lastCid = MS("article")->where(['create_time'=>['gt',$datetime]])->order("id desc")->getField("cid");
+            $this->assign('lastCid',$lastCid);
         }
 
         //一次性提示信息
@@ -138,6 +151,7 @@ class ArticleController extends BaseController{
      * 添加文章处理
      */
     public function addArticleHandle(){
+
         if(!checkToken() || !IS_POST){
             $this->message();
         }
@@ -160,6 +174,8 @@ class ArticleController extends BaseController{
 
         $cid  = I("cid");
 
+
+
         //文章挂在一级导航下
         if(strpos($cid,'parent_') !== false){
             $data['parent_cid'] = str_replace('parent_','',$cid);
@@ -170,13 +186,14 @@ class ArticleController extends BaseController{
         }
 
 
-        $url = I("from")?I("from"):"addArticle";
+        $url = I("from")=='index'?I("from"):"addArticle";
         if($id){
             $res  = MS('article')->where(array('id'=>$id))->save($data);
             session('articleHandleMsg',"编辑成功");
         }else{
             $data['create_time'] = date('Y-m-d H:i:s');
             MS('article')->add($data);
+            unset($_SESSION[C("SESSION_PREFIX")]['articleSearchCache']); // 清除文章筛选缓存
             session('articleHandleMsg',"添加成功");
         }
 

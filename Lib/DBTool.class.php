@@ -44,7 +44,7 @@ class DBTool{
                 }
                 $child['child'][]  = [
                     "title" => $son['name'],
-                    "href" => U('Admis/'.$son['mode'].'/'.$son['method'],array('pid'=>$son['parent_id'],'mid'=>$son['id'])),
+                    "href" => U('Admis/'.$son['mode'].'/'.$son['method'],array('pid'=>$son['parent_id'],'mid'=>$son['id'],'from'=>'menu')),
                     "icon" => $son['icon'],
                     "target" =>  "_self",
                     'mode' => $son['mode'],

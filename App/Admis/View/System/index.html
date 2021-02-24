@@ -40,6 +40,7 @@
                     <input type="hidden" value="{$config.styleColor}" name="styleColor" id="styleColor"/>
                 </div>
             </div>
+            <!--
             <div class="layui-form-item">
                 <label class="layui-form-label required"  >二级菜单字体色</label>
                 <div class="layui-input-block">
@@ -54,6 +55,8 @@
                     <input type="hidden" value="{$config.styleNaviColor}" name="styleNaviColor" id="styleNaviColor"/>
                 </div>
             </div>
+            -->
+            <!--
             <div class="layui-form-item">
                 <label class="layui-form-label required"  >新闻动态背景色</label>
                 <div class="layui-input-block">
@@ -61,6 +64,7 @@
                     <input type="hidden" value="{$config.styleColorNews}" name="styleColorNews" id="styleColorNews"/>
                 </div>
             </div>
+            -->
             <div class="layui-form-item">
                 <label class="layui-form-label required"  >首页背景图</label>
                 <div class="layui-input-block">
@@ -74,6 +78,14 @@
                     </div>
 
                     <input type="hidden" name="index_bg_img"  value="{$config.index_bg_img}"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required"  >首页背景色</label>
+                <div class="layui-input-block">
+                    <span class="styleIndexColor pointer" ></span><br/>
+                    <input type="hidden" value="{$config.styleIndexColor}" name="styleIndexColor" id="styleIndexColor"/>
+                    <div class="layui-form-mid layui-word-aux">如果设置了"首页背景图"系统优先使用背景图片，没有则用背景色</div>
                 </div>
             </div>
             <!--
@@ -330,6 +342,24 @@ $(function(){
                 hex += ', ' + opacity;
             }
             $("#styleNaviColor").val(hex);
+        },
+
+    });
+    $(".styleIndexColor").minicolors({
+        control: $(this).attr('data-control') || 'hue',
+        defaultValue: $(this).attr('data-defaultValue') || '{$config.styleIndexColor}',
+        inline: $(this).attr('data-inline') === 'true',
+        letterCase: $(this).attr('data-letterCase') || 'lowercase',
+        opacity: $(this).attr('data-opacity'),
+        position: $(this).attr('data-position') || 'bottom left',
+        change: function(hex, opacity) {
+            if( !hex ){
+                return;
+            }
+            if( opacity ) {
+                hex += ', ' + opacity;
+            }
+            $("#styleIndexColor").val(hex);
         },
 
     });

@@ -25,38 +25,72 @@ class IndexV2Controller extends BaseController{
             $slide[$k]['size'] = getimagesize(C('WEB_ROOT').$v['img']);
         }
 
-        $indexArticleChannel = [
-            'news' => 199,
-            'infomation' => 200,
-            'service' => 201,
+        //首页展现的文章数据
+        $channel = [
+            'news'       => 199,  //新闻动态
+            'information' => 200,  //通知公告
+            'service'    => 201,  //旅游和健康服务
+            'major'      => 168, //专业介绍
+            'student'    => 161, //学生园地
+            'work'       =>162, //就业创业
+            'part'       =>163  //党建工作
         ];
 
-        //新闻动态
-        $news = MS("article")->field('id,cid,title,content,thumb,create_time')->where(['cid'=>199,'is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit(8)->select();
-        //通知公告
-        $infomation = MS("article")->field('id,cid,title,content,thumb,create_time')->where(['cid'=>200,'is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit(8)->select();
-        //康体服务
-        $service = MS("article")->field('id,cid,title,content,thumb,create_time')->where(['cid'=>201,'is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit(8)->select();
+        $data = [];
+        foreach($channel as $key=>$id){
 
-        $channelList = MS("channel")->where(['parent_id'=>['gt',0]])->field('id,parent_id')->select();
+            $temp = $this->originChannel[$id];
+            $data[$key]['name'] = $temp['name'];
 
-        //专业介绍
-        $major = MS("article")->field('id,cid,title,content,thumb,create_time')->where(['cid'=>168,'is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit(9)->select();
+            if($temp['son']){//一级级导航
+                $data[$key]['url'] = U("Channel/index",['pid'=>$temp['id']]);
+                $where = ['cid'=>['in',array_keys($temp['son'])]];
+            }else{//二级导航
+                $data[$key]['url'] = U("Channel/index",['pid'=>$temp['parent_id'],'cid'=>$id]);
+                $where = ['cid'=>$id];
+            }
+            $limit = $key == 'major'?20:8;
+            $article = MS("article")->field('id,cid,title,content,thumb,create_time')
+                        ->where($where)
+                        ->where(['is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit($limit)->select();
+
+            if(in_array($key,['service','major'])){
+                $this->assign($key,$this->setArticleUrl($this->setArticleThumb($article))); //设置缩略图
+            }else{
+                $this->assign($key,$this->setArticleUrl($article));
+            }
+            if($key == "news"){
+                $this->assign($key."Image",$this->setArticleThumb($article));//只要有缩略图的文章
+            }
+        }
 
         $this->assign('slide',$slide);
-        $this->assign('news',$news);
-        $this->assign('information',$infomation);
-        $this->assign('service',$this->setArticleThumb($service));
-        $this->assign('newsImage',$this->setArticleThumb($news));
-        $this->assign('informationImage',$this->setArticleThumb($infomation));
-
-        $this->assign('channelList',array_column($channelList,null,'id'));
-        $this->assign("major",$major);
         $this->assign('more',C("theme")['more-svg']);
+        $this->assign('articleChannel',$data);
         $this->display();
 
     }
 
+    /**
+     * 设置文章url
+     */
+    private function setArticleUrl($article){
+        foreach($article as $key=>$value){
+            if($value['cid'] == 168){  //专业介绍页面
+                $article[$key]['url'] = U("Channel/index",['pid'=>$this->originChannel[$value['cid']]['parent_id'],'cid'=>$value['cid'],'id'=>$value['id']]);
+            }else{
+                $article[$key]['url'] = U("Article/index",['pid'=>$this->originChannel[$value['cid']]['parent_id'],'cid'=>$value['cid'],'id'=>$value['id']]);
+            }
+
+        }
+        return $article;
+    }
+
+    /**
+     * 设置文字缩略图
+     * @param $articles
+     * @return array
+     */
     private function setArticleThumb($articles){
         $data = [];
         foreach($articles as $k=>$v){

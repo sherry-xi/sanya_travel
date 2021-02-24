@@ -16,6 +16,7 @@ class BaseController extends Controller{
 
     public $channel;            //只显示在首页的导航频道
     public $allChannel;         //所有导航
+    public $originChannel;      //未处理过得导航数据
     public $pid;                //当前浏览一级频道id
     public $audit;                //当前浏览二级频道ID
     public $config;             //网站配置数据
@@ -68,10 +69,20 @@ class BaseController extends Controller{
         $field  = ['id','parent_id','name','show_nav','banner','banner_title',"banner_content"];
 
         $parents = M('channel')->field($field)->where(['status'=>0,'parent_id'=>0])->order("parent_id asc,sort asc,id asc")->select();
+        $this->originChannel = array_column($parents,null,'id');
 
         foreach($parents as $v){
 
             $son     = MS("channel")->field($field)->where(['status'=>0,'parent_id'=>$v['id']])->order("parent_id asc,sort asc,id asc")->select();
+
+            foreach($son as $key=>$value){
+
+                $this->originChannel[$value['parent_id']]['son'][$value['id']] = $value;
+                $value['son'] = [];
+                $this->originChannel[$value['id']] = $value;
+
+
+            }
 
             $v['son'] = $son;
             if($v['show_nav'] == 0){
@@ -80,7 +91,6 @@ class BaseController extends Controller{
             $this->allChannel[$v['id']] = $v;
 
         }
-
 
     }
 

@@ -5,6 +5,7 @@
   .apartment-list a{color: #fff !important;background: url("__PUBLIC__/image/pic_title_5.jpg");text-align: center;display: block;
       width: 90%;margin: auto;padding: 10px;font-size: 17px;font-weight: bold;letter-spacing: 2px;}
   .apartment-list a:hover{text-decoration: none !important;color:#fff !important;}
+  .major-checked{background: url('__PUBLIC__/image/pic_title_3.jpg') !important;}
 </style>
 <main id="main">
 
@@ -39,10 +40,10 @@
             </h3>
             <div class="sidebar-item categories">
               <ul>
-                <foreach name="article" item="value">
+                <foreach name="article" item="value" key="key">
                   <li class="apartment-list" >
-                    <if condition="$Think.get.id eq $value['id']">
-                        <a href="{:U('Channel/index',['pid'=>$pid,'cid'=>$cid] )}?id={$value.id}" style="background: url('__PUBLIC__/image/pic_title_3.jpg');" >{$value.title}</a>
+                    <if condition="($Think.get.id eq $value['id']) or (!$Think.get.id and !$key)">
+                        <a href="{:U('Channel/index',['pid'=>$pid,'cid'=>$cid] )}?id={$value.id}" class="major-checked"  >{$value.title}</a>
                       <else/>
                         <a href="{:U('Channel/index',['pid'=>$pid,'cid'=>$cid] )}?id={$value.id}" >{$value.title} </a>
                     </if>

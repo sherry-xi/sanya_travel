@@ -1,12 +1,14 @@
 <include file="Public/V2/header"/>
 <style>
 
-    .main{ width:96%;}
+    .main{ width:94%;;margin: auto;;padding-top: 30px;}
     .major{padding-top: 20px;cursor: pointer}
     .major .section-title{text-align: center;width: 100%;}
     .major-thumb{position: relative;}
     .major-thumb img{width: 100%;height: 200px;}
-    .major-thumb  .title-name-show{position: absolute;top: 10px;font-size: 20px;left: 10px;color: #fd7e0a;}
+    .major-thumb  .title-name-show{position: absolute;top: 10px;font-size: 20px;left: 10px;color: #fd7e0a;
+            font-weight: bold;text-align: left;
+    }
     .major .icon-box{padding: 5px;}
     .major .title-bg{margin: 0px;position: absolute;top: 0px;background: #fd7e0a;
         width: 100%;height: 100%;text-align: center;padding-top: 70px;
@@ -21,7 +23,7 @@
         display: none;
     }
     .section-title{width: 100%;}
-    .section-title h2{color:#fff;}
+    .section-title h2{color:#fff;font-size: 23px;padding: 10px;}
 
 
     .news-title{width: 100%;text-align: center;background: #ccc;}
@@ -39,46 +41,56 @@
     .container-fluid{}
     .services-section-two{margin-bottom: 0px;}
     .news-more svg{float:right;margin-right:5px;color:#fff; width:20px; height:20px;position: relative;top:5px;}
-    .services-section-two{margin-top: 30px;margin-bottom: 50px;}
+    .services-section-two{margin-top: 0px;margin-bottom: 50px;}
 
     .news-main{border: 1px solid #11BFC8;padding: 0px;margin: 0px;border-radius: 3px;background: #fff;padding-top: 10px;}
     .news-main .carousel-inner{height: 290px !important;}
     .news-main .carousel-inner img{min-height: 290px;}
 
     .section-title-1{background: url("__PUBLIC__/image/pic_title_4.jpg");}
-    .section-title-2{background: url("__PUBLIC__/image/pic_title_5.jpg");}
-    .section-title-3{background: url("__PUBLIC__/image/pic_title_6.jpg");}
-    .section-title-4{background: url("__PUBLIC__/image/pic_title_6.jpg");}
+    .section-title-2{background: url("__PUBLIC__/image/pic_title_3.jpg");}
+    .section-title-3{background: url("__PUBLIC__/image/pic_title_4.jpg");}
+    .section-title-4{background: url("__PUBLIC__/image/pic_title_4.jpg");}
     .section-title-5{background: url("__PUBLIC__/image/pic_title_3.jpg");}
-    .section-title-6{background: url("__PUBLIC__/image/pic_title_4.jpg");}
+    .section-title-6{background: url("__PUBLIC__/image/pic_title_5.jpg");}
     .section-title-7{background: url("__PUBLIC__/image/pic_title_3.jpg");}
-    .news-list-bg-1{background: #f7feff;}
-    .news-list-bg-2{background: #fff8bb ;border-color: #F7BC60 ;margin-top: 10px;}
-    .news-list-bg-3{background: #f8fff6;border-color: #59B836 }
-    .news-list-bg-4{background: #f8fff6;border-color: #59B836 }
-    .news-list-bg-5{background: #fffcfb;border-color: #EE7B80 }
-    .news-list-bg-6{background: #f7feff;}
-    .news-list-bg-7{background: #f7feff;padding-top: 10px;}
+    .news-list-bg-1{}
+    .news-list-bg-2{background: #fffcfb ;border-color: #F7BC60 ;margin-top: 10px;}
+    .news-list-bg-3{background: #f8fff6;border-color: #59B836 ;border-top: 0px;}
+    .news-list-bg-4{background: #f8fff6;border-color: #59B836;border-top: 0px }
+    .news-list-bg-5{background: #fffcfb;border-color: #EE7B80 ;border-top: 0px}/*fff8bb*/
+    .news-list-bg-6{}
+    .news-list-bg-7{;padding-top: 10px;}
     .index-banner{padding-top: 100px;}
     @media screen and (max-width: 500px) {
         .index-banner {padding-top: 50px}
     }
     @media screen and (max-width: 450px) {/*  不大于 手机*/
         .index-banner-img {height: 150px }
-        .main{ width:100%;}
+        .main{ width:100%;padding-top: 10px;}
         .news-time{display: none;}
         .news-list li a{font-size: 14px;}
+        .news-main{padding-top: 0px;}
+        .news-list-bg-2{margin-top: 0px ;}
     }
     @media screen and (min-width: 1330px) {/* 不小于 */
         .index-banner-img {height: 450px}
+        .news-list-bg-3{min-height: 290px;}
+        .news-list-bg-4{min-height: 290px;}
+        .news-list-bg-5{min-height: 290px;}
+
     }
     @media screen and (min-width: 1800px) {/* 不小于 */
         .index-banner-img {height: 500px}
+        .main{ width:85%;}
     }
     @media screen and (max-width: 450px) {/*  不大于 */
         .index-banner .carousel-caption h2 {font-size: 18px; }
         .index-banner .carousel-caption {bottom: 5%; }
     }
+
+
+    .index-center-flag{padding-bottom: 30px;background: #fffdbc;border: 1px solid #ffa726;margin: 10px 0px;}
     .index-channel-news-shadow{width: 100%;height: 100%;position: absolute;background: #000;
         filter:alpha(opacity=30);
         -moz-opacity:0.3;
@@ -97,8 +109,8 @@
     .flag-en-name{border-top: 1px solid #fff;border-bottom: 1px solid #fff;width: 70%;margin: 5px auto 0px auto;
         font-weight: normal;
     }
-    body{background: #fdfdfd;}
-
+    body{background: #fdfdfd ;}
+    .section-title h2 svg{color:#fff;height: 22px;width: 20px;}
 </style>
 <!-- banner轮播 -->
 <div class="container-fluid index-banner"  >
@@ -138,15 +150,22 @@
 <!-- end 轮播 --->
 
 
-<div class="container-fluid main" >
-
-    <div class="row" style="margin-top: 40px;margin-bottom: 50px;" >
+<if condition="$config['index_bg_img']">
+    <div class="container-fluid"  style="background:url({$config.index_bg_img}) repeat ;">
+<else/>
+    <div class="container-fluid"  style="background-color:{$config.styleIndexColor} ;">
+</if>
+    <div class="main ">
+    <div class="row" style="margin-bottom: 0px;" >
         <!-- 新闻动态 -->
         <div class="col-lg-8" style="">
             <div class=" section-title section-title-1">
                 <h2>
-                    新闻动态
-                    <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多">{$more}</a>
+                    <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
+                        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
+                    </svg>
+                    {$articleChannel.news.name}
+                    <a href="{$articleChannel.news.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
                 </h2>
             </div>
             <div class="row news-main " >
@@ -184,7 +203,7 @@
                         <ul class="news-list " style="border: 0px;">
                             <foreach name="news" item="value">
                                 <li>
-                                    <a href="">
+                                    <a href="{$value.url}" target="_blank">
                                         <if condition="!$isMobile">
                                             <script>mySubstring("{$value.title}",18)</script>
                                             <else/>
@@ -204,14 +223,19 @@
         <div class="col-lg-4">
             <div class="section-title section-title-2">
                 <h2>
-                    通知公告
-                    <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多">{$more}</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-volume-up-fill" viewBox="0 0 16 16">
+                        <path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-.708.707A7.476 7.476 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"/>
+                        <path d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.483 5.483 0 0 1 11.025 8a5.483 5.483 0 0 1-1.61 3.89l.706.706z"/>
+                        <path d="M8.707 11.182A4.486 4.486 0 0 0 10.025 8a4.486 4.486 0 0 0-1.318-3.182L8 5.525A3.489 3.489 0 0 1 9.025 8 3.49 3.49 0 0 1 8 10.475l.707.707zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"/>
+                    </svg>
+                    {$articleChannel.information.name}
+                    <a href="{$articleChannel.information.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
                 </h2>
             </div>
                 <ul class="news-list news-list-bg-2">
                     <foreach name="information" item="value">
                         <li>
-                            <a href="">
+                            <a href="{$value.url}" target="_blank">
                                 <if condition="!$isMobile">
                                     <script>mySubstring("{$value.title}",18)</script>
                                     <else/>
@@ -227,11 +251,13 @@
     </div>
 
     <!-- 旅游和康体服务 -->
-    <section class="services-section-two style-two"  style="position:relative;background: url('__PUBLIC__/image/index-channel-news-bg.jpg')">
+    <section class="services-section-two style-two"  style="position:relative;">
+        <!--
         <div class="index-channel-news-shadow"></div>
+        -->
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12" style="min-height: 200px;padding-bottom: 10px;">
+                <div class="col-lg-12 index-center-flag">
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="index-channel-news-flag">
@@ -270,17 +296,22 @@
 
 
                 </div>
-                <div class="col-lg-4" style="<if condition='$isMobile'>padding:0px;</if>">
+                <div class="col-lg-4" style="padding-left: 0px;<if condition='$isMobile'>padding:0px;</if>">
                     <div class="section-title section-title-3">
                         <h2>
-                            师资队伍
-                            <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多">{$more}</a>
+                            <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+                                <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                            </svg>
+                            {$articleChannel.student.name}
+                            <a href="{$articleChannel.student.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
                         </h2>
                     </div>
                     <ul class="news-list news-list-bg-3">
-                        <foreach name="information" item="value">
+                        <foreach name="student" item="value">
                             <li>
-                                <a href="">
+                                <a href="{$value.url}" target="_blank">
                                     <if condition="!$isMobile">
                                         <script>mySubstring("{$value.title}",18)</script>
                                         <else/>
@@ -295,14 +326,17 @@
                 <div class="col-lg-4" style=";<if condition='$isMobile'>padding:0px;</if>">
                     <div class="section-title section-title-4">
                         <h2>
-                            就业创业
-                            <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多">{$more}</a>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-flag-fill" viewBox="0 0 16 16">
+                                <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001"/>
+                            </svg>
+                            {$articleChannel.work.name}
+                            <a href="{$articleChannel.work.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
                         </h2>
                     </div>
                     <ul class="news-list news-list-bg-4" >
-                        <foreach name="information" item="value">
+                        <foreach name="work" item="value">
                             <li>
-                                <a href="">
+                                <a href="{$value.url}" target="_blank">
                                     <if condition="!$isMobile">
                                         <script>mySubstring("{$value.title}",18)</script>
                                         <else/>
@@ -315,17 +349,21 @@
                     </ul>
                 </div>
                 <!-- 就业创业  -->
-                <div class="col-lg-4" style="<if condition='$isMobile'>padding:0px;</if>">
+                <div class="col-lg-4" style="padding-right: 0px;<if condition='$isMobile'>padding:0px;</if>">
                     <div class="section-title section-title-5">
                         <h2>
-                            学生风采
-                            <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多">{$more}</a>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 16">
+                                <path d="M8 0l1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
+                                <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                            </svg>
+                            {$articleChannel.part.name}
+                            <a href="{$articleChannel.part.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
                         </h2>
                     </div>
                     <ul class="news-list news-list-bg-5">
-                        <foreach name="information" item="value">
+                        <foreach name="part" item="value">
                             <li>
-                                <a href="">
+                                <a href="{$value.url}" target="_blank">
                                     <if condition="!$isMobile">
                                         <script>mySubstring("{$value.title}",18)</script>
                                         <else/>
@@ -337,7 +375,6 @@
                         </foreach>
                     </ul>
                 </div>
-                <div class="col-lg-12" style="height: 100px;"></div>
             </div>
 
         </div>
@@ -350,10 +387,8 @@
 
                 <div class="section-title section-title-6" style="margin-bottom: 20px;" >
                     <h2 >
-                        旅游与健康服务
-                        <a href="{:U('Channel/index',['pid'=>198,'cid'=>201])}" class="news-more" title="更多服务">
-                            {$more}
-                        </a>
+                        {$articleChannel.service.name}
+                        <a href="{$articleChannel.service.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
                     </h2>
                 </div>
             </div>
@@ -362,7 +397,7 @@
                     <div class="service-block-two col-12 " >
                         <div class="inner-box">
                             <div class="image">
-                                <a href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}">
+                                <a href="{$v.url}" target="_blank">
                                     <img src="{$v.thumb}" alt="">
                                 </a>
                                 <div class="overlay">
@@ -372,11 +407,10 @@
                             <div class="lower-content" >
                                 <div class="text">
                                     <a style="color: #0b2e13"  class="index-travel-title"
-                                       data-text="{$k+1}.{$v.title}"
-                                       href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}"  target="_blank">
+                                       data-text="{$k+1}.{$v.title}" href="{$v.url}"  target="_blank">
                                     </a>
                                 </div>
-                                <div class="read-more-btn"><a href="{:U('Article/index',['id'=>$v['id'],'pid'=>$channelList[$v['cid']]['parent_id'],'cid'=>$v['cid']])}"  target="_blank">详细</a></div>
+                                <div class="read-more-btn"><a href="{$v.url}"  target="_blank">详细</a></div>
                             </div>
                         </div>
                     </div>
@@ -393,8 +427,8 @@
                 <div class="col-md-12 col-lg-12 d-flex align-items-stretch" style="padding: 0px;" >
                     <div class="section-title  section-title-7" >
                         <h2 >
-                            专业介绍
-                            <a href="{:U('Channel/index',['pid'=>157,'cid'=>168])}" class="news-more" title="更多">{$more}</a>
+                            {$articleChannel.major.name}
+                            <a href="{$articleChannel.major.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
                         </h2>
                     </div>
                 </div>
@@ -407,7 +441,7 @@
                                 <h4 class="title-name-show">{$value.title}</h4>
                                 <h4 class="title-bg"></h4>
                                 <h4 class="title-name">{$value.title}</h4>
-                                <a href="{:U('Article/index',['id'=>$value['id'],'pid'=>$channelList[$value['cid']]['parent_id'],'cid'=>$value['cid']])}"></a>
+                                <a href="{$value.url}"></a>
                             </div>
                             <!--
                             <p class="description">志业、敬业、专业、乐业，团队<span style="display: inline-block;width: 5em;"></span></p>
@@ -419,7 +453,7 @@
         </div>
     </section>
     <!-- end 专业介绍 -->
-
+    </div>
 </div>
 
 <include file="Public/V2/footer"/>
@@ -459,6 +493,19 @@
             $(".major-thumb img").css("height",'auto');
         }else{
             $(".major-thumb img").css("height",'200px');
+
+
+            //三个新闻列表高度统一
+            var maxHeight = $(".news-list-bg-3").height();
+            if(maxHeight < $(".news-list-bg-4").height()){
+                maxHeight = $(".news-list-bg-4").height();
+            }
+            if(maxHeight < $(".news-list-bg-5").height()){
+                maxHeight = $(".news-list-bg-5").height();
+            }
+            $(".news-list-bg-3").height(maxHeight);
+            $(".news-list-bg-4").height(maxHeight);
+            $(".news-list-bg-4").height(maxHeight);
         }
 
         $(".major-thumb").css("width",'100%');

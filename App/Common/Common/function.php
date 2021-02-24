@@ -618,7 +618,7 @@ function getThumbImage_bak($articles,$limit = 100,$fliter = true){
 /**
  * 从文章中解析文章缩略图
  * @param $article
- * @param $defaultThumb 默认缩略图
+ * @param $defaultThumb 默认缩略图 不设置默认图片，如果文章中没有图片该文章会被丢弃
  */
 function getThumbImage($article,$defaultThumb = ''){
     if($article['thumb']){ //文章配置有缩略图
