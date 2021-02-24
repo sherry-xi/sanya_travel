@@ -1,7 +1,10 @@
 <include file="Public/V2/header"/>
 <style>
 
-    .main{ width:94%;;margin: auto;;padding-top: 30px;}
+    .main{ width:96%;;margin: auto;;padding-top: 20px;padding-left:20px;padding-right:20px;
+            background-color:{$config.styleIndexColor}
+
+    }
     .major{padding-top: 20px;cursor: pointer}
     .major .section-title{text-align: center;width: 100%;}
     .major-thumb{position: relative;}
@@ -39,9 +42,8 @@
     .news-list li a:hover{text-decoration: underline;}
     .news-time{float: right;font-size: 13px;margin-top: 5px;}
     .container-fluid{}
-    .services-section-two{margin-bottom: 0px;}
     .news-more svg{float:right;margin-right:5px;color:#fff; width:20px; height:20px;position: relative;top:5px;}
-    .services-section-two{margin-top: 0px;margin-bottom: 50px;}
+    .services-section-two{margin-top: 0px;margin-bottom: 20px;}
 
     .news-main{border: 1px solid #11BFC8;padding: 0px;margin: 0px;border-radius: 3px;background: #fff;padding-top: 10px;}
     .news-main .carousel-inner{height: 290px !important;}
@@ -67,7 +69,7 @@
     }
     @media screen and (max-width: 450px) {/*  不大于 手机*/
         .index-banner-img {height: 150px }
-        .main{ width:100%;padding-top: 10px;}
+        .main{ width:100%;padding-top: 10px;padding-left: 0px;padding-right: .px;}
         .news-time{display: none;}
         .news-list li a{font-size: 14px;}
         .news-main{padding-top: 0px;}
@@ -90,7 +92,7 @@
     }
 
 
-    .index-center-flag{padding-bottom: 30px;background: #fffdbc;border: 1px solid #ffa726;margin: 10px 0px;}
+    .index-center-flag{padding-bottom: 0px;background: #fffdbc;border: 1px solid #ffa726;margin: 10px 0px;}
     .index-channel-news-shadow{width: 100%;height: 100%;position: absolute;background: #000;
         filter:alpha(opacity=30);
         -moz-opacity:0.3;
@@ -100,7 +102,7 @@
     .index-channel-news-flag{
         width: 250px;height: 120px;background: #ffa726;color:#fff;
         margin: auto;
-        margin-top: 30px;
+        margin: 20px 0px;
         position: relative;;
     }
     .index-channel-news-flag .index-channel-news-flag-item{position: absolute;width: 100%;text-align: center;
@@ -111,6 +113,14 @@
     }
     body{background: #fdfdfd ;}
     .section-title h2 svg{color:#fff;height: 22px;width: 20px;}
+    .services-section-two .inner-box{margin-bottom: 60px;}
+    .service-block-two .lower-content {padding: 15px;}
+    .service-block-two .inner-box:hover .lower-content {
+        padding-bottom: 60px;
+    }
+
+    .service-block-two .lower-content .read-more-btn a {padding: 10px 0;}
+    .services .icon-box{margin-bottom: 20px;}
 </style>
 <!-- banner轮播 -->
 <div class="container-fluid index-banner"  >
@@ -149,12 +159,7 @@
 </div >
 <!-- end 轮播 --->
 
-
-<if condition="$config['index_bg_img']">
     <div class="container-fluid"  style="background:url({$config.index_bg_img}) repeat ;">
-<else/>
-    <div class="container-fluid"  style="background-color:{$config.styleIndexColor} ;">
-</if>
     <div class="main ">
     <div class="row" style="margin-bottom: 0px;" >
         <!-- 新闻动态 -->
@@ -323,7 +328,7 @@
                         </foreach>
                     </ul>
                 </div>
-                <div class="col-lg-4" style=";<if condition='$isMobile'>padding:0px;</if>">
+                <div class="col-lg-4" style=" padding-left: 5px;padding-right: 5px; <if condition='$isMobile'>padding:0px;</if>">
                     <div class="section-title section-title-4">
                         <h2>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-flag-fill" viewBox="0 0 16 16">
@@ -385,7 +390,7 @@
         <div class="container-fluid" style="padding: 0px !important;">
             <div class="col-md-12 col-lg-12 d-flex align-items-stretch" style="padding: 0px !important;">
 
-                <div class="section-title section-title-6" style="margin-bottom: 20px;" >
+                <div class="section-title section-title-6" style="margin-bottom: 5px;" >
                     <h2 >
                         {$articleChannel.service.name}
                         <a href="{$articleChannel.service.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
@@ -410,6 +415,7 @@
                                        data-text="{$k+1}.{$v.title}" href="{$v.url}"  target="_blank">
                                     </a>
                                 </div>
+
                                 <div class="read-more-btn"><a href="{$v.url}"  target="_blank">详细</a></div>
                             </div>
                         </div>

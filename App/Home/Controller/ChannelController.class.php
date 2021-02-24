@@ -84,9 +84,11 @@ class ChannelController extends BaseController{
         $keyword = trim(I('keyword'));
 
         $keyword   = preg_replace("/select |insert |update |delete |truncate |create |grant |commit |unoin /i","",$keyword);
-        if(strlen($keyword)>20){ //关键词太长
+        if(!$keyword || strlen($keyword)>30){ //关键词太长
             $keyword = '-999';
         }
+
+
         $where = [
             'is_del' => ['eq',0],
             'status' => ['eq',0],
