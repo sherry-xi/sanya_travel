@@ -71,8 +71,8 @@
 .logo-mobile{}
 
 /* 频道页面 */
-.categories li a:hover{text-decoration: underline;}
-.channel-select{text-decoration: underline;}
+.categories li a:hover{color:#ff9800 !important;font-weight: bold;}
+.channel-select{color:#ff9800 !important;font-weight: bold;}
 .blog .entry .entry-title{font-size: 20px !important;}
 
 /* 公共样式 */
