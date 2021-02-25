@@ -31,9 +31,9 @@ class IndexController extends BaseController{
             'information' => 200,  //通知公告
             'service'    => 201,  //旅游和健康服务
             'major'      => 168, //专业介绍
-            'student'    => 161, //学生园地
-            'work'       =>162, //就业创业
-            'part'       =>163  //党建工作
+            'student'    => 208, //学生园地
+            'work'       =>219, //就业创业
+            'part'       =>210  //党建工作
         ];
 
         $data = [];
