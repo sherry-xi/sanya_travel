@@ -113,19 +113,25 @@
         $(".error-msg").html('');/*<i class="layui-icon" >&#xe63d;</i>*/
         $.post("{:U('loginHandle')}",{
             token:$("#token").val(),
-            username:$("#username").val(),
-            password:$("#password").val(),
-            code:$("#code").val(),
+            username:username,
+            password:password,
+            code:code,
 
         },function (data) {
-            if(data.status == 1){
+            if(data.status != 0){
+
                 $(".error-msg").html('<p style="color: red;"><i class="layui-icon" >&#xe69c;</i>&nbsp;&nbsp;Oops,'+data.msg+"...</p>");
                 $("#refreshCaptcha").click();
+                if(data.status == 1){
+                    $("#code").select().focus();
+                }else{
+                    $("#password").select().focus();
+                }
             }else{
                 //$(".error-msg").html('<p style="color: green;"><i class="layui-icon" >&#xe6af;</i>&nbsp;&nbsp;Awesome,'+data.msg+",跳转中...</p>");
                 location.href = "{:U('index')}";
             }
-        });
+        },'json');
 
         return false;
     });

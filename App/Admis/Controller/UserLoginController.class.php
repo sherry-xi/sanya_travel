@@ -63,7 +63,7 @@ class UserLoginController extends Controller {
         if(!checkToken() || !IS_POST){
             $this->error("非法访问",U('index'));
         }
-
+        ob_clean();
         //验证码校验
         if($this->dbTool->getVerificationConf()){
             $verify = new Verify();
@@ -77,7 +77,7 @@ class UserLoginController extends Controller {
 
         $res = $this->userTool->login($username,$password);
         if($res !== true){ //登录失败
-            $this->ajaxReturn(['status' => 1, 'msg' => $res]);
+            $this->ajaxReturn(['status' => 2, 'msg' => $res]);
         }
         if($remember){ //保持登录
             $this->userTool->rememberLogin($username); //取消保持登录
