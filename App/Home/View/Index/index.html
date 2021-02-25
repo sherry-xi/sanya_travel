@@ -1,20 +1,17 @@
 <include file="Public/header"/>
-<link href="__CSS__/index/index.css" rel="stylesheet">
 <link href="__CSS__/index/slider.css" rel="stylesheet">
 <style>
 
-    .main{ width:96%;margin: auto;padding-top: 20px;padding-left:20px;padding-right:20px;
-    background-color:{$config.styleIndexColor}
-    }
-    .main-banner{width:100%;margin: auto;}
+    .main{background-color:{$config.styleIndexColor}}/*首页前景色*/
+    .container-main{background:url({$config.index_bg_img}) repeat ;}
 </style>
 
 <include file="Public/slider"/>
 
 
-    <div class="container-fluid"  style="background:url({$config.index_bg_img}) repeat ;">
+<div class="container-fluid container-main" >
     <div class="main ">
-    <div class="row" style="margin-bottom: 0px;" >
+      <div class="row" >
         <!-- 新闻动态 -->
         <div class="col-lg-8 {$articleChannel.news.isShow}" style="">
             <div class=" section-title section-title-1">
@@ -105,174 +102,172 @@
                     </foreach>
                 </ul>
         </div>
-
     </div>
 
-    <!-- 旅游和康体服务 -->
-    <section class="services-section-two style-two "  style="position:relative;">
-        <!--
-        <div class="index-channel-news-shadow"></div>
-        -->
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 index-center-flag">
+            <!-- 旅游和康体服务 -->
+     <section class="services-section-two style-two "  style="position:relative;">
+
+                <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-2" style="padding: 0px;">
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="index-channel-news-flag">
-                                <div class="index-channel-news-flag-item">
-                                    <div>以学生为中心</div>
-                                    <div class="flag-en-name">Student</div>
+                        <div class="col-lg-12 index-center-flag">
+                            <div class="row">
+                                <div class="col-lg-2" style="padding: 0px;">
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="index-channel-news-flag">
-                                <div class="index-channel-news-flag-item">
-                                    <div>以进取者为榜样</div>
-                                    <div class="flag-en-name">Enthusiast</div>
+                                <div class="col-lg-3">
+                                    <div class="index-channel-news-flag">
+                                        <div class="index-channel-news-flag-item">
+                                            <div>以学生为中心</div>
+                                            <div class="flag-en-name">Student</div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="index-channel-news-flag">
-                                <div class="index-channel-news-flag-item">
-                                    <div>以教育情怀为乐趣</div>
-                                    <div class="flag-en-name">Education</div>
+                                <div class="col-lg-3">
+                                    <div class="index-channel-news-flag">
+                                        <div class="index-channel-news-flag-item">
+                                            <div>以进取者为榜样</div>
+                                            <div class="flag-en-name">Enthusiast</div>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="col-lg-3">
+                                    <div class="index-channel-news-flag">
+                                        <div class="index-channel-news-flag-item">
+                                            <div>以教育情怀为乐趣</div>
+                                            <div class="flag-en-name">Education</div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
+
+
+                        </div>
+                        <div class="col-lg-4 {$articleChannel.student.isShow}" style="padding-left: 0px;<if condition='$isMobile'>padding:0px;</if>">
+                            <div class="section-title section-title-3">
+                                <h2>
+                                    <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                        <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
+                                        <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                                    </svg>
+                                    {$articleChannel.student.name}
+                                    <a href="{$articleChannel.student.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
+                                </h2>
+                            </div>
+                            <ul class="news-list news-list-bg-3">
+                                <foreach name="student" item="value">
+                                    <li>
+                                        <a href="{$value.url}" target="_blank">
+                                            <if condition="!$isMobile">
+                                                <script>mySubstring("{$value.title}",18)</script>
+                                                <else/>
+                                                {$value.title}
+                                            </if>
+                                        </a>
+                                        <span class="news-time">{$value.create_time|substr=###,0,10}</span>
+                                    </li>
+                                </foreach>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4 {$articleChannel.work.isShow}" style=" padding-left: 5px;padding-right: 5px; <if condition='$isMobile'>padding:0px;</if>">
+                            <div class="section-title section-title-4">
+                                <h2>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-flag-fill" viewBox="0 0 16 16">
+                                        <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001"/>
+                                    </svg>
+                                    {$articleChannel.work.name}
+                                    <a href="{$articleChannel.work.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
+                                </h2>
+                            </div>
+                            <ul class="news-list news-list-bg-4" >
+                                <foreach name="work" item="value">
+                                    <li>
+                                        <a href="{$value.url}" target="_blank">
+                                            <if condition="!$isMobile">
+                                                <script>mySubstring("{$value.title}",18)</script>
+                                                <else/>
+                                                {$value.title}
+                                            </if>
+                                        </a>
+                                        <span class="news-time">{$value.create_time|substr=###,0,10}</span>
+                                    </li>
+                                </foreach>
+                            </ul>
                         </div>
 
+                        <div class="col-lg-4 {$articleChannel.part.isShow}" style="padding-right: 0px;<if condition='$isMobile'>padding:0px;</if>">
+                            <div class="section-title section-title-5">
+                                <h2>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 16">
+                                        <path d="M8 0l1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
+                                        <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+                                    </svg>
+                                    {$articleChannel.part.name}
+                                    <a href="{$articleChannel.part.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
+                                </h2>
+                            </div>
+                            <ul class="news-list news-list-bg-5">
+                                <foreach name="part" item="value">
+                                    <li>
+                                        <a href="{$value.url}" target="_blank">
+                                            <if condition="!$isMobile">
+                                                <script>mySubstring("{$value.title}",18)</script>
+                                                <else/>
+                                                {$value.title}
+                                            </if>
+                                        </a>
+                                        <span class="news-time">{$value.create_time|substr=###,0,10}</span>
+                                    </li>
+                                </foreach>
+                            </ul>
+                        </div>
                     </div>
-
 
                 </div>
-                <div class="col-lg-4 {$articleChannel.student.isShow}" style="padding-left: 0px;<if condition='$isMobile'>padding:0px;</if>">
-                    <div class="section-title section-title-3">
-                        <h2>
-                            <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
-                                <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-                            </svg>
-                            {$articleChannel.student.name}
-                            <a href="{$articleChannel.student.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
-                        </h2>
+            </section>
+            <!--end 旅游和康体服务 -->
+
+     <section class="services-section-two style-two news-list-bg-6 {$articleChannel.service.isShow}"   >
+                <div class="container-fluid" style="padding: 0px !important;">
+                    <div class="col-md-12 col-lg-12 d-flex align-items-stretch" style="padding: 0px !important;">
+
+                        <div class="section-title section-title-6" style="margin-bottom: 5px;" >
+                            <h2 >
+                                {$articleChannel.service.name}
+                                <a href="{$articleChannel.service.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
+                            </h2>
+                        </div>
                     </div>
-                    <ul class="news-list news-list-bg-3">
-                        <foreach name="student" item="value">
-                            <li>
-                                <a href="{$value.url}" target="_blank">
-                                    <if condition="!$isMobile">
-                                        <script>mySubstring("{$value.title}",18)</script>
-                                        <else/>
-                                        {$value.title}
-                                    </if>
-                                </a>
-                                <span class="news-time">{$value.create_time|substr=###,0,10}</span>
-                            </li>
+                    <div class="theme_carousel owl-theme owl-carousel" data-options='{"loop": true, "margin": 0, "autoheight":true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 300, "responsive":{ "0" :{ "items": "1" }, "600" :{ "items" : "2" }, "768" :{ "items" : "2" } , "992":{ "items" : "3" }, "1200":{ "items" : "4" }}}'>
+                        <foreach name="service" item="v" key="k">
+                            <div class="service-block-two col-12 " >
+                                <div class="inner-box">
+                                    <div class="image">
+                                        <a href="{$v.url}" target="_blank">
+                                            <img src="{$v.thumb}" alt="">
+                                        </a>
+                                        <div class="overlay">
+                                            <div class="link-btn"><a href="service-details.html"><i class="flaticon-add"></i></a></div>
+                                        </div>
+                                    </div>
+                                    <div class="lower-content" >
+                                        <div class="text">
+                                            <a style="color: #0b2e13"  class="index-travel-title"
+                                               data-text="{$k+1}.{$v.title}" href="{$v.url}"  target="_blank">
+                                            </a>
+                                        </div>
+
+                                        <div class="read-more-btn"><a href="{$v.url}"  target="_blank">详细</a></div>
+                                    </div>
+                                </div>
+                            </div>
                         </foreach>
-                    </ul>
-                </div>
-                <div class="col-lg-4 {$articleChannel.work.isShow}" style=" padding-left: 5px;padding-right: 5px; <if condition='$isMobile'>padding:0px;</if>">
-                    <div class="section-title section-title-4">
-                        <h2>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-flag-fill" viewBox="0 0 16 16">
-                                <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001"/>
-                            </svg>
-                            {$articleChannel.work.name}
-                            <a href="{$articleChannel.work.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
-                        </h2>
                     </div>
-                    <ul class="news-list news-list-bg-4" >
-                        <foreach name="work" item="value">
-                            <li>
-                                <a href="{$value.url}" target="_blank">
-                                    <if condition="!$isMobile">
-                                        <script>mySubstring("{$value.title}",18)</script>
-                                        <else/>
-                                        {$value.title}
-                                    </if>
-                                </a>
-                                <span class="news-time">{$value.create_time|substr=###,0,10}</span>
-                            </li>
-                        </foreach>
-                    </ul>
                 </div>
-
-                <div class="col-lg-4 {$articleChannel.part.isShow}" style="padding-right: 0px;<if condition='$isMobile'>padding:0px;</if>">
-                    <div class="section-title section-title-5">
-                        <h2>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 16">
-                                <path d="M8 0l1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
-                                <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
-                            </svg>
-                            {$articleChannel.part.name}
-                            <a href="{$articleChannel.part.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
-                        </h2>
-                    </div>
-                    <ul class="news-list news-list-bg-5">
-                        <foreach name="part" item="value">
-                            <li>
-                                <a href="{$value.url}" target="_blank">
-                                    <if condition="!$isMobile">
-                                        <script>mySubstring("{$value.title}",18)</script>
-                                        <else/>
-                                        {$value.title}
-                                    </if>
-                                </a>
-                                <span class="news-time">{$value.create_time|substr=###,0,10}</span>
-                            </li>
-                        </foreach>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-    </section>
-    <!--end 旅游和康体服务 -->
-
-    <section class="services-section-two style-two news-list-bg-6 {$articleChannel.service.isShow}"   >
-        <div class="container-fluid" style="padding: 0px !important;">
-            <div class="col-md-12 col-lg-12 d-flex align-items-stretch" style="padding: 0px !important;">
-
-                <div class="section-title section-title-6" style="margin-bottom: 5px;" >
-                    <h2 >
-                        {$articleChannel.service.name}
-                        <a href="{$articleChannel.service.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
-                    </h2>
-                </div>
-            </div>
-            <div class="theme_carousel owl-theme owl-carousel" data-options='{"loop": true, "margin": 0, "autoheight":true, "lazyload":true, "nav": true, "dots": true, "autoplay": true, "autoplayTimeout": 6000, "smartSpeed": 300, "responsive":{ "0" :{ "items": "1" }, "600" :{ "items" : "2" }, "768" :{ "items" : "2" } , "992":{ "items" : "3" }, "1200":{ "items" : "4" }}}'>
-                <foreach name="service" item="v" key="k">
-                    <div class="service-block-two col-12 " >
-                        <div class="inner-box">
-                            <div class="image">
-                                <a href="{$v.url}" target="_blank">
-                                    <img src="{$v.thumb}" alt="">
-                                </a>
-                                <div class="overlay">
-                                    <div class="link-btn"><a href="service-details.html"><i class="flaticon-add"></i></a></div>
-                                </div>
-                            </div>
-                            <div class="lower-content" >
-                                <div class="text">
-                                    <a style="color: #0b2e13"  class="index-travel-title"
-                                       data-text="{$k+1}.{$v.title}" href="{$v.url}"  target="_blank">
-                                    </a>
-                                </div>
-
-                                <div class="read-more-btn"><a href="{$v.url}"  target="_blank">详细</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </foreach>
-            </div>
-        </div>
-    </section>
+            </section>
 
     </div>
+</div>
 </div>
 
 <include file="Public/footer"/>

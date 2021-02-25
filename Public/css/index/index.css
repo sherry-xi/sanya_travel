@@ -1,4 +1,4 @@
-
+.main{margin: auto;padding-top: 20px;padding-left:20px;padding-right:20px;}
 .major{padding-top: 20px;cursor: pointer}
 .major .section-title{text-align: center;width: 100%;}
 .major-thumb{position: relative;}
@@ -32,7 +32,7 @@
 }
 .news-list li{list-style-type: none;border-bottom: 1px dotted #ccc;    padding-bottom: 7px;
     margin-bottom: 3px}
-.news-list li a{color:#0b2e13;}
+.news-list li a{color:#0b2e13;font-size: 15px;}
 .news-list li a:hover{text-decoration: underline;}
 .news-time{float: right;font-size: 13px;margin-top: 5px;}
 .container-fluid{}
@@ -58,22 +58,34 @@
 .news-list-bg-6{}
 .news-list-bg-7{;padding-top: 10px;}
 .index-banner{padding-top: 100px;}
+
+.logo .img-fluid{margin-left: 0px !important;}
 @media screen and (max-width: 500px) {
     .index-banner {padding-top: 50px}
 }
+.container-main{padding-right: 0px;padding-left: 0px;}
+.pc-header-nav{}
+.nav-menu .drop-down a{}
 @media screen and (max-width: 450px) {/*  不大于 手机*/
     .index-banner-img {height: 150px }
-    .main{ width:100%;padding-top: 10px;padding-left: 0px !important;padding-right: 0px !important;}
     .news-time{display: none;}
     .news-list li a{font-size: 14px;}
     .news-main{padding-top: 0px;}
     .news-list-bg-2{margin-top: 0px ;}
     .pc-slider{display: none}
     .mobile-slider{display: block}
+    .container-main{padding-left: 0px;padding-right: 0px;}
+
+    .index-banner .carousel-caption h2 {font-size: 18px; }
+    .index-banner .carousel-caption {bottom: 5%; }
+     .img-fluid{padding-left: 10px !important;}
+
+    /*首页横幅以下的主体*/
+    .main{ width:100%;padding-top: 10px;}
 }
 
 
-@media screen and (min-width: 1330px) {/* 不小于 */
+@media screen and (min-width: 1330px) {/* 不小于 老电脑 分辨率不高 */
     .index-banner-img {height: 450px}
     .news-list-bg-3{min-height: 290px;}
     .news-list-bg-4{min-height: 290px;}
@@ -82,15 +94,21 @@
     .pc-slider{display: block}
     .mobile-slider{display: none}
 
+
+    .main{width:1180px;padding-left: 0px;padding-right: 0px;}    /*首页横幅以下的主体*/
+    .pc-header-logo{width:1180px;padding: 0px;} /*头部logo*/
+    .pc-header-nav nav{width: 1180px !important;margin: 0px auto !important;}
+
 }
-@media screen and (min-width: 1800px) {/* 不小于 */
+@media screen and (min-width: 1800px) {/* 不小于 分辨率高的电脑*/
     .index-banner-img {height: 500px}
-    .main{ width:85%;}
+
+    /*首页横幅以下的主体*/
+    .main{ width:1180px;}
+    .pc-header-logo{width:1180px;padding: 0px;} /*头部logo*/
+    .pc-header-nav nav{width:1180px !important;margin: 0px auto !important;}
 }
-@media screen and (max-width: 450px) {/*  不大于 */
-    .index-banner .carousel-caption h2 {font-size: 18px; }
-    .index-banner .carousel-caption {bottom: 5%; }
-}
+
 
 
 .index-center-flag{padding-bottom: 0px;background: #fffdbc;border: 1px solid #ffa726;margin: 10px 0px;}

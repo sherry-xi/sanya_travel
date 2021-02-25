@@ -1,8 +1,10 @@
 #header.header-scrolled{height: auto;
+    /*
     filter:alpha(opacity=90);
     -moz-opacity:0.9;
     -khtml-opacity: 0.9;
     opacity: 0.9;
+    */
 }
 #header{padding-bottom: 0px;}
 #header.header-transparent{

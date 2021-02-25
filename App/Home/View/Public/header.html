@@ -29,6 +29,7 @@
     <link href="__CSS__/index/style.css" rel="stylesheet">
     <link href="__CSS__/index/common.css" rel="stylesheet">
     <link href="__CSS__/index/theme.css" rel="stylesheet">
+    <link href="__CSS__/index/index.css" rel="stylesheet">
     <script src="__JS__/function.js"></script>
     <style >
         /*头部*/
@@ -37,8 +38,8 @@
         }
         /*返回头部*/
         .back-to-top,.back-to-top:hover{
-        background: {$config.styleColor};
-        color: #fff;
+            background: {$config.styleColor};
+            color: #fff;
         }
         #footer,#footer .footer-top{background-color: {$config.styleColor} !important;}
 
@@ -52,6 +53,7 @@
             font-size:16px;
             letter-spacing:3px;
         }
+
         .nav-menu .drop-down{margin-right: 10px;}
         .nav-menu .drop-down li{min-width: auto;}
         .nav-menu .active a{color: #040201;}
@@ -59,6 +61,8 @@
         border-left: 20px solid {$config.styleColor};}
         .nav-menu{height: 45px;}
         #header{height: auto !important;}
+
+
     </style>
 </head>
 
@@ -66,7 +70,7 @@
 <!-- ======= Header ======= -->
 <header  id="header" class="fixed-top" >
 
-    <div class="container-fluid" >
+    <div class="container-fluid pc-header-logo" style="padding: 0px;">
 
         <if condition="!$isMobile">
             <div  class="logo-box logo-pc" >
@@ -124,10 +128,12 @@
             </div>
         </if>
 
+    </div>
+    <div class="container-fluid pc-header-nav" style="padding: 0px;">
         <nav class="nav-menu d-none d-lg-block" >
 
             <ul >
-                <li <if condition="!$pid"> class="active" </if> ><a href="{$config.domain}">首页<i class="la la-angle-down"></i></a></li>
+                <li   <if condition="!$pid"> class="active" </if> ><a  style="padding-left: 0px;" href="{$config.domain}">首页<i class="la la-angle-down"></i></a></li>
 
                 <foreach name="channel" item="value">
                     <li <if condition="$pid eq $value['id']"> class="active drop-down" <else/> class="drop-down"  </if> ><a href="{:U('Channel/index',['pid'=>$value['id']])}">{$value.name}</a>
@@ -142,9 +148,11 @@
                     </li>
                 </foreach>
             </ul>
-        </nav><!-- .nav-menu -->
-
+        </nav>
     </div>
+
+
+
 
 
 </header><!-- End Header -->
