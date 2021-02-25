@@ -1,0 +1,88 @@
+<!-- banner1轮播 -->
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/index/slider.css">
+
+<!-- banner1 pc端轮播 -->
+<div class="container-fluid pc-slider" style="background: url({$slide[0].img})"   >
+
+    <div class="slider main-banner">
+        <div class="bd">
+            <div class="tempWrap" >
+                <ul  class="slider-ul">
+                    <foreach name="slide" item="v" key="k">
+                     <li>
+                         <if condition='!$v["link"]'>
+                             <a href="javascript:;" ><img src="{$v.img}">
+                             <else/>
+                              <a href="{$v.link}" target="_blank"><img src="{$v.img}">
+                         </if>
+
+                             <if condition="$v['title'] or $v['content']">
+                             <span>{$v.title}
+                                 <if condition="$v['content']">
+                                    <p>{$v.content}</p>
+                                 </if>
+                             </span>
+                             </if>
+                             </a>
+                     </li>
+                    </foreach>
+
+                </ul></div>
+
+
+        </div>
+        <div class="hd">
+            <ul>
+                <foreach name="slide" item="v" key="k">
+                    <li>{$k+1}</li>
+                </foreach>
+            </ul></div><!-- 自动分页 -->
+        <div class="pnBtn prev">
+            <span class="blackBg"></span>
+            <a class="arrow" href="javascript:void(0)" style="display: none;"></a>
+        </div>
+        <div class="pnBtn next">
+            <span class="blackBg"></span>
+            <a class="arrow" href="javascript:void(0)" style="display: none;"></a>
+        </div>
+    </div>
+</div>
+<!-- end banner1 pc端轮播 -->
+<!-- banner2 mobile 端轮播 -->
+<div class="container-fluid index-banner mobile-slider"  >
+    <div class="main-banner">
+        <div class="row">
+            <div class="col-lg-12" style="padding: 0px;">
+
+                <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <foreach name="slide" item="v" key="k">
+                            <li data-target="#carouselExampleCaptions" data-slide-to="{$k}" class="<if condition='$k eq 0'> active</if>"></li>
+                        </foreach>
+                    </ol>
+                    <div class="carousel-inner">
+                        <foreach name="slide" item="v" key="k">
+                            <div class="carousel-item <if condition='$k eq 0'>active</if> " style="min-height: auto">
+                                <img src="{$v.img}" class="d-block w-100 index-banner-img " alt="banner" data-width="{$v['size'][0]}" data-height="{$v['size'][1]}"  >
+                                <div class="carousel-caption <if condition='!$isMobile'>d-none</if> d-md-block">
+                                    <h2>{$v.title}</h2>
+                                    <p>{$v.content}</p>
+                                </div>
+                            </div>
+                        </foreach>
+                    </div>
+
+                    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div >
+<!-- end 轮播 --->

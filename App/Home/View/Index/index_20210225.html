@@ -1,22 +1,168 @@
 <include file="Public/header"/>
-<link href="__CSS__/index/index.css" rel="stylesheet">
-<link href="__CSS__/index/slider.css" rel="stylesheet">
 <style>
 
-    .main{ width:96%;margin: auto;padding-top: 20px;padding-left:20px;padding-right:20px;
-    background-color:{$config.styleIndexColor}
+    .main{ width:96%;;margin: auto;;padding-top: 20px;padding-left:20px;padding-right:20px;
+            background-color:{$config.styleIndexColor}
+
     }
-    .main-banner{width:100%;margin: auto;}
+    .major{padding-top: 20px;cursor: pointer}
+    .major .section-title{text-align: center;width: 100%;}
+    .major-thumb{position: relative;}
+    .major-thumb img{width: 100%;height: 200px;}
+    .major-thumb  .title-name-show{position: absolute;top: 10px;font-size: 20px;left: 10px;color: #fd7e0a;
+            font-weight: bold;text-align: left;
+    }
+    .major .icon-box{padding: 5px;}
+    .major .title-bg{margin: 0px;position: absolute;top: 0px;background: #fd7e0a;
+        width: 100%;height: 100%;text-align: center;padding-top: 70px;
+        filter:alpha(opacity=80);
+        -moz-opacity:0.8;
+        -khtml-opacity: 0.8;
+        opacity: 0.8;
+        display: none;
+    }
+    .major .title-name{color:#fff ;margin: 0px;position: absolute;top: 0px;padding: 20px;
+        width: 100%;height: 100%;text-align: center;padding-top: 70px;z-index: 99999;font-weight: bold;letter-spacing: 2px;
+        display: none;
+    }
+    .section-title{width: 100%;}
+    .section-title h2{color:#fff;font-size: 23px;padding: 10px;}
+
+
+    .news-title{width: 100%;text-align: center;background: #ccc;}
+
+
+    .news-list{list-style-type: none;padding: 10px 10px 0px 15px;margin: 0px;width: 100%;
+        border:1px solid #ccc;border-bottom-right-radius: 3px;border-bottom-left-radius: 3px;
+
+    }
+    .news-list li{list-style-type: none;border-bottom: 1px dotted #ccc;    padding-bottom: 7px;
+        margin-bottom: 3px}
+    .news-list li a{color:#0b2e13;}
+    .news-list li a:hover{text-decoration: underline;}
+    .news-time{float: right;font-size: 13px;margin-top: 5px;}
+    .container-fluid{}
+    .news-more svg{float:right;margin-right:5px;color:#fff; width:20px; height:20px;position: relative;top:5px;}
+    .services-section-two{margin-top: 0px;margin-bottom: 20px;}
+
+    .news-main{border: 1px solid #11BFC8;padding: 0px;margin: 0px;border-radius: 3px;background: #fff;padding-top: 10px;}
+    .news-main .carousel-inner{height: 290px !important;}
+    .news-main .carousel-inner img{min-height: 290px;}
+
+    .section-title-1{background: url("__PUBLIC__/image/pic_title_4.jpg");}
+    .section-title-2{background: url("__PUBLIC__/image/pic_title_3.jpg");}
+    .section-title-3{background: url("__PUBLIC__/image/pic_title_4.jpg");}
+    .section-title-4{background: url("__PUBLIC__/image/pic_title_4.jpg");}
+    .section-title-5{background: url("__PUBLIC__/image/pic_title_3.jpg");}
+    .section-title-6{background: url("__PUBLIC__/image/pic_title_5.jpg");}
+    .section-title-7{background: url("__PUBLIC__/image/pic_title_3.jpg");}
+    .news-list-bg-1{}
+    .news-list-bg-2{background: #fffcfb ;border-color: #F7BC60 ;margin-top: 10px;}
+    .news-list-bg-3{background: #f8fff6;border-color: #59B836 ;border-top: 0px;}
+    .news-list-bg-4{background: #f8fff6;border-color: #59B836;border-top: 0px }
+    .news-list-bg-5{background: #fffcfb;border-color: #EE7B80 ;border-top: 0px}/*fff8bb*/
+    .news-list-bg-6{}
+    .news-list-bg-7{;padding-top: 10px;}
+    .index-banner{padding-top: 100px;}
+    @media screen and (max-width: 500px) {
+        .index-banner {padding-top: 50px}
+    }
+    @media screen and (max-width: 450px) {/*  不大于 手机*/
+        .index-banner-img {height: 150px }
+        .main{ width:100%;padding-top: 10px;padding-left: 0px;padding-right: 0px;}
+        .news-time{display: none;}
+        .news-list li a{font-size: 14px;}
+        .news-main{padding-top: 0px;}
+        .news-list-bg-2{margin-top: 0px ;}
+    }
+    @media screen and (min-width: 1330px) {/* 不小于 */
+        .index-banner-img {height: 450px}
+        .news-list-bg-3{min-height: 290px;}
+        .news-list-bg-4{min-height: 290px;}
+        .news-list-bg-5{min-height: 290px;}
+
+    }
+    @media screen and (min-width: 1800px) {/* 不小于 */
+        .index-banner-img {height: 500px}
+        .main{ width:85%;}
+    }
+    @media screen and (max-width: 450px) {/*  不大于 */
+        .index-banner .carousel-caption h2 {font-size: 18px; }
+        .index-banner .carousel-caption {bottom: 5%; }
+    }
+
+
+    .index-center-flag{padding-bottom: 0px;background: #fffdbc;border: 1px solid #ffa726;margin: 10px 0px;}
+    .index-channel-news-shadow{width: 100%;height: 100%;position: absolute;background: #000;
+        filter:alpha(opacity=30);
+        -moz-opacity:0.3;
+        -khtml-opacity: 0.3;
+        opacity: 0.3;
+    }
+    .index-channel-news-flag{
+        width: 250px;height: 120px;background: #ffa726;color:#fff;
+        margin: 20px auto;
+        position: relative;;
+    }
+    .index-channel-news-flag .index-channel-news-flag-item{position: absolute;width: 100%;text-align: center;
+        top:20px;font-size: 25px;font-weight: bold;;letter-spacing: 3px;
+    }
+    .flag-en-name{border-top: 1px solid #fff;border-bottom: 1px solid #fff;width: 70%;margin: 5px auto 0px auto;
+        font-weight: normal;
+    }
+    body{background: #fdfdfd ;}
+    .section-title h2 svg{color:#fff;height: 22px;width: 20px;}
+    .services-section-two .inner-box{margin-bottom: 60px;}
+    .service-block-two .lower-content {padding: 15px;}
+    .service-block-two .inner-box:hover .lower-content {
+        padding-bottom: 60px;
+    }
+
+    .service-block-two .lower-content .read-more-btn a {padding: 10px 0;}
+    .services .icon-box{margin-bottom: 20px;}
 </style>
+<!-- banner轮播 -->
+<div class="container-fluid index-banner" style="background-color: {$config.styleColor}"  >
+    <div class="row">
+        <div class="col-lg-12" style="padding: 0px;">
 
-<include file="Public/slider"/>
+            <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <foreach name="slide" item="v" key="k">
+                    <li data-target="#carouselExampleCaptions" data-slide-to="{$k}" class="<if condition='$k eq 0'> active</if>"></li>
+                    </foreach>
+                </ol>
+                <div class="carousel-inner">
+                    <foreach name="slide" item="v" key="k">
+                        <div class="carousel-item <if condition='$k eq 0'>active</if> " style="min-height: auto">
+                        <img src="{$v.img}" class="d-block w-100 index-banner-img " alt="banner" data-width="{$v['size'][0]}" data-height="{$v['size'][1]}"  >
+                        <div class="carousel-caption <if condition='!$isMobile'>d-none</if> d-md-block">
+                            <h2>{$v.title}</h2>
+                            <p>{$v.content}</p>
+                        </div>
+                    </div>
+                    </foreach>
+                </div>
 
+                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div >
+<!-- end 轮播 --->
 
     <div class="container-fluid"  style="background:url({$config.index_bg_img}) repeat ;">
     <div class="main ">
     <div class="row" style="margin-bottom: 0px;" >
         <!-- 新闻动态 -->
-        <div class="col-lg-8 {$articleChannel.news.isShow}" style="">
+        <div class="col-lg-8" style="">
             <div class=" section-title section-title-1">
                 <h2>
                     <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
@@ -78,7 +224,7 @@
 
         </div>
         <!-- 通知动态  -->
-        <div class="col-lg-4 {$articleChannel.information.isShow}">
+        <div class="col-lg-4">
             <div class="section-title section-title-2">
                 <h2>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-volume-up-fill" viewBox="0 0 16 16">
@@ -109,7 +255,7 @@
     </div>
 
     <!-- 旅游和康体服务 -->
-    <section class="services-section-two style-two "  style="position:relative;">
+    <section class="services-section-two style-two"  style="position:relative;">
         <!--
         <div class="index-channel-news-shadow"></div>
         -->
@@ -148,7 +294,7 @@
 
 
                 </div>
-                <div class="col-lg-4 {$articleChannel.student.isShow}" style="padding-left: 0px;<if condition='$isMobile'>padding:0px;</if>">
+                <div class="col-lg-4" style="padding-left: 0px;<if condition='$isMobile'>padding:0px;</if>">
                     <div class="section-title section-title-3">
                         <h2>
                             <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
@@ -175,7 +321,7 @@
                         </foreach>
                     </ul>
                 </div>
-                <div class="col-lg-4 {$articleChannel.work.isShow}" style=" padding-left: 5px;padding-right: 5px; <if condition='$isMobile'>padding:0px;</if>">
+                <div class="col-lg-4" style=" padding-left: 5px;padding-right: 5px; <if condition='$isMobile'>padding:0px;</if>">
                     <div class="section-title section-title-4">
                         <h2>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-flag-fill" viewBox="0 0 16 16">
@@ -201,7 +347,7 @@
                     </ul>
                 </div>
 
-                <div class="col-lg-4 {$articleChannel.part.isShow}" style="padding-right: 0px;<if condition='$isMobile'>padding:0px;</if>">
+                <div class="col-lg-4" style="padding-right: 0px;<if condition='$isMobile'>padding:0px;</if>">
                     <div class="section-title section-title-5">
                         <h2>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 16">
@@ -233,7 +379,7 @@
     </section>
     <!--end 旅游和康体服务 -->
 
-    <section class="services-section-two style-two news-list-bg-6 {$articleChannel.service.isShow}"   >
+    <section class="services-section-two style-two news-list-bg-6"   >
         <div class="container-fluid" style="padding: 0px !important;">
             <div class="col-md-12 col-lg-12 d-flex align-items-stretch" style="padding: 0px !important;">
 
@@ -272,10 +418,98 @@
         </div>
     </section>
 
+    <!-- 专业介绍  丢弃 需要开启 删除display: none;-->
+    <section class="services major"  style="padding-bottom: 0px;padding-top:0px;display: none;">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-12 col-lg-12 d-flex align-items-stretch" style="padding: 0px;" >
+                    <div class="section-title  section-title-7" >
+                        <h2 >
+                            {$articleChannel.major.name}
+                            <a href="{$articleChannel.major.url}" target="_blank"  class="news-more" title="更多">{$more}</a>
+                        </h2>
+                    </div>
+                </div>
+
+                <foreach name="major" item="value">
+                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch news-list-bg-7" >
+                        <div class="icon-box icon-box-blue major-thumb" >
+                            <div style="width: 100%;position: relative">
+                                <img src="{$value.thumb}" />
+                                <h4 class="title-name-show">{$value.title}</h4>
+                                <h4 class="title-bg"></h4>
+                                <h4 class="title-name">{$value.title}</h4>
+                                <a href="{$value.url}"></a>
+                            </div>
+                            <!--
+                            <p class="description">志业、敬业、专业、乐业，团队<span style="display: inline-block;width: 5em;"></span></p>
+                            -->
+                        </div>
+                    </div>
+                </foreach>
+            </div>
+        </div>
+    </section>
+
+    <!-- end 专业介绍 -->
     </div>
 </div>
 
 <include file="Public/footer"/>
-<script src="__PUBLIC__/js/index/index.js"></script>
-<script  src="__PUBLIC__/lib/jquery.SuperSlide.2.1.1.js"></script>
-<script src="__PUBLIC__/js/index/index-slider.js"></script>
+
+<script>
+
+    if ($('.theme_carousel').length) {
+        $(".theme_carousel").each(function (index) {
+            var $owlAttr = {},
+                $extraAttr = $(this).data("options");
+            $.extend($owlAttr, $extraAttr);
+            $(this).owlCarousel($owlAttr);
+        });
+    }
+    $(function () {
+
+
+        //专业介绍
+        $(".major-thumb").hover(function(){
+            $(this).find(".title-bg").fadeIn(500);
+            $(this).find(".title-name").fadeIn(500);
+            $(this).find(".title-name-show").hide();
+        },function(){
+            $(this).find(".title-bg").hide();
+            $(this).find(".title-name").hide();
+            $(this).find(".title-name-show").fadeIn(500);
+
+        });
+
+        $(".major-thumb").click(function(){
+            location.href = $(this).find("a").attr("href");
+        });
+        $(".index-travel-title").each(function(){
+            $(this).text(mySubstring($(this).attr('data-text'),20,true));
+        });
+        if(IsMobile()){
+            $(".major-thumb img").css("height",'auto');
+        }else{
+            $(".major-thumb img").css("height",'200px');
+
+
+            //三个新闻列表高度统一
+            var maxHeight = $(".news-list-bg-3").height();
+            if(maxHeight < $(".news-list-bg-4").height()){
+                maxHeight = $(".news-list-bg-4").height();
+            }
+            if(maxHeight < $(".news-list-bg-5").height()){
+                maxHeight = $(".news-list-bg-5").height();
+            }
+            $(".news-list-bg-3").height(maxHeight);
+            $(".news-list-bg-4").height(maxHeight);
+            $(".news-list-bg-4").height(maxHeight);
+        }
+
+        $(".major-thumb").css("width",'100%');
+
+    });
+
+</script>

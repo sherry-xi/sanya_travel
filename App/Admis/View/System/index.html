@@ -37,34 +37,10 @@
                 <label class="layui-form-label required"  >网站主题配色</label>
                 <div class="layui-input-block">
                     <span class="styleColor pointer" ></span>
-                    <input type="hidden" value="{$config.styleColor}" name="styleColor" id="styleColor"/>
+                    <input type="text" value="{$config.styleColor}" name="styleColor" id="styleColor" class="layui-input" style="display: inline ;width: 100px;" />
                 </div>
             </div>
-            <!--
-            <div class="layui-form-item">
-                <label class="layui-form-label required"  >二级菜单字体色</label>
-                <div class="layui-input-block">
-                    <span class="styleNaviTextColor pointer" ></span>
-                    <input type="hidden" value="{$config.styleNaviTextColor}" name="styleNaviTextColor" id="styleNaviTextColor"/>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label required"  >二级菜单背景色</label>
-                <div class="layui-input-block">
-                    <span class="styleNaviColor pointer" ></span>
-                    <input type="hidden" value="{$config.styleNaviColor}" name="styleNaviColor" id="styleNaviColor"/>
-                </div>
-            </div>
-            -->
-            <!--
-            <div class="layui-form-item">
-                <label class="layui-form-label required"  >新闻动态背景色</label>
-                <div class="layui-input-block">
-                    <span class="styleColorNews pointer" ></span>
-                    <input type="hidden" value="{$config.styleColorNews}" name="styleColorNews" id="styleColorNews"/>
-                </div>
-            </div>
-            -->
+
             <div class="layui-form-item">
                 <label class="layui-form-label required"  >首页背景图</label>
                 <div class="layui-input-block">
@@ -83,22 +59,22 @@
             <div class="layui-form-item">
                 <label class="layui-form-label required"  >首页前景色</label>
                 <div class="layui-input-block">
-                    <span class="styleIndexColor pointer" ></span><br/>
-                    <input type="hidden" value="{$config.styleIndexColor}" name="styleIndexColor" id="styleIndexColor"/>
+                    <span class="styleIndexColor pointer" ></span>
+                    <input type="text" value="{$config.styleIndexColor}" class="layui-input" style="display: inline ;width: 100px;"   name="styleIndexColor" id="styleIndexColor"/>
                 </div>
             </div>
-            <!--
+
             <div class="layui-form-item">
-                <label class="layui-form-label required"  >首页新闻标题背景</label>
+                <label class="layui-form-label required"  >文章缩略图</label>
                 <div class="layui-input-block">
                     <a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadIndexImg2Btn">选择图片</a>
                     <div class="slide-img2" >
-                        <a href="{$config.index_bg_img2}" target="_blank"><img  class="img-thumb" src="{$config.index_bg_img2}"/></a>
+                        <a href="{$config.article_thumb}" target="_blank"><img  class="img-thumb" src="{$config.article_thumb}"/></a>
                     </div>
-                    <input type="hidden" name="index_bg_img2"  value="{$config.index_bg_img2}"/>
+                    <input type="hidden" name="article_thumb"  value="{$config.article_thumb}"/>
                 </div>
             </div>
-            -->
+
 
             <div class="layui-form-item">
                 <label class="layui-form-label required"  >学校地址</label>
@@ -125,27 +101,7 @@
                     <input type="text" value="{$config.apply_phone}" name="apply_phone" class="layui-input" lay-verify="required"/>
                 </div>
             </div>
-            <!--
-            <div class="layui-form-item">
-                <label class="layui-form-label required"  >Email</label>
-                <div class="layui-input-block">
-                    <input type="text" value="{$config.email}" name="email" class="layui-input" lay-verify="required"/>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label required"  >QQ</label>
-                <div class="layui-input-block">
-                    <input type="text" value="{$config.qq}" name="qq" class="layui-input" lay-verify="required"/>
-                </div>
-            </div>
 
-            <div class="layui-form-item">
-                <label class="layui-form-label required"  >微信</label>
-                <div class="layui-input-block">
-                    <input type="text" value="{$config.weixin}" name="weixin" class="layui-input" lay-verify="required"/>
-                </div>
-            </div>
-            -->
         <div class="layui-form-item">
             <label class="layui-form-label required"  >网站描述</label>
             <div class="layui-input-block">
@@ -257,7 +213,7 @@ $(function(){
         url:"{:U('uploadFile2')}",
         callback:function(data){
             $('.slide-img2').html('<img class="img-thumb" src="'+data.url+'"/>');
-            $("input[name=index_bg_img2]").val(data.path);
+            $("input[name=article_thumb]").val(data.path);
         }
     });
 

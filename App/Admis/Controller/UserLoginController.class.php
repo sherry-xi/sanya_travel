@@ -37,7 +37,7 @@ class UserLoginController extends Controller {
         $this->assign("admin",$adminName);
         $this->assign('loginCode',$this->dbTool->getVerificationConf());
         $this->assign('config',$this->dbTool->getConfig());
-        $this->display();
+        $this->display("indexV2");
     }
 
     /**
@@ -68,7 +68,7 @@ class UserLoginController extends Controller {
         if($this->dbTool->getVerificationConf()){
             $verify = new Verify();
             if(!$verify->check(I('post.code'))){
-                $this->error('验证码错误');
+                $this->ajaxReturn(['status' => 1, 'msg' => '验证码错误']);
             }
         }
         $username = I("username");
@@ -77,13 +77,13 @@ class UserLoginController extends Controller {
 
         $res = $this->userTool->login($username,$password);
         if($res !== true){ //登录失败
-            $this->error($res);
+            $this->ajaxReturn(['status' => 1, 'msg' => $res]);
         }
         if($remember){ //保持登录
             $this->userTool->rememberLogin($username); //取消保持登录
         }else{
             $this->userTool->clearRememberLogin($username); //取消保持登录
         }
-        redirect(U('Index/index'));
+        $this->ajaxReturn(['status' => 0, 'msg' => '登录成功']);
     }
 }

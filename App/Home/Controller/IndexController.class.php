@@ -32,7 +32,7 @@ class IndexController extends BaseController{
             'service'    => 201,  //旅游和健康服务
             'major'      => 168, //专业介绍
             'student'    => 208, //学生园地
-            'work'       =>219, //就业创业
+            'work'       =>209, //就业创业
             'part'       =>210  //党建工作
         ];
 
@@ -41,6 +41,7 @@ class IndexController extends BaseController{
 
             $temp = $this->originChannel[$id];
             $data[$key]['name'] = $temp['name'];
+            $data[$key]['isShow'] = $temp['show_index']?"displayNone":'';//不显示 class='dispaly:none';
 
             if($temp['son']){//一级级导航
                 $data[$key]['url'] = U("Channel/index",['pid'=>$temp['id']]);

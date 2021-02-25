@@ -44,15 +44,17 @@
 
         /* 二级菜单背景色 */
         .nav-menu .drop-down ul{
-        background: {$config.styleColor};
+            background: #1a9298;
         }
         /* 二级菜单字体颜色 */
         .nav-menu .drop-down ul a{
-        color: {$config.styleNaviTextColor};
-        font-size:16px;
-        letter-spacing:3px;
+            color: #fff;
+            font-size:16px;
+            letter-spacing:3px;
         }
-
+        .nav-menu .drop-down{margin-right: 10px;}
+        .nav-menu .drop-down li{min-width: auto;}
+        .nav-menu .active a{color: #040201;}
         .nav-menu .drop-down ul a:hover{color: #fff !important;
         border-left: 20px solid {$config.styleColor};}
         .nav-menu{height: 45px;}

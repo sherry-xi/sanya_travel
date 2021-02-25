@@ -29,6 +29,23 @@
                     </div>
             </div>
         </div>
+
+        <if condition="$parent['id'] eq 198">
+        <div class="layui-form-item">
+            <label class="layui-form-label">显示在首页</label>
+            <div class="layui-input-block">
+                <input type="radio" name="show_index" value="0" title="显示"   <if condition="!$channel or ($channel.show_index eq 0)"> checked='checked' </if> >
+                <div class="layui-unselect layui-form-radio layui-form-radioed">
+                    <i class="layui-anim layui-icon"></i><div>显示</div>
+                </div>
+                <input type="radio" name="show_index" value="1" title="不显示" <if condition="$channel.show_index eq 1"> checked='checked' </if>  >
+                <div class="layui-unselect layui-form-radio">
+                    <i class="layui-anim layui-icon"></i><div>不显示</div>
+                </div>
+            </div>
+        </div>
+        </if>
+
         <div class="layui-form-item">
             <label class="layui-form-label">导航横幅图</label>
             <div class="layui-input-block">

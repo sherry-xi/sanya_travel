@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{$config.website}-后台管理登录</title>
+    <meta name="keywords" content="{$config.keyword}">
+    <meta name="description" Content="{$config.description}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="__LIB__/layuimini/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="__PUBLIC__/css/admin/common.css" media="all">
+    <link href="__LIB__/nice-validator-1.1.1/jquery.validator.css" type="text/css" rel="stylesheet">
+    <style>
+        body {background:url(__PUBLIC__/image/loginbg.jpg) 0% 0% / cover no-repeat;position:static;font-size:12px;}
+
+
+        /** 新版 */
+        .login-title,.login-btn{background-color: {$config.styleColor} !important;}
+        .login{width: 450px;height: auto;margin: 7% auto 0px auto;border-radius: 5px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        .login-btn{width: 200px;border-radius: 20px;margin-left: 20px;margin-top: 10px;font-size: 17px;}
+        .login-title{text-align: center;
+            height: 117px;
+            background-color: #1aa094;
+            border-radius: 12px 12px 0 0;
+            font-size: 25px;
+            font-weight: 400;
+            font-stretch: normal;
+            letter-spacing: 0;
+            color: #fff;
+            line-height: 117px;
+            text-align: center;
+        }
+        .login-form-input{padding-top: 40px;font-size: 17px;padding-bottom: 10px;
+            border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;}
+    .login-form-input input{width: 250px;}
+        .footer{color: #fff;width: 100%;width: 450px;margin: 50px auto;text-align: center;font-size: 15px;}
+        .layui-icon{font-size: 30px;}
+        input{border-radius: 5px !important;}
+        .error-msg{height: 40px;}
+    </style>
+</head>
+<body>
+<form class="layui-form login"  method="post" id="loginForm" >
+    <div class="col-lg-12">
+        <div class="login-title">三亚理工职业学院旅康学院 · 登录</div>
+    </div>
+    <div class="layui-form layuimini-form login-form-input " style="background: #fff" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">账号</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" id="username" class="layui-input" placeholder="输入账号"/>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label  ">密码</label>
+            <div class="layui-input-block">
+                <input type="password" name="password" id="password" class="layui-input"  placeholder="输入密码"  autocomplete="off">
+            </div>
+        </div>
+        <if condition="$loginCode">
+        <div class="layui-form-item">
+            <label class="layui-form-label  ">验证码</label>
+            <div class="layui-input-block">
+                <input type="text" name="code" id="code" autocomplete="off" class="layui-input" style="width: 100px;display: inline" maxlength="4" >
+                        <img id="refreshCaptcha" class="validateImg"  src="{:U('verify')}" data-url="{:U('verify')}"
+                             style="height: 40px;width: 145px;border: 1px solid #ccc;cursor: pointer" >
+            </div>
+        </div>
+        </if>
+        <div class="layui-form-item">
+
+            <div class="layui-input-block">
+                <input type="hidden" name="token" id="token" value="{$token}"/>
+                <button class="layui-btn login-btn layui-btn-lg" >立 即 登 录</button>
+
+            </div>
+        </div>
+        <div class="error-msg" style="margin-top: 10px;text-align: center"></div>
+    </div>
+
+</form>
+
+<div class="footer">
+    {$config.right_msg}
+</div>
+
+
+<script src="__LIB__/layuimini/lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="__LIB__/layuimini/lib/layui-v2.5.5/layui.all.js" charset="utf-8"></script>
+<script src="__LIB__/nice-validator-1.1.1/jquery.validator.min.js?local=zh-CN"></script>
+<script src="__PUBLIC__/js/function.js"></script>
+<script src="__PUBLIC__/js/validate.js"></script>
+<script  >
+    refreshCaptcha("refreshCaptcha");//刷新验证码
+    adminLoginValidate();
+
+    $(".login-btn").click(function(){
+
+        username = $("#username").val();
+        password = $("#password").val();
+        code = $("#code").val();
+
+        if(username =='' || password =='' || code == ''){
+            return ;
+        }
+        $(".error-msg").html('');/*<i class="layui-icon" >&#xe63d;</i>*/
+        $.post("{:U('loginHandle')}",{
+            token:$("#token").val(),
+            username:$("#username").val(),
+            password:$("#password").val(),
+            code:$("#code").val(),
+
+        },function (data) {
+            if(data.status == 1){
+                $(".error-msg").html('<p style="color: red;"><i class="layui-icon" >&#xe69c;</i>&nbsp;&nbsp;Oops,'+data.msg+"...</p>");
+                $("#refreshCaptcha").click();
+            }else{
+                //$(".error-msg").html('<p style="color: green;"><i class="layui-icon" >&#xe6af;</i>&nbsp;&nbsp;Awesome,'+data.msg+",跳转中...</p>");
+                location.href = "{:U('index')}";
+            }
+        });
+
+        return false;
+    });
+
+
+    $('.bind-password').on('click', function () {
+        if ($(this).hasClass('icon-5')) {
+            $(this).removeClass('icon-5');
+            $("input[name='password']").attr('type', 'password');
+        } else {
+            $(this).addClass('icon-5');
+            $("input[name='password']").attr('type', 'text');
+        }
+    });
+
+    //保持登录
+    $('.icon-nocheck').on('click', function () {
+        if ($(this).hasClass('icon-check')) {
+            $(this).removeClass('icon-check');
+            $("#remember").val(0);
+        } else {
+            $(this).addClass('icon-check');
+            $("#remember").val(1);
+        }
+    });
+    $(".forget-password").click(function(){
+        layerHintAlert('请联系管理员{$admin}重置密码');
+    });
+
+
+
+</script>
+</body>
+</html>

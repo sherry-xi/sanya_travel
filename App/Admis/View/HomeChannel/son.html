@@ -28,6 +28,13 @@
                 {field: 'name', title: '名称',width: 250,},
                 {field: 'level', title: '级别'},
                 {field: 'show_nav', title: '显示在导航栏'},
+                {field: 'show_index', title: '显示在首页',templet:function(data){
+                        if(data.show_index == '不显示'){
+                            return '<span  class="red">不显示</span>';
+                        }else{
+                            return '<span  class="green">显示</span>';
+                        }
+                    }},
                 {field: 'articleCnt', title: '文章数量'},
                 {field: 'sort', title: '排序'},
                 {title: '操作',  toolbar: '#currentTableBar', align: "center"}

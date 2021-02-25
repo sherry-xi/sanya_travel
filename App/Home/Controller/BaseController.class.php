@@ -66,7 +66,7 @@ class BaseController extends Controller{
      */
     public function setChannel(){
 
-        $field  = ['id','parent_id','name','show_nav','banner','banner_title',"banner_content"];
+        $field  = ['id','parent_id','name','show_index','show_nav','banner','banner_title',"banner_content"];
 
         $parents = M('channel')->field($field)->where(['status'=>0,'parent_id'=>0])->order("parent_id asc,sort asc,id asc")->select();
         $this->originChannel = array_column($parents,null,'id');
@@ -220,7 +220,7 @@ class BaseController extends Controller{
         $news = MS("article")->field("id,cid,title,content,create_time,thumb")->where($where)->order("id desc")->limit(6)->select();
 
         foreach($news as $k=>$v){
-            $news[$k] = getThumbImage($v,C('image')['thumb_latestnews']); //获取缩略图
+            $news[$k] = getThumbImage($v,$this->config['article_thumb']); //获取缩略图
             $news[$k]['pid'] = MS('channel')->where(['id'=>$v['cid']])->getField('parent_id');
         }
         return $news;

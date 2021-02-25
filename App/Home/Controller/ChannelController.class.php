@@ -47,7 +47,7 @@ class ChannelController extends BaseController{
             redirect(U("Article/index",['id'=>$article[0]['id'],'pid'=>$this->pid,'cid'=>$this->cid  ]));
         }
         foreach($article as $k=>$v){
-            $v = getThumbImage($v,C("image")['thumb_channelnews']);
+            $v = getThumbImage($v,$this->config['article_thumb']);
             $v['content2'] = $v['content'];
             $v['content']  = trim(strip_tags($v['content']));
             $v['admin']    = MS("admin")->where(['id'=>$v['admin_id']])->getField("truename");
