@@ -159,7 +159,6 @@ class ArticleController extends BaseController{
             $this->message();
         }
         $id   = intval(I('id'));
-        $copy = intval(I('copy'));
 
         $data = array(
             'title'     => trim(I('title')),
@@ -205,15 +204,88 @@ class ArticleController extends BaseController{
 
     }
 
+
+
     /**
      * 复制文章
      */
-    public function copy(){
-        $article = MS("article")->where(["id"=>I('id')])->find();
-        unset($article['id']);
-        MS("article")->add($article);
+    public function copyArticle(){
+
+        if(!checkToken() || !IS_POST){
+            $this->message();
+        }
+        $id   = intval(I('id'));
+        $cids = I('muti_cid');
+        if(!$cids){
+            $this->error("复制功能异常");
+        }
+        $cids = explode(',',$cids);
+
+        foreach($cids as $cid){
+            $data = array(
+                'title'         => trim(I('title')),
+                'admin_id'      => session('user')['id'],
+                'top'           => I('top','') == 'on'?1:0,
+                'content'       => $_POST['content'],
+                'thumb'         => I('thumb'),
+                'banner'         => I('banner'),
+                'cid'               => $cid,
+                'show_create_time' => I("show_create_time"),
+                'create_time'      => date('Y-m-d H:i:s')
+            );
+            if(!$this->user['isNewsPoster']){ //新闻发布员没有审核功能
+                $data['audit'] = I('audit',0);
+            }
+            MS('article')->add($data);
+        }
+
+        unset($_SESSION[C("SESSION_PREFIX")]['articleSearchCache']); // 清除文章筛选缓存
+        session('articleHandleMsg',"复制成功");
+        $this->redirect('index');
+
     }
 
+    /**
+     * 批量复制文章 到多个导航
+     */
+    public function copyMutil(){
+
+        if(!checkToken() || !IS_POST){
+            $this->message();
+        }
+        $articleIdsid   = I('articleIds');
+        $cids           = I('cids');
+        if(!$cids || !$articleIdsid){
+            $this->error("复制功能异常");
+        }
+        $cids         = explode(',',$cids);
+        $articleIdsid = explode(',',$articleIdsid);
+
+
+        foreach($cids as $cid){
+
+            foreach($articleIdsid as $id){
+                $article = MS('article')->where(['id'=>$id])->find();
+
+                $data = array(
+                    'title'           => $article['title'],
+                    'admin_id'        => session('user')['id'],
+                    'top'             => $article['top'],
+                    'content'          => $article['content'],
+                    'thumb'            => $article['thumb'],
+                    'banner'           => $article['banner'],
+                    'cid'              => $cid,
+                    'audit'            => $article['audit'],
+                    'show_create_time' => $article['show_create_time'],
+                    'create_time'      => date('Y-m-d H:i:s')
+                );
+                MS('article')->add($data);
+            }
+        }
+
+        $this->ajax(0,'复制成功');
+
+    }
     /**
      * 删除文章
      */
@@ -251,5 +323,39 @@ class ArticleController extends BaseController{
         $result = (new Upload())->upload();
         echo "<script>parent.uploadHandle2.finish('".json_encode($result)."');</script>";
     }
+
+    public function getChannelJson(){
+        $keyword = I("keyword");
+        $data    = [];
+        $colors  = ['#009688','#5FB878','#393D49','#1E9FFF','#FF5722','#2F4056',"#000000","#333333"];
+        $parents = MS("channel")->where(['parent_id'=>0,'status'=>0])->order("sort asc,id asc")->select();
+
+        foreach($parents as $value){
+
+            $sons  = MS("channel")->where(['parent_id'=>$value['id'],'status'=>0])->order("sort asc,id asc")->select();
+
+            foreach($sons as $son){
+
+                if($keyword ){ //搜索
+                    if((strpos($value['name'],$keyword) === false) && ( strpos($son['name'],$keyword) === false ) ){
+                        continue;
+                    }
+                }
+                $color =  $colors[$value['id']%6];
+                $msg = $son['id'] == I('cid')?'(文章所在导航)':'';
+                $data[] = [
+                    'id' => $son['id'],
+                    'name' =>  "<span style='font-size:16px;color: {$color}'><b>". $son['name'].'</b> > '.$value['name'].$msg."</span>",
+                    'sonname' => $son['name']
+                ];
+
+            }
+        }
+
+
+        $this->ajaxTable($data);
+    }
+
+
 
 }

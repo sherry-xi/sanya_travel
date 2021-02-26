@@ -1,4 +1,10 @@
 <include file="Component/header"/>
+<style>
+    .layui-btn .layui-icon{font-size: 16px !important;color: #000; !important;}
+    .layui-table-cell{font-size: 15px !important;color: #000;}
+    .layui-table-page-1{display: none;height: 0px;}
+    body{margin-top: 0px;}
+</style>
 <div class="layuimini-container">
     <div class="layuimini-main">
         <form class="layui-form">
@@ -40,15 +46,25 @@
                 </div>
             </div>
         </form>
+
+        <div style="width: 100%;height: 0px;visibility: hidden">
+        <input type="text" name="" placeholder="" autocomplete="off"  style="margin-left: 400px;width: 0px;height: 0;padding: 0px;"
+               class="layui-input" id="copyArticle" value="" ts-selected="" >
+        <input type="hidden" name="article_ids"  id="article_ids" value="" >
+        </div>
     </div>
 </div>
+
+
+
 <script type="text/html" id="toolbarDemo">
     <div class="layui-btn-container">
         <button class="{$theme.toolbar.add.style} "  lay-event="delete">批量删除</button>
         <if condition="!$user['isNewsPoster']">
             <button class="{$theme.toolbar.add.style} "  lay-event="audit">批量审核</button>
         </if>
-        <button class="{$theme.toolbar.add.style} "  lay-event="add">添加文章</button>
+        <button class="{$theme.toolbar.add.style} "  lay-event="copy">批量复制</button>
+        <button class="{$theme.toolbar.add.style} " style="background: #1E9FFF"  lay-event="add">添加文章</button>
     </div>
 </script>
 
@@ -56,9 +72,11 @@
 
 <script type="text/html" id="currentTableBar">
     <div class="layui-btn-group">
-        <a class="{$theme.databar.show.style} " title="查看" lay-event="show">{$theme.databar.show.icon}</a>
-        <a class="{$theme.databar.edit.style} " title="编辑" lay-event="edit">{$theme.databar.edit.icon}</a>
-        <a class="{$theme.databar.delete.style}  "  title="删除" lay-event="delete">{$theme.databar.delete.icon}</a>
+        <a class="{$theme.databar.show.style} " title="查看文章" lay-event="show">{$theme.databar.show.icon}</a>
+        <a class="{$theme.databar.edit.style} " title="编辑文章" lay-event="edit">{$theme.databar.edit.icon}</a>
+        <a class="{$theme.databar.edit.style} " title="复制文章"   lay-event="copy"><i class="layui-icon">&#xe60a;</i></a>
+
+        <a class="{$theme.databar.delete.style}  "  title="删除文章" lay-event="delete">{$theme.databar.delete.icon}</a>
     </div>
 </script>
 
@@ -102,6 +120,27 @@
             add:{  //添加数据事件
                 action:"hyperlink",
                 content:"{:U('addArticle',['from'=>'index'])}",
+            },
+            copy:{  //复制文章事件
+                action:"noEvent",
+                title:'批量复制文章',
+                callback:function(obj){
+                    $("#article_ids").val('');
+                    var checkStatus = layui.table.checkStatus('currentTableId')
+                        , data = checkStatus.data;
+                    var ids = '';
+                    for(i=0;i<data.length;i++){
+                        ids += (ids?',':'')+data[i]['id'];
+                    }
+                    if(ids == ''){
+                        layerErr('请选择要复制的文章');
+                        return false;
+                    }
+
+                    $("#article_ids").val(ids);
+
+                   $("#copyArticle").click();
+                }
             },
             delete:{
                 action:"noEvent",
@@ -198,6 +237,11 @@
                 urlParam:{id:"",from:'index',keyword:'',},
                 content:"{:U('addArticle')}",
             },
+            copy:{
+                action:"hyperlink",
+                urlParam:{id:"",from:'copy',keyword:'',},
+                content:"{:U('addArticle')}",
+            },
             show:{
                 action:"hyperlink",
                 urlParam:{id:"",target:"_blank",pid:"",cid:''},
@@ -214,15 +258,80 @@
     }
 
 
-    layui.use(['form'], function () {
-             var form = layui.form;
+    layui.use(['table', 'form', 'tableSelect'], function () {
+        var $ = layui.jquery,
+            table = layui.table,
+            form = layui.form,
+            tableSelect = layui.tableSelect;
+
              form.on('select(cid)', function(data){
                  return searchArticle();
                 });
-        form.on('select(audit)', function(data){
-            return searchArticle();
-        });
-        });
+             form.on('select(audit)', function(data){
+                     return searchArticle();
+                });
+
+
+
+        //复制文章
+        //多选
+        tableSelect.render({
+            elem: '#copyArticle',
+            searchKey: 'keyword',
+            searchPlaceholder: '',
+            table: {
+                url: '{:U("getChannelJson")}?cid={$article.cid}',
+                cols: [[
+                    { type: 'checkbox' },
+                    { field: 'id', title: 'ID(支持多选)', width: 150 },
+                    { field: 'name', title: '导航模块', width: 300 },
+                ]]
+            },
+            done: function (elem, data) {
+                var NEWJSON = [];
+                var cid = [];
+                var length = 0;
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.sonname);
+                    cid.push(item.id);
+                    length++;
+                })
+                var articleIds = $("#article_ids").val();
+                var cids  = cid.join([',']);
+                var names = elem.val(NEWJSON.join(","));
+                if(articleIds == ''){
+                    layerErr('请选择文章');
+                    return false;
+                }
+                if(cids == ''){
+                    layerErr('请选择导航');
+                    return false;
+                }
+
+
+                layer.confirm("您确定要复制吗?", {
+                    btn: ['确定','取消'],
+                    skin: 'layui-layer-molv2'
+                }, function(index){
+                    $.post("{:U('copyMutil')}",{cids:cids,articleIds:articleIds},function(data){
+                        if(data.status == 1){
+                            layerErr(data.msg);
+                        }else{
+                            reloadLayerTableData();
+                            layerSuc(data.msg);
+                        }
+                    },'json');
+                });
+
+                return false;
+
+            },
+            page:false,
+            limit:100
+        })
+
+
+     });
     $(function(){
 
         $("#search").click(function(){

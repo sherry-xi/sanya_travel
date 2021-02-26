@@ -6,40 +6,72 @@
     #edui1{z-index: 1 !important;}
     .layui-disabled{color: #000 !important;font-weight:bold;font-size:15px;font-style: italic;}
     .img-thumb{max-width: 70px;max-height: 70px;margin: 10px;cursor: pointer;margin-left: 15px;}
+    .layui-table-page{display: none;height: 0px;}
 </style>
 <div class="form-block" >
-    <form action="{:U('Admis/Article/addArticleHandle')}" method="post" enctype="multipart/form-data">
+
+    <if condition="$from eq 'copy'">
+        <form action="{:U('Admis/Article/copyArticle')}" method="post" enctype="multipart/form-data">
+        <else/>
+            <form action="{:U('Admis/Article/addArticleHandle')}" method="post" enctype="multipart/form-data">
+        </if>
+
         <div class="layui-form layuimini-form form-main" >
             <div style="position: absolute;right: 50px;top: 50px;">
-                <button class="layui-btn" lay-submit >保存</button>
-                <if condition="$from eq 'index'">
+                <if condition="$from eq 'copy'">
+                    <button class="layui-btn" lay-submit >复制</button>
+                    <else/>
+                    <button class="layui-btn" lay-submit >保存</button>
+                </if>
+
+                <if condition="($from eq 'index') or ($from eq 'copy')">
                     <a href="{:U('Article/index')}" class="layui-btn layui-btn-primary"  >返回</a>
                     <else/>
                     <a onclick="history.go(0)" class="layui-btn layui-btn-primary"  >取消</a>
                 </if>
             </div>
 
-
+            <if condition="$Think.get.from eq 'copy'">
+                <p style="width: 100%;text-align: center;font-size: 15px;margin-bottom: 20px;color: green;font-weight: bold">复制文章</p>
+            </if>
         <div class="layui-form-item" >
+
+
+
             <label class="layui-form-label required">文章标题</label>
             <div class="layui-input-block">
                 <input type="text" value="{$article.title}" lay-verify="required" lay-reqtext="标题不能为空" class="layui-input" name="title" id="title" />
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label required">所属导航</label>
-            <div class="layui-input-block">
-                <select name="cid" id="cid" lay-filter="aihao"  lay-verify="required" lay-reqtext="请选择导航">
-                    <option value="">选择导航</option>
-                    <foreach name="channel" item="ch">
-                        <option value="parent_{$ch.id}" disabled <if condition="$ch['id'] eq $article['parent_cid']">selected="selected"</if>>{$ch.name}</option>
-                        <foreach name="ch.son" item="son">
-                            <option value="{$son.id}" <if condition="($son['id'] eq $article['cid']) or ($lastCid eq $son['id'])">selected="selected"</if> >&nbsp;&nbsp;&nbsp;{$son.name}</option>
-                        </foreach>
-                    </foreach>
-                </select>
-            </div>
-        </div>
+            <if condition="$Think.get.from !='copy'">
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">所属导航</label>
+                    <div class="layui-input-block">
+                        <select name="cid"  lay-search  size="2" id="cid" lay-filter="aihao"  lay-verify="required" lay-reqtext="请选择导航">
+                            <option value="">选择导航</option>
+                            <foreach name="channel" item="ch">
+                                <option value="parent_{$ch.id}" disabled <if condition="$ch['id'] eq $article['parent_cid']">selected="selected"</if>>{$ch.name}</option>
+                                <foreach name="ch.son" item="son">
+                                    <option   value="{$son.id}" <if condition="($son['id'] eq $article['cid']) or ($lastCid eq $son['id'])">selected="selected"</if> >{$son.name}</option>
+                                </foreach>
+                            </foreach>
+                        </select>
+                    </div>
+                </div>
+            </if>
+
+            <if condition="$Think.get.from =='copy'">
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">选择导航模块</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" placeholder="" autocomplete="off"  lay-verify="required" lay-reqtext="导航不能为空"
+                               class="layui-input" id="demo" value="" ts-selected="" >
+                        <input type="hidden" name="muti_cid"  id="muti_cid" value="" >
+                    </div>
+                </div>
+            </if>
+
+
         <div class="layui-form-item">
             <label class="layui-form-label">置顶设置</label>
             <div class="layui-input-block">
@@ -105,8 +137,14 @@
                 <input type="hidden" name="token" value="{$token}"/>
                 <input type="hidden" name="id" value="{$article.id}"/>
                 <input type="hidden" name="from" value="{$from}"/>
-                <button class="layui-btn" lay-submit >保存</button>
-                <if condition="$from eq 'index'">
+
+                <if condition="$Think.get.from eq 'copy'">
+                    <button class="layui-btn" lay-submit >复制</button>
+                    <else/>
+                    <button class="layui-btn" lay-submit >保存</button>
+                </if>
+
+                <if condition="($from eq 'index') or ($from eq 'copy')">
                     <a href="{:U('Article/index')}" class="layui-btn layui-btn-primary"  >返回</a>
                     <else/>
                     <a onclick="history.go(0)" class="layui-btn layui-btn-primary"  >取消</a>
@@ -179,23 +217,37 @@
 
 
 
-    layui.use(['form'], function () {
-        /*
-        var form = layui.form,
-            layer = layui.layer,
-            $ = layui.$;
+    layui.use(['table', 'form', 'tableSelect'], function () {
+        var $ = layui.jquery,
+            table = layui.table,
+            form = layui.form,
+            tableSelect = layui.tableSelect;
 
-        form.on('submit(saveBtn)', function (data) {
-
-            $.post("{:U('addArticleHandle')}",data.field,function(data){
-                if(data.status == 1){
-                    parent.layerErr(data.msg);
-                }else{
-                    parent.layerSuc(data.msg);
-                }
-            },'json');
-            return false;
-        });
-        */
+        //多选
+        tableSelect.render({
+            elem: '#demo',
+            searchKey: 'keyword',
+            searchPlaceholder: '',
+            table: {
+                url: '{:U("getChannelJson")}?cid={$article.cid}',
+                cols: [[
+                    { type: 'checkbox' },
+                    { field: 'id', title: 'ID(支持多选)', width: 150 },
+                    { field: 'name', title: '导航模块', width: 300 },
+                ]]
+            },
+            done: function (elem, data) {
+                var NEWJSON = [];
+                var cid = [];
+                layui.each(data.data, function (index, item) {
+                    NEWJSON.push(item.sonname);
+                    cid.push(item.id);
+                })
+                elem.val(NEWJSON.join(","));
+                $("#muti_cid").val(cid.join([',']));
+            },
+            page: true,
+            limit:100
+        })
     });
 </script>
