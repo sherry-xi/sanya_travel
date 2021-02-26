@@ -34,7 +34,7 @@
     <style >
         /*头部*/
         #header{
-        background-color: {$config.styleColor};
+        background:  url('__PUBLIC__/image/topleft.png') no-repeat 500px -50px {$config.styleColor};
         }
         /*返回头部*/
         .back-to-top,.back-to-top:hover{
@@ -43,24 +43,59 @@
         }
         #footer,#footer .footer-top{background-color: {$config.styleColor} !important;}
 
-        /* 二级菜单背景色 */
-        .nav-menu .drop-down ul{
-            background: #1a9298;
-        }
-        /* 二级菜单字体颜色 */
-        .nav-menu .drop-down ul a{
+        /*
+
+
+
+
+        .nav-menu .active a{color: #fff !important;}
+       */
+        /* 菜单设计 */
+        .nav-menu{height: 45px;}
+
+
+        .nav-menu .drop-down{}/* 一级菜单 */
+        .nav-menu .drop-down a:hover{color: #fff !important;background: #0C0C0C}/* 一级菜单 */
+        .nav-menu .drop-down > a:after{content: '';}
+
+        .nav-menu .drop-down a{font-family: Microsoft YaHei;
+            font-size: 16px;
+        }/* 一级菜单 */
+
+        .nav-menu .drop-down ul{ /* 二级菜单  */
+                background: {$config.styleColor}  url('__PUBLIC__/image/topleft.png') ;
+                padding-bottom:0px;
+                padding-top:0px;
+
+            }
+        .nav-menu .drop-down ul li{min-width: auto;} /* 二级菜单 */
+        .nav-menu .drop-down ul a{/* 二级菜单 */
             color: #fff;
             font-size:16px;
             letter-spacing:3px;
+            padding: 10px 11px 10px 12px;
+            font-family: 微软雅黑;
+            font-size: 16px;
+        }
+        .nav-menu .drop-down ul a:hover{
+            color: #fff !important; /* 二级菜单 */
+            background: #000000;
         }
 
-        .nav-menu .drop-down{margin-right: 10px;}
-        .nav-menu .drop-down li{min-width: auto;}
-        .nav-menu .active a{color: #040201;}
-        .nav-menu .drop-down ul a:hover{color: #fff !important;
-        border-left: 20px solid {$config.styleColor};}
-        .nav-menu{height: 45px;}
-        #header{height: auto !important;}
+        /* 一级菜单 */
+        .nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
+            color: #fff;
+        }
+
+        .pc-header-nav{}
+
+
+
+
+
+
+
+        #header{height: auto !important;padding-top: 0px;}
 
 
     </style>
@@ -70,10 +105,11 @@
 <!-- ======= Header ======= -->
 <header  id="header" class="fixed-top" >
 
+
     <div class="container-fluid pc-header-logo" style="padding: 0px;">
 
         <if condition="!$isMobile">
-            <div  class="logo-box logo-pc" >
+            <div  class="logo-box logo-pc" style="margin-top: 10px;" >
                 <!-- xl普通笔记本 lg 平板ipad pro  md 平板小ipad-->
                 <div  class=" logo float-left col-xl-9 col-lg-9 col-md-12 col-sm-12">
                     <div  class="float-left">
@@ -105,11 +141,14 @@
                         <input class="form-control search-input" name="keyword" type="text" placeholder="搜索">
                         <button class="search-btn"><i class="bx bx-search" style="font-size: 28px;position: relative;top: 2px;"></i></button>
                         <a href='http://www.ucsanya.com/' target="_blank" class="home-page" style="display: block;margin-top: 4px;">
+
+
                             <svg xmlns="http://www.w3.org/2000/svg" style="position: relative;top: -2px;" width="13" height="13" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
                                 <path d="M6.5 10.995V14.5a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5V11c0-.25-.25-.5-.5-.5H7c-.25 0-.5.25-.5.495z"/>
                                 <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
                             </svg>
-                            三亚理工职业学院首页</a>
+                            三亚理工职业学院首页
+                        </a>
                     </form>
                 </div>
             </div>
@@ -133,7 +172,7 @@
         <nav class="nav-menu d-none d-lg-block" >
 
             <ul >
-                <li   <if condition="!$pid"> class="active" </if> ><a  style="padding-left: 0px;" href="{$config.domain}">首页<i class="la la-angle-down"></i></a></li>
+                <li   <if condition="$pid eq $value['id']"> class="active drop-down" <else/> class="drop-down"  </if>><a   href="{$config.domain}">首页<i class="la la-angle-down"></i></a></li>
 
                 <foreach name="channel" item="value">
                     <li <if condition="$pid eq $value['id']"> class="active drop-down" <else/> class="drop-down"  </if> ><a href="{:U('Channel/index',['pid'=>$value['id']])}">{$value.name}</a>
@@ -150,9 +189,6 @@
             </ul>
         </nav>
     </div>
-
-
-
 
 
 </header><!-- End Header -->
