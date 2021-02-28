@@ -616,6 +616,17 @@ function getThumbImage_bak($articles,$limit = 100,$fliter = true){
 }
 
 /**
+ * 从文章中内容解析文章图片 返回所有图片
+ * @param $article
+ */
+function getAllThumbImage($content){
+    preg_match_all("/<[img|IMG].*?[src|SRC]=[\'|\"](.*?(?:[\.gif|\.png|\.jpg|\.bmp|\.jpeg|\.JPG|\.JPEG]))[\'|\"].*?[\/]?>/", $content, $image);
+
+    return $image[1];
+}
+
+
+/**
  * 从文章中解析文章缩略图
  * @param $article
  * @param $defaultThumb 默认缩略图 不设置默认图片，如果文章中没有图片该文章会被丢弃
@@ -624,10 +635,16 @@ function getThumbImage($article,$defaultThumb = ''){
     if($article['thumb']){ //文章配置有缩略图
         return $article;
     }
+
     preg_match_all("/<[img|IMG].*?[src|SRC]=[\'|\"](.*?(?:[\.gif|\.png|\.jpg|\.bmp|\.jpeg|\.JPG|\.JPEG]))[\'|\"].*?[\/]?>/", $article['content'], $image);
 
-    foreach($image[1] as $img){
+    if($image[1] ){
+        $article['thumb'] = $image[1] [0]; // 默认第一张
+    }
 
+    /*
+     *  改操作要读取 图片信息 如果大量读取耗费时间
+    foreach($image[1] as $img){
         $imgInfo = getimagesize('./'.$img);
         if((!$imgInfo) || ( $imgInfo[0] <500 || $imgInfo[1]<300 ) ){ //宽度太小不要 最小宽高500*300
             continue;
@@ -636,6 +653,7 @@ function getThumbImage($article,$defaultThumb = ''){
         $article['thumb'] = $img;
         break;
     }
+    */
     if(!$article['thumb']){
         $article['thumb'] = $defaultThumb;
     }

@@ -1,0 +1,126 @@
+<include file="Component/header"/>
+<style>
+    .slide-img img{max-height:80px;border:1px solid #ccc;max-width:200px; margin-top:20px;}
+
+</style>
+
+<div class="form-block" >
+        <div class="layui-form layuimini-form form-main" >
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">图片上传</label>
+                <div class="layui-input-block">
+                    <a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadImgBtn">选择图片</a>
+                    <span class="layui-word-aux">最佳大小 260px*130px</span>
+                    <div class="slide-img">
+                        <if condition="$data">
+                            <a href="{$data.img_url}" target="_blank"><img src="{$data.img_url}"/></a>
+                        </if>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">链接</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$data.link}"  name="link"  class="layui-input" placeholder="可不填"/>
+                </div>
+
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">标题</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$data.title}"  name="title"  class="layui-input" placeholder="可不填"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">排序</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$data.sort|default='100'}" name="sort"  class="layui-input"/>
+                    <div class="layui-form-mid layui-word-aux">越小越靠前</div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否显示</label>
+                <div class="layui-input-block">
+
+
+                    <input type="radio" name="show" value="0" title="显示"  <if condition="$data['show'] eq 0">checked='checked'</if> />
+                    <div class="layui-unselect layui-form-radio layui-form-radioed">
+                        <i class="layui-anim layui-icon"></i><div>显示</div>
+                    </div>
+
+                    <input type="radio" name="show" value="1" title="不显示" <if condition="$data['show'] eq 1">checked='checked'</if> />
+                    <div class="layui-unselect layui-form-radio">
+                        <i class="layui-anim layui-icon"></i><div>不显示</div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <input type="hidden" name="id" id="id" value="{$data.id}"/>
+                    <input type="hidden" name="img" id="img" value="{$data.img}"/>
+                    <button class="{$theme.form.submit.style}" lay-submit lay-filter="saveBtn">{$theme.form.submit.text}</button>
+                    <button class="{$theme.form.cancel.style}" lay-submit  lay-filter="cancelBtn">{$theme.form.cancel.text}</button>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+<include file="Component/footer"/>
+<script type="text/javascript" src="__JS__/upload/upload.js"></script>
+<script type="text/javascript">
+
+
+    uploadHandle.upload({
+        id:"uploadImgBtn",
+        name:'file', //服务端接收的名称
+        fileType:'image', //允许上传的文件类型
+        url:"{:U('uploadFile')}",
+        callback:function(data){
+            $('.slide-img').html('<img src="'+data.url+'"/>');
+            $("input[name=img]").val(data.path);
+        }
+    });
+
+
+
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+
+
+        form.on('submit(cancelBtn)', function (data) {
+            parent.layer.close(parent.layer.getFrameIndex(window.name));
+            parent.reloadLayerTableData();
+        });
+        form.on('submit(saveBtn)', function (data) {
+
+            if($("#img").val() == ''){
+                layerErr('请选择图片');
+                return false;
+            }
+
+            $.post("{:U('HomeLink/addHandle')}",data.field,function(data){
+                if(data.status == 1){
+                    parent.layerErr(data.msg);
+                }else{
+                    parent.layerSuc(data.msg);
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                    parent.reloadLayerTableData();
+                }
+            },'json');
+            return false;
+        });
+
+    });
+</script>

@@ -20,7 +20,7 @@ class IndexController extends BaseController{
     public function index(){
 
         //横幅幻灯片
-        $slide = MS('slide')->where(['status'=>0,'show'=>0])->order("sort asc,id desc")->select();
+        $slide = MS('slide')->where(['status'=>0,'show'=>0,'type'=>0])->order("sort asc,id desc")->select();
         foreach($slide as $k=>$v){
             $slide[$k]['size'] = getimagesize(C('WEB_ROOT').$v['img']);
         }
@@ -56,7 +56,7 @@ class IndexController extends BaseController{
             }
             $article = MS("article")->field('id,cid,title,content,thumb,show_create_time as create_time')
                         ->where($where)
-                        ->where(['is_del'=>0,'audit'=>1])->order("top desc,id desc")->limit($limit)->select();
+                        ->where(['is_del'=>0,'audit'=>1])->order("top desc, show_create_time desc")->limit($limit)->select();
 
             if(in_array($key,['service','major'])){
                 $this->assign($key,$this->setArticleUrl($this->setArticleThumb($article))); //设置缩略图
@@ -68,6 +68,7 @@ class IndexController extends BaseController{
             }
         }
 
+        $this->assign("link",MS('slide')->where(['status'=>0,'show'=>0,'type'=>1])->order("sort asc,id desc")->select());
         $this->assign('slide',$slide);
         $this->assign('more',C("theme")['more-svg']);
         $this->assign('articleChannel',$data);

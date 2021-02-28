@@ -4,25 +4,19 @@ namespace Admis\Controller;
 use Lib\Upload;
 
 /**
- * 首页管理-幻灯片管理
+ * 首页管理-中部的图片链接管理
  * Class HomeChannel
  * @package Admis\Controller
- *  HomeSlide 幻灯片管理
- *      index 幻灯片列表
- *      add,addHanle,添加/编辑幻灯片
- *     delete,删除幻灯片
  */
-class HomeSlideController extends BaseController {
+class HomeLinkController extends BaseController {
 
-    /**
-     * 幻灯片管理
-     */
+
     public function index(){
         if(!I('get')){
             $this->display();
             exit;
         }
-        $result = MS('slide')->where(['status'=>0,'type'=>0])->order("sort asc,id desc")->select();
+        $result = MS('slide')->where(['status'=>0,'type'=>1])->order("sort asc,id desc")->select();
         $i=0;
         $data = [];
         foreach($result as $k=>$v){
@@ -60,11 +54,11 @@ class HomeSlideController extends BaseController {
         $data = array(
             'title'     => trim(I('title')),
             'link'      => trim(I('link')),
-            'show'    => trim(I('show')),
+            'show'      => trim(I('show')),
             'img'       => trim(I('img')),
             'sort'      => intval(I('sort')),
             'title'       => trim(I('title')),
-            'content'       => trim(I('content')),
+            'type'       => 1,
         );
 
         if($id){

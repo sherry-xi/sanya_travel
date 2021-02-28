@@ -11,17 +11,17 @@ $(function(){
         $("#footer-weixin").css("text-align","center");
 
 
-        $(".pc-slider").css("padding-top",$("#header").height()-15);//首页banner设置
-        $(".mobile-slider").css("padding-top",$("#header").height()-15);//首页banner设置
+        $(".pc-slider").css("padding-top",$("#header").height()-24);//首页banner设置
+        $(".mobile-slider").css("padding-top",$("#header").height()-25);//首页banner设置
         $(".channel-banner").css("margin-top","40px");//导航栏 频道banner设置
 
         //首页专业列表去掉背景
         $(".major ").css("background","#fff");
         $(".major .icon-box").css("margin-bottom","10px");
     }else{
-        $(".pc-slider").css("padding-top",$("#header").height()-15);
-        $(".mobile-slider").css("padding-top",$("#header").height()-15);
-        $(".channel-banner").css("margin-top",$("#header").height()-15);
+        $(".pc-slider").css("padding-top",$("#header").height()-24);
+        $(".mobile-slider").css("padding-top",$("#header").height()-24);
+        $(".channel-banner").css("margin-top",$("#header").height()-24);
         if(window.screen.width > 1440){
             $(".index-banner .carousel-item").css("min-height",window.screen.width/3.415);//大分辨率电脑banner不能定400 否则页面看不完整图片
         }

@@ -46,7 +46,7 @@
     </style>
 </head>
 <body>
-<form class="layui-form login"  method="post" id="loginForm" >
+<form class="layui-form login"  method="post" id="loginForm" action="{:U('loginHandle')}" >
     <div class="col-lg-12">
         <div class="login-title">三亚理工职业学院旅康学院 · 登录</div>
     </div>
@@ -78,7 +78,7 @@
 
             <div class="layui-input-block">
                 <input type="hidden" name="token" id="token" value="{$token}"/>
-                <button class="layui-btn login-btn layui-btn-lg" >立 即 登 录</button>
+                <button class="layui-btn login-btn-test layui-btn-lg" >立 即 登 录</button>
 
             </div>
         </div>
@@ -102,7 +102,7 @@
     adminLoginValidate();
 
     $(".login-btn").click(function(){
-
+        return true;
         username = $("#username").val();
         password = $("#password").val();
         code = $("#code").val();

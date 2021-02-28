@@ -25,8 +25,15 @@
 
         <div class="col-lg-9 entries"  style="padding-left:0px;padding-right: 0px; ">
 
+          <article class="entry" style="min-height: 550px;">
+
+            <if condition="!$article">
+                <h2 class="entry-title text-center" style="margin-top: 100px;">
+                  <a href="#">没有搜索到数据^_^</a>
+                </h2>
+            </if>
           <foreach name="article" item="value">
-            <article class="entry">
+
               <!--
               <if condition="$value['image']">
                 <div class="entry-img">
@@ -35,34 +42,25 @@
                 </div>
               </if>
               -->
-
               <h2 class="entry-title">
                 <a href="{:U('Article/index',['id'=>$value['id'],'pid'=>$value['pid'],'cid'=>$value['cid']])}" target="_blank">{$value.title}</a>
+
+                <span style="font-size: 15px;color: #ccc;float: right" >
+                <time datetime="{$value.create_time}">{$value.create_time}</time>
+                </span>
               </h2>
 
               <div class="entry-meta">
                 <ul>
-                  <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="javascript:;"><time datetime="{$value.create_time}">{$value.create_time}</time></a></li>
+                  <li class="d-flex align-items-center"></a></li>
                 </ul>
               </div>
-
-              <div class="entry-content">
-                <div class="read-more">
-                  <a href="{:U('Article/index',['id'=>$value['id'],'pid'=>$value['pid'],'cid'=>$value['cid']])}"  target="_blank">详细</a>
-                </div>
-              </div>
-
-            </article><!-- End blog entry -->
           </foreach>
 
+          </article><!-- End blog entry -->
 
-          <if condition="!$article">
-            <article class="entry">
-              <h2 class="entry-title">
-                <a href="#">没有搜索到数据^_^</a>
-              </h2>
-            </article><!-- End blog entry -->
-          </if>
+
+
 
           <if condition="$article">
             <div class="blog-pagination">

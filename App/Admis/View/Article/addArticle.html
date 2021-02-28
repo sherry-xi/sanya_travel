@@ -1,12 +1,29 @@
 <include file="Component/header"/>
 <style src="__LIB__/ueditor/third-party/xiumi/xiumi-ue-v5.css"></style>
-
+<link rel="stylesheet" href="__LIB__/lightbox2/dist/css/lightbox.min.css">
 
 <style>
     #edui1{z-index: 1 !important;}
     .layui-disabled{color: #000 !important;font-weight:bold;font-size:15px;font-style: italic;}
-    .img-thumb{max-width: 70px;max-height: 70px;margin: 10px;cursor: pointer;margin-left: 15px;}
     .layui-table-page{display: none;height: 0px;}
+    .thumb{width: 180px;float: left;}
+    .thumb img{width: 100%;max-height: 120px;min-height: 80px;}
+    .thumb-item{width: 150px;;padding: 0px;position: relative}
+    .thumb-text{position: absolute;bottom: 0px;width: 100%;padding: 7px 0px;color: #fff;
+            text-align: center;font-size: 14px;
+        }
+    .thumb-text-bg{width: 100%;background:  #0C0C0C;position: absolute;bottom: 0px;padding: 17px 0px;
+        filter:alpha(opacity=60);
+        -moz-opacity:0.6;
+        -khtml-opacity: 0.6;
+        opacity: 0.6;
+        cursor: pointer;
+    }
+    .lb-number{display: none !important;;}
+    .thumb-set{font-size: 12px;    height: 30px;
+        line-height: 30px;
+        padding: 0 5px;}
+    #uploadImgBtn{margin-top: 40px;}
 </style>
 <div class="form-block" >
 
@@ -79,18 +96,46 @@
             </div>
         </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">封面缩略图</label>
-                <div class="layui-input-block"><a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadImgBtn">选择图片</a>
-                    <span class="layui-word-aux"><small>建议大小600px*400px 无缩略图自动抓取文章内容合适的图片</small></span>
-                    <div class="slide-img">
-                        <if condition="$article and $article['thumb']">
-                            <a href="{$article.thumb}" target="_blank" id="thumb"><img src="{$article.thumb}" class="img-thumb"/></a>
-                            <a class="{$theme.databar.delete.style} "  title="删除" id="delete-banner">{$theme.databar.delete.icon}</a>
+                <label class="layui-form-label">文章封面图</label>
 
-                        </if>
+
+                <div class="layui-input-block" >
+                    <ul class="thumb">
+                        <foreach name="thumbs" item="value" key="k">
+                            <if condition='$k gt 0'>
+                                <li  class="thumb-item display-none">
+                                <else/>
+                                <li class="thumb-item" title="点击选择封面图">
+                                    <div class="thumb-text-bg"></div>
+                                    <div class="thumb-text">
+                                        <if condition="!$article['thumb']">
+                                            未选择 ({$thumbs|count})
+                                            <else/>
+                                            已选 点击切换({$thumbs|count})
+                                        </if>
+
+                                    </div>
+                            </if>
+                            <if condition="$article['thumb'] eq $value">
+                                    <a href="{$value}"  data-lightbox="example-set" data-title="{$k+1}/{$thumbs|count} <button onclick='cancelThumb(this)' class='thumb-set layui-btn layui-btn-danger' data-url='{$value}'>取消设置</button>">
+                                <else/>
+                                    <a href="{$value}"  data-lightbox="example-set"  data-title="{$k+1}/{$thumbs|count} <button onclick='setThumb(this)' class='thumb-set layui-btn' data-url='{$value}'>设置为封面</button>">
+                             </if>
+                                    <img  src="{$value}"/>
+                              </a>
+                            </li>
+                        </foreach>
+                        <div class="clear"></div>
+                    </ul>
+
+                    <div class="float-left">
+                        <a  href="javascript:;" class="{$theme.form.upload.style}" id="uploadImgBtn" <if condition='!$thumbs'>style='margin-top:0px;'</if> >本地上传</a>
                     </div>
-                    <input type="hidden" name="thumb" value="{$article.thumb}"/>
+
+
+                        <input type="hidden" name="thumb" id="thumb" value="{$article.thumb}"/>
                 </div>
+                <div class="clear"></div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label required">显示发布日期</label>
@@ -168,9 +213,11 @@
 <script src="__LIB__/ueditor/third-party/135editor/135editor.js" charset="utf-8"></script>
 <script type="text/javascript" src="__LIB__/My97DatePicker/WdatePicker.js"></script>
 
-
+<script  type="text/javascript"  src="__LIB__/lightbox2/dist/js/lightbox-plus-jquery.min.js"></script>
 <script type="text/javascript">
 
+    var thumbsJson = eval('(' + '{$thumbsJson}'+ ')');
+    var originAritcleThumb = eval('(' + '{$thumbsJson}'+ ')');//保留原版
     $(function(){
         //初始化编辑器
         initEditor();
@@ -183,11 +230,15 @@
             fileType:'image', //允许上传的文件类型
             url:"{:U('uploadFile')}",
             callback:function(data){
-                $('.slide-img').html('<img class="img-thumb"  src="'+data.url+'"/>');
-                $("input[name=thumb]").val(data.path);
+                if(data == '' || data == undefined){
+                    return false;
+                }
+                $("#thumb").val(data.path);
+                thumbsJson[thumbsJson.length] = data.path;// 追加图片
+                resetThumbMap('set',data.path);
             }
         });
-
+        /*
         uploadHandle2.upload({
             id:"uploadImg2Btn",
             name:'file', //服务端接收的名称
@@ -197,7 +248,7 @@
                 $('.slide-img2').html('<img class="img-thumb" src="'+data.url+'"/>');
                 $("input[name=banner]").val(data.path);
             }
-        });
+        });*/
 
 
         $("#delete-banner").click(function(){
@@ -213,7 +264,86 @@
         $("#show_create_time").click(function(){
             WdatePicker({el:$("#show_create_time")[0],dateFmt:'yyyy-MM-dd HH:mm:ss',startDate:'{$showCreateTime}',minDate:'1970-01',maxDate:'2030-01',alwaysUseStartDate:true});
         });
+
+
+
+
     });
+    //封面图设置
+    function setThumb(obj){
+        var url = $(obj).attr('data-url');
+        $("#thumb").val(url);
+        resetThumbMap('set',url);
+        $(".lb-close").click();//关闭
+    }
+
+    //封面图取消设置
+    function cancelThumb(obj){
+        $("#thumb").val('');
+        resetThumbMap('cancel',$(obj).attr('data-url'));
+        $(".lb-close").click();//关闭
+    }
+
+
+    /**
+     * 重新设置封面图集
+     * @param action 动作 set|cancel 设置和取消设置
+     * @param string url 设置的url
+     */
+    function resetThumbMap(action,setUrl){
+        var html = '';
+
+
+        var data = [];//重新组合的图片集合
+        var number = 0;
+        if(action == 'set' && (setUrl != '')){
+            data[number++] = setUrl; //把要设置的图片放第一个
+        }
+
+        for(i=0;i<thumbsJson.length;i++){
+            if(thumbsJson[i] == setUrl && action == 'set'){
+                continue;//已经放第一个了
+            }
+            data[number++] = thumbsJson[i];
+        }
+
+
+        for(i=0;i<number;i++){
+            var url    = data[i];
+
+            if(i == 0){
+                html += '<li class="thumb-item" title="点击选择封面">';
+                html += '<div class="thumb-text-bg"></div>';
+
+                if(action =='set'  && (setUrl != '')){
+                    html += '<div class="thumb-text"> 已选 点击切换('+number+')</div>'
+                }else{
+                    html += '<div class="thumb-text"> 未选择('+number+')</div>'
+                }
+
+
+            }else{
+                html += '<li class="thumb-item display-none" title="点击选择封面">';
+            }
+
+
+
+            html += '<a href="'+url+'" data-lightbox="example-set" data-title="'+(i+1)+'/'+number;
+            if(action == 'set' && setUrl == url){
+                html +=  " <button onclick='cancelThumb(this)' class='thumb-set layui-btn layui-btn-danger' data-url='"+url+"'>取消设置</button>";
+            }else{
+                html +=  " <button onclick='setThumb(this)' class='thumb-set layui-btn ' data-url='"+url+"'>设置为封面</button>";
+            }
+            html+= '"';
+            html += "'>";
+            html += '<img src="'+url+'"></a></li>';
+
+        }
+
+        //log(html);
+        $(".thumb").html(html);
+
+    }
 
 
 
@@ -250,4 +380,48 @@
             limit:100
         })
     });
+
+    var ue = UE.getEditor('content');
+    ue.addListener("contentChange",function() { //内容变化
+        setUeditorImage((UE.getEditor('content').getContent()))
+    });
+    ue.addListener("blur",function() { //失去焦点
+        setUeditorImage((UE.getEditor('content').getContent()))
+    });
+
+    function getimgsrc(htmlstr) {
+        var reg = /<img.+?src=('|")?([^'"]+)('|")?(?:\s+|>)/gim;
+        var arr = [];
+        while (tem = reg.exec(htmlstr)) {
+            arr.push(tem[2]);
+        }
+        return arr;
+    }
+
+    function setUeditorImage(html){
+        if($.trim(html) == ''){
+            return false;
+        }
+        var img = getimgsrc(html);
+        if(img.length == 0){
+            return false;
+        }
+
+
+        //追加用户新插入的图片
+        for(i=0;i<img.length;i++){
+            //编辑器的loading图标
+            if(img[i].indexOf('spacer.gif') != -1){
+                continue;
+            }
+
+            //不存在 追加
+            if(thumbsJson.includes(img[i]) == false ){
+                thumbsJson[thumbsJson.length] = img[i];
+            }
+        }
+        resetThumbMap('set',$("#thumb").val());//重新设置
+    }
+
+
 </script>

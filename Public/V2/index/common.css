@@ -30,9 +30,7 @@
     background-size: cover;
 }
 
-.search-btn{position: absolute;right: -1px;top:0px;border:0px;width: 50px;
-    font-size: 12px;border-radius: 0px;height: 38px;
-}
+
 .search-btn:focus,
 .search-btn:active{
     outline: none;
@@ -40,6 +38,7 @@
     box-shadow:none;
 }
 .home-page{font-size:12px;margin-left:0px;margin-top: 0px;}
+
 .search-input,.search-input:focus{
     border-radius: 0px;
     border-color: #2e4f5f;

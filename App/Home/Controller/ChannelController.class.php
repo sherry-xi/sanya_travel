@@ -40,7 +40,7 @@ class ChannelController extends BaseController{
         $article = MS("article")->field("id,cid,admin_id,title,content,show_create_time as create_time,thumb,banner")
                     ->where($where)
                     ->limit($page->firstRow.','.$page->listRows)
-                    ->order("top desc,id desc")
+                    ->order("top desc,show_create_time desc")
                     ->select();
 
         if((count($article) == 1) && $this->cid &&(!I("p"))){ //只有一篇文章而且是二级导航直接跳到文章详细页面
@@ -102,7 +102,7 @@ class ChannelController extends BaseController{
         $article = M('article')
                 ->field("id,cid,admin_id,title,show_create_time as create_time,content")
                 ->where($where)
-                ->order("top desc,id desc")
+                ->order("top desc,show_create_time desc")
                 ->limit($page->firstRow.','.$page->listRows)
             ->select();
 

@@ -1,3 +1,13 @@
+
+@font-face {
+    font-family: 'stxingkairegular';
+    src: url('/Public/fonts/stxingka.woff2') format('woff2'),
+    url('/Public/fonts/stxingka.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 #header.header-scrolled{height: auto;
     /*
     filter:alpha(opacity=90);
@@ -32,9 +42,7 @@
     background-size: cover;
 }
 
-.search-btn{position: absolute;right: -1px;top:0px;border:0px;width: 50px;
-    font-size: 12px;border-radius: 0px;height: 38px;
-}
+
 .search-btn:focus,
 .search-btn:active{
     outline: none;
@@ -44,8 +52,8 @@
 .home-page{font-size:12px;margin-left:0px;margin-top: 0px;}
 .search-input,.search-input:focus{
     border-radius: 0px;
-    border-color: #2e4f5f;
     border: 0px;
+    outline: 0px;
 }
 #main{margin-top: 65px;}
 .color-block{position: fixed;bottom: 150px;left: 5px;width: 100px;height: 60px;
@@ -54,16 +62,17 @@
     z-index: 9999;}
 
 .logo-box{height: 70px;}
-.logo{padding: 0px;}
+.logo{padding: 0px; }
 #header{padding-top: 10px;}
 #header .logo img {
-    margin-left: 15px;height: 60px;
+    margin-left: 15px;height: 70px;
 }
 .school{color: #fff;margin-left: 10px;}
 .school-name{font-size: 23px;font-family:微软雅黑;letter-spacing:5px;margin-right: 10px;}
-.school-depart-name{font-size: 27px;font-family: "宋体";letter-spacing: 5px;font-weight:bolder;}
+.school-depart-name{font-size: 35px;font-family: stxingkairegular;letter-spacing: 5px;
+}
 .school-enname{font-size: 11px;font-family: Arial;margin-right: 22px;}
-.school-depart-enname{font-size: 12px;font-family: Arial;letter-spacing: 0px;}
+.school-depart-enname{font-size: 11px;font-family: Arial;letter-spacing: 2px;}
 
 #footer .footer-top {
 
@@ -119,3 +128,5 @@
 .text-left-bottom{bottom:40px;left:30px;}
 .text-right-bottom{bottom:40px;right:30px;}
 .text-center{top:30%;left:40%;}
+.border-color{border:1px solid #000;}
+.background-color{background: #92B8B1;}

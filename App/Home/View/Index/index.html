@@ -90,25 +90,30 @@
                 <ul class="news-list news-list-bg-2">
                     <foreach name="information" item="value">
                         <li>
-                            <a href="{$value.url}" target="_blank">
-                                <if condition="!$isMobile">
-                                    <script>mySubstring("{$value.title}",18)</script>
-                                    <else/>
-                                    {$value.title}
-                                </if>
-                            </a>
-                            <span class="news-time">{$value.create_time|substr=###,0,10}</span>
+
+                                <a href="{$value.url}" target="_blank">
+                                    <if condition="!$isMobile">
+                                        <script>mySubstring("{$value.title}",18)</script>
+                                        <else/>
+                                        {$value.title}
+                                    </if>
+                                </a>
+                                <span class="news-time">{$value.create_time|substr=###,0,10}</span>
+
                         </li>
                     </foreach>
                 </ul>
         </div>
     </div>
 
+
+
             <!-- 旅游和康体服务 -->
-     <section class="services-section-two style-two "  style="position:relative;">
+     <section class="services-section-two style-two "  style="position:relative;margin-top: 20px;">
 
                 <div class="container-fluid">
                     <div class="row">
+                        <!--
                         <div class="col-lg-12 index-center-flag">
                             <div class="row">
                                 <div class="col-lg-2" style="padding: 0px;">
@@ -142,6 +147,9 @@
 
 
                         </div>
+-->
+
+
                         <div class="col-lg-4 {$articleChannel.student.isShow}" style="padding-left: 0px;<if condition='$isMobile'>padding:0px;</if>">
                             <div class="section-title section-title-3">
                                 <h2>
@@ -226,7 +234,32 @@
                 </div>
             </section>
             <!--end 旅游和康体服务 -->
+        <if condition="$link">
+            <div class="row slide-center">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <foreach name="link" item="v">
+                            <div class="col-lg-3">
+                                <div class="slide-center-item">
+                                    <if condition="$v['title']">
+                                        <div class="slide-center-text"><a href="{$v.link}">{$v.title}</a></div>
+                                    </if>
+                                    <if condition="$v['title']">
+                                        <a href="{$v.link}" target="_blank" ><img class="slide-center-img"  src="{$v.img}" ></a>
+                                        <else/>
+                                        <img class="slide-center-img"  src="{$v.img}" >
+                                    </if>
 
+                                </div>
+                            </div>
+                        </foreach>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </if>
      <section class="services-section-two style-two news-list-bg-6 {$articleChannel.service.isShow}"   >
                 <div class="container-fluid" style="padding: 0px !important;">
                     <div class="col-md-12 col-lg-12 d-flex align-items-stretch" style="padding: 0px !important;">
@@ -253,7 +286,7 @@
                                     <div class="lower-content" >
                                         <div class="text">
                                             <a style="color: #0b2e13"  class="index-travel-title"
-                                               data-text="{$k+1}.{$v.title}" href="{$v.url}"  target="_blank">
+                                               data-text="{$v.title}" href="{$v.url}"  target="_blank">
                                             </a>
                                         </div>
 

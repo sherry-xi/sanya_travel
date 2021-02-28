@@ -81,7 +81,7 @@ class ArticleController extends BaseController{
         }
         $count   = MS("article")->where($where)->count();
         $page    = getpage($count,I('limit'));
-        $article = MS('article')->where($where)->limit($page->firstRow.','.$page->listRows)->order("top desc,id desc")->select();
+        $article = MS('article')->where($where)->limit($page->firstRow.','.$page->listRows)->order("top desc,show_create_time desc")->select();
 
         $channel = $this->getChannelList();
 
@@ -139,11 +139,25 @@ class ArticleController extends BaseController{
             $this->assign('lastCid',$lastCid);
         }
 
+
+
         //一次性提示信息
         $msg = session("articleHandleMsg");
         unset($_SESSION[C("SESSION_PREFIX")]['articleHandleMsg']);
         $this->assign('articleHandleMsg',$msg);
 
+
+        $thumbs = getAllThumbImage($article['content']);
+        if($article['thumb']){ //将选中的缩略图放第一张
+            foreach($thumbs as $k=>$v){
+                if($v == $article['thumb']){
+                    unset($thumbs[$k]);
+                }
+            }
+            array_unshift($thumbs,$article['thumb']);
+        }
+        $this->assign('thumbs',$thumbs);
+        $this->assign('thumbsJson',json_encode($thumbs));
         $this->assign('showCreateTime',$showCreateTime);
         $this->assign('from',I('from'));
         $this->assign('channel',$this->getChannel());

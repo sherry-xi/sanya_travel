@@ -63,11 +63,12 @@ class UserLoginController extends Controller {
         if(!checkToken() || !IS_POST){
             $this->error("非法访问",U('index'));
         }
-        ob_clean();
+        //ob_clean();
         //验证码校验
         if($this->dbTool->getVerificationConf()){
             $verify = new Verify();
             if(!$verify->check(I('post.code'))){
+                $this->error('验证码错误');
                 $this->ajaxReturn(['status' => 1, 'msg' => '验证码错误']);
             }
         }
@@ -77,6 +78,8 @@ class UserLoginController extends Controller {
 
         $res = $this->userTool->login($username,$password);
         if($res !== true){ //登录失败
+
+            $this->error('账号或密码错误');
             $this->ajaxReturn(['status' => 2, 'msg' => $res]);
         }
         if($remember){ //保持登录
@@ -84,6 +87,7 @@ class UserLoginController extends Controller {
         }else{
             $this->userTool->clearRememberLogin($username); //取消保持登录
         }
+        redirect(U('Admis/Index/index'));
         $this->ajaxReturn(['status' => 0, 'msg' => '登录成功']);
     }
 }

@@ -28,3 +28,7 @@
 
 .layui-layout-admin .layuimini-logo h1{font-size: 15px !important;}
 .slide-img img{max-height: 70px;margin: 10px 0px;}
+
+.display-none{display: none;}
+.article-upload-thumb{float: left;width: 200px;}
+.article-select-thumb{float: left;}

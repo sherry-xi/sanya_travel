@@ -78,8 +78,10 @@ var uploadHandle = {
             return true;
         }
         if(!regulation.rule.test(this.config.file)){
+            /* TODO IE11 这个弹框有问题暂时关闭 2021.03.1  客户喜欢用IE浏览器
             layerConfirm(regulation.message);
             return false;
+             */
         }
         return true;
     },

@@ -44,6 +44,13 @@ $(function () {
         $(".news-list-bg-3").height(maxHeight);
         $(".news-list-bg-4").height(maxHeight);
         $(".news-list-bg-4").height(maxHeight);
+
+        //新闻动态和通知公告高度一致
+
+        if(($(".news-list-bg-2").height()-10) < $(".news-list-bg-1").height()){
+            $(".news-list-bg-2").height($(".news-list-bg-1").height()-10);
+        }
+
     }
 
     $(".major-thumb").css("width",'100%');
