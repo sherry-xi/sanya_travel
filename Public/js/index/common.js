@@ -19,7 +19,13 @@ $(function(){
         $(".major ").css("background","#fff");
         $(".major .icon-box").css("margin-bottom","10px");
     }else{
-        $(".pc-slider").css("padding-top",$("#header").height()-24);
+
+        if(isIE()){
+            $(".pc-slider").css("padding-top",$("#header").height()-54);
+        }else{
+            $(".pc-slider").css("padding-top",$("#header").height()-24);
+        }
+
         $(".mobile-slider").css("padding-top",$("#header").height()-24);
         $(".channel-banner").css("margin-top",$("#header").height()-24);
         if(window.screen.width > 1440){

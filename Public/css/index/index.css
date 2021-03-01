@@ -99,7 +99,10 @@
     .pc-header-logo{width:1180px;padding: 0px;} /*头部logo*/
     .pc-header-nav nav{width: 1180px !important;margin: 0px auto !important;}
 
+    /*
     .logo{background: url('/Public/image/logo_flag.png') no-repeat right 15px;}
+    */
+
 }
 @media screen and (min-width: 1800px) {/* 不小于 分辨率高的电脑*/
     .index-banner-img {height: 500px}
