@@ -108,7 +108,7 @@
     .index-banner-img {height: 500px}
 
     /*首页横幅以下的主体*/
-    .main{ width:1280px;}
+    .main{ width:1180px;}
     .pc-header-logo{width:1180px;padding: 0px;} /*头部logo*/
     .pc-header-nav nav{width:1180px !important;margin: 0px auto !important;}
 }
