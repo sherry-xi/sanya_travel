@@ -17,6 +17,12 @@ class ChannelController extends BaseController{
             $this->fileChannel();
             exit;
         }
+
+        if($this->channel[$this->pid]['name'] == '网上报名'){
+            $this->applyChannel();
+            exit;
+        }
+
         if(($this->cid == 168) || ($this->channel[$this->pid]['name'] == '专业介绍')){
             $pageSize = 1000; //专业介绍页面不分页
         }
@@ -76,6 +82,34 @@ class ChannelController extends BaseController{
     }
 
 
+    /**
+     * 网上报名
+     */
+    public function applyChannel(){
+        $this->assign('channelItem',$this->getChannelItem("filedownload"));
+        $this->display("apply");
+
+    }
+    public function applyHandle(){
+
+        $data = [
+            'name' => I("name"),
+            'city' => I("city"),
+            'mobile' => I("mobile"),
+            'remark' => I("remark"),
+            'ip' => get_client_ip(),
+        ];
+
+        if($id = MS("customer_apply")->where(['mobile'=>$data['mobile'],'ip'=>$data['ip'],'status'=>0])->find()){
+            MS("customer_apply")->where(['id'=>$id])->save($data);
+            $this->ajaxReturn(['msg'=>"您已预约过了，预约信息修改成功"]);
+        }else{
+            MS("customer_apply")->add($data);
+            $this->ajaxReturn(['msg'=>"预约成功"]);
+        }
+
+
+    }
 
     /**
      * 文章导航频道

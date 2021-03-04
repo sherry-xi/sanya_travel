@@ -1,0 +1,150 @@
+<include file="Public/header"/>
+
+<link href="__LIB__/city-picker/css/city-picker.css" rel="stylesheet" type="text/css" />
+<style>
+  .entry-title{color: #e21616;border-bottom: 1px solid #ccc;text-align: left !important;padding: 10px 0px !important;
+    }
+  .entry-title svg{}
+  .apply{width: 600px;margin: 30px auto;min-height: 400px;}
+  .apply button{padding: 10px 30px;letter-spacing: 5px;background: #e21616;border: 0px;}
+  .apply button:hover{background:#e21616;}
+</style>
+<main id="main">
+
+  <!-- ======= Blog Section ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2></h2>
+
+        <ol>
+          <li><a href="index.html"></a></li>
+          <li></li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Blog Section -->
+
+
+
+
+  <!-- ======= Blog Section ======= -->
+  <section class="blog" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+    <div class="container-fluid">
+
+      <div class="row" style="width: 95%;margin: auto">
+
+        <div class="col-lg-9 entries"  style="padding-left:0px;padding-right: 0px; ">
+
+          <article class="entry">
+
+            <div class="apply">
+
+                <h2 class="entry-title"  style="font-size: 30px !important;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                  </svg>
+                  让专业培训顾问帮您选课
+                </h2>
+
+              <div class="form-group row required">
+                <label class="col-sm-2 col-form-label" >您的姓名</label>
+                <div class="col-sm-10">
+                  <input type="text"  class="form-control" id="name" required>
+                </div>
+              </div>
+              <div class="form-group row required">
+              <label class="col-sm-2 col-form-label ">您的电话</label>
+              <div class="col-sm-10">
+                <input type="number" class="form-control" id="mobile" required>
+              </div>
+            </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">所在城市</label>
+                <div class="col-sm-10">
+
+                  <input id="city-picker3" class="form-control"  id="city" readonly type="text" value="海南省/万宁市/万城镇" data-toggle="city-picker">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label  class="col-sm-2 col-form-label">求学意见</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" id="remark" rows="5"></textarea>
+
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label  class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                  <button id="submit" class="btn btn-primary mb-2" style="">立即预约</button>
+                </div>
+              </div>
+
+            </div>
+
+          </article><!-- End blog entry -->
+
+
+
+        </div><!-- End blog entries list -->
+
+        <include file="Public/right"/>
+        <!-- End blog sidebar -->
+
+      </div><!-- End .row -->
+
+    </div><!-- End .container -->
+
+  </section><!-- End Blog Section -->
+
+</main><!-- End #main -->
+
+<include file="Public/footer"/>
+
+
+<script src="__LIB__/city-picker/js/city-picker.data.js"></script>
+<script src="__LIB__/city-picker/js/city-picker.js"></script>
+<script src="__LIB__/city-picker/js/main.js"></script>
+<script>
+  $(function(){
+    $("#submit").click(function(){
+      var name   = $.trim($("#name").val());
+      var mobile = $.trim($("#mobile").val());
+      var city   = $.trim($("#city-picker3").val());
+      var remark = $.trim($("#remark").val());
+
+      if(name == ''){
+        alert("请输入姓名");
+        $("#name").select().focus();
+        return false;
+      }
+      if(mobile == ''){
+        alert("请输入电话");
+        $("#mobile").select().focus();
+        return false;
+      }
+      if(city == ''){
+        alert("请输入城市");
+        $("#city-picker3").select().focus();
+        return false;
+      }
+      if(remark == ''){
+        //alert("请输入姓名");
+      }
+
+      $.post("{:U('Home/Channel/applyHandle')}",{
+        name:name,
+        mobile:mobile,
+        city:city,
+        remark:remark,
+      },function(data){
+          alert(data.msg);
+      },'json');
+    });
+
+  });
+</script>

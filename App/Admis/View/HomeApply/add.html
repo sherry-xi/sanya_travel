@@ -1,0 +1,80 @@
+<include file="Component/header"/>
+<link href="__LIB__/city-picker/css/city-picker.css" rel="stylesheet" type="text/css" />
+<div class="form-block" >
+    <form>
+        <div class="layui-form layuimini-form form-main" >
+
+            <div class="layui-form-item">
+                <label class="layui-form-label    required ">姓名</label>
+                <div class="layui-input-block">
+                    <input type="text" value="{$user.name}" name="name" autocomplete="off" id="name" class="layui-input" lay-verify="required" lay-reqtext="姓名不能为空"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label    required ">电话</label>
+                <div class="layui-input-block">
+                    <input type="number" value="{$user.mobile}" name="mobile" autocomplete="off" id="mobile" class="layui-input" lay-verify="required" lay-reqtext="电话不能为空"/>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label    required ">城市</label>
+                <div class="layui-input-block">
+                    <input id="city-picker3" class="layui-input"  name="city" autocomplete="off" id="city" readonly type="text" value="{$user.city}" data-toggle="city-picker">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label  ">求学意见</label>
+                <div class="layui-input-block">
+                    <textarea class="layui-textarea" name="remark" >{$user.remark}</textarea>
+                </div>
+            </div>
+
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="hidden" name="token" value="{$token}"/>
+                    <input type="hidden" name="id" id="id" value="{$user.id}"/>
+                    <button class="{$theme.form.submit.style}" lay-submit lay-filter="saveBtn">{$theme.form.submit.text}</button>
+                    <button class="{$theme.form.cancel.style}" id="cancelFormBtn">{$theme.form.cancel.text}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<include file="Component/footer"/>
+<script src="__LIB__/city-picker/js/city-picker.data.js"></script>
+<script src="__LIB__/city-picker/js/city-picker.js"></script>
+<script src="__LIB__/city-picker/js/main.js"></script>
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+        //监听提交
+
+        form.on('submit(saveBtn)', function (data) {
+
+            $.post("{:U('HomeApply/editHandle')}",data.field,function(data){
+                if(data.status == 1){
+                    parent.layerErr(data.msg);
+                }else{
+                    parent.layerSuc(data.msg);
+                    parent.layer.close(parent.layer.getFrameIndex(window.name));
+                    parent.reloadLayerTableData();
+                }
+            },'json');
+            return false;
+        });
+
+    });
+    //表单填写 点击取消
+    $("#cancelFormBtn").click(function(){
+        parent.layer.close(parent.layer.getFrameIndex(window.name));
+        parent.reloadLayerTableData();
+    });
+
+</script>
