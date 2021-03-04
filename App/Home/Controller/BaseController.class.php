@@ -92,6 +92,14 @@ class BaseController extends Controller{
 
         }
 
+        foreach ($this->channel as $id=>$channel){
+            foreach($channel['son'] as $k=>$son){
+                if($son['show_nav'] == 1){
+                    unset($this->channel[$id]['son'][$k]);
+                }
+            }
+        }
+
     }
 
     /**
@@ -188,7 +196,8 @@ class BaseController extends Controller{
      * @param  $channelType 导航类型 article/filedownload
      */
     public function getChannelItem($channelType = 'article'){
-        $channel = $this->allChannel[$this->pid];
+
+        $channel = $this->originChannel[$this->pid];
         if(!$channel){
             redirect($this->config['domain']);
         }

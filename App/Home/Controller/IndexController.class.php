@@ -35,21 +35,19 @@ class IndexController extends BaseController{
             'work'       =>209, //就业创业
             'part'       =>210  //党建工作
         ];
+        $channels     = MS("channel")->field("id,name,parent_id")->where(['status'=>0])->select();
+        $channels = array_column($channels,null,"id");
 
         $data = [];
         foreach($channel as $key=>$id){
 
-            $temp = $this->originChannel[$id];
+            $temp = $channels[$id];
+
             $data[$key]['name'] = $temp['name'];
             $data[$key]['isShow'] = $temp['show_index']?"displayNone":'';//不显示 class='dispaly:none';
+            $data[$key]['url'] = U("Channel/index",['pid'=>$temp['parent_id'],'cid'=>$id]);
+            $where = ['cid'=>$id];
 
-            if($temp['son']){//一级级导航
-                $data[$key]['url'] = U("Channel/index",['pid'=>$temp['id']]);
-                $where = ['cid'=>['in',array_keys($temp['son'])]];
-            }else{//二级导航
-                $data[$key]['url'] = U("Channel/index",['pid'=>$temp['parent_id'],'cid'=>$id]);
-                $where = ['cid'=>$id];
-            }
             $limit = $key == 'major'?20:8;
             if(isMobile()){
                 $limit = floor($limit * 0.66); //手机端不显示太多文章，会导致页面很长
